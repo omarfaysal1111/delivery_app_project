@@ -1,27 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'app.dart';
 import 'core/di/injection_container.dart' as di;
-import 'core/routes/app_router.dart';
-import 'core/theme/app_theme.dart';
+import 'core/localization/locale_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await di.init();
-  runApp(const DriverApp());
-}
-
-class DriverApp extends StatelessWidget {
-  const DriverApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Driver App',
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.light,
-      initialRoute: AppRouter.splash,
-      onGenerateRoute: AppRouter.onGenerateRoute,
-    );
-  }
+  final prefs = await SharedPreferences.getInstance();
+  await di.init(prefs: prefs);
+  final localeController = LocaleController(prefs);
+  localeController.hydrate();
+  runApp(DriverApp(localeController: localeController));
 }

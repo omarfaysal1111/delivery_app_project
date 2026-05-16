@@ -1,0 +1,70 @@
+{
+  "@@locale": "en",
+  "appTitle": "Driver App",
+
+  "changeAppLanguageTitle": "Change App Language",
+  "languageArabicChip": "عربي",
+  "languageEnglishChip": "English",
+
+  "loginTitle": "Sign in!",
+  "loginSubtitle": "Welcome back — sign in to continue.",
+  "loginPhoneLabel": "Mobile number",
+  "loginPhoneHint": "Mobile number",
+  "loginSubmit": "Sign in",
+  "loginNoAccount": "New driver? ",
+  "loginCreateAccount": "Create account",
+  "biometricSoon": "Biometric sign-in coming soon",
+
+  "otpTitle": "Verification code",
+  "otpSubtitle": "Enter the code sent to you to confirm your mobile number and continue.",
+  "otpVerify": "Verify",
+  "otpTimerSeconds": "{seconds}s",
+  "@otpTimerSeconds": {
+    "placeholders": {
+      "seconds": { "type": "int" }
+    }
+  },
+  "otpResend": "Resend code?",
+  "otpResentSnackbar": "Code sent again",
+
+  "registerWelcomeTitle": "Welcome!",
+  "registerWelcomeSubtitle": "Join us today and enjoy a faster delivery experience.",
+  "registerProfilePhotoLabel": "Profile photo",
+  "registerUsernameLabel": "Username",
+  "registerUsernameHint": "Username",
+  "registerPhoneLabel": "Mobile number",
+  "registerPhoneHint": "Mobile number",
+  "registerEmailLabel": "Email",
+  "registerEmailHint": "Email",
+  "registerNationalIdLabel": "National ID",
+  "registerNationalIdHint": "National ID",
+  "registerVehicleTypeLabel": "Vehicle type",
+  "registerVehicleTypeHint": "Type",
+  "vehicleTypeMotorcycle": "Motorcycle",
+  "vehicleTypeCar": "Car",
+  "vehicleTypeBicycle": "Bicycle",
+  "registerUploadDrivingLicense": "Attach driving license photo",
+  "registerUploadVehicleLicense": "Attach vehicle license photo",
+  "registerUploadNationalId": "Attach national ID photo",
+  "uploadTapToUpload": "Tap to upload",
+  "uploadSuccessAdded": "File added successfully",
+  "registerSubmit": "Confirm",
+  "registerHasAccount": "Already have an account? ",
+  "registerSignIn": "Sign in",
+
+  "registrationPendingMessage": "Your details were submitted and are awaiting admin approval.",
+
+  "validationUsernameRequired": "Username is required",
+  "validationUsernameMin3": "Username must be at least 3 characters",
+  "validationPhoneRequired": "Mobile number is required",
+  "validationPhoneEgyptian": "Please enter a valid Egyptian mobile number",
+  "validationEmailRequired": "Email is required",
+  "validationEmailInvalid": "Please enter a valid email address",
+  "validationNationalIdRequired": "National ID is required",
+  "validationNationalIdInvalid": "National ID must be 14 digits",
+  "validationVehicleTypeRequired": "Vehicle type is required",
+  "validationDocumentRequired": "Please upload this document",
+  "validationProfilePhotoRequired": "Profile photo is required",
+  "validationOtpRequired": "Verification code is required",
+  "validationOtpSixDigits": "Please enter 6 digits"
+}
