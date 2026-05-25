@@ -1,41 +1,44 @@
 class ApiConstants {
-  static const String baseUrl = 'https://api.yourdeliveryapp.com/v1';
+  static const String baseUrl =
+      'https://delivery-system-api-otmb.onrender.com/api/v1';
   static const Duration timeout = Duration(seconds: 30);
 
   // Auth
-  static const String sendOtp       = '/driver/otp/send';
-  static const String verifyOtp     = '/driver/otp/verify';
-  static const String register      = '/driver/register';
-  static const String logout        = '/driver/logout';
+  static const String sendOtp = '/driver/otp/send';
+  static const String verifyOtp = '/driver/otp/verify';
+  static const String registerDriver = '/auth/register/driver';
+  static const String logout = '/driver/logout';
 
   // Documents
-  static const String documents     = '/driver/documents';
+  static const String documents = '/driver/documents';
+  // TODO: Confirm the real backend upload-media endpoint when it is available.
+  static const String uploadMedia = '/media/upload';
 
   // Home
-  static const String driverStatus  = '/driver/status';
-  static const String todayStats    = '/driver/stats/today';
-  static const String shifts        = '/driver/shifts';
+  static const String driverStatus = '/driver/status';
+  static const String todayStats = '/driver/stats/today';
+  static const String shifts = '/driver/shifts';
 
   // Orders
-  static const String activeOrder   = '/driver/orders/active';
-  static const String acceptOrder   = '/driver/orders/{id}/accept';
-  static const String declineOrder  = '/driver/orders/{id}/decline';
-  static const String arrivedOrder  = '/driver/orders/{id}/arrived';
-  static const String confirmOrder  = '/driver/orders/{id}/confirm';
-  static const String reportIssue   = '/driver/orders/{id}/issue';
+  static const String activeOrder = '/driver/orders/active';
+  static const String acceptOrder = '/driver/orders/{id}/accept';
+  static const String declineOrder = '/driver/orders/{id}/decline';
+  static const String arrivedOrder = '/driver/orders/{id}/arrived';
+  static const String confirmOrder = '/driver/orders/{id}/confirm';
+  static const String reportIssue = '/driver/orders/{id}/issue';
   static const String driverLocation = '/driver/location';
 
   // Earnings
-  static const String earnings      = '/driver/earnings';
+  static const String earnings = '/driver/earnings';
   static const String earningsHistory = '/driver/earnings/history';
-  static const String incentives    = '/driver/incentives';
-  static const String performance   = '/driver/performance';
-  static const String withdrawal    = '/driver/earnings/withdraw';
+  static const String incentives = '/driver/incentives';
+  static const String performance = '/driver/performance';
+  static const String withdrawal = '/driver/earnings/withdraw';
 
   // Map
-  static const String surgeZones    = '/driver/zones';
+  static const String surgeZones = '/driver/zones';
 
   // Profile
-  static const String profile       = '/driver/profile';
-  static const String payout        = '/driver/payout';
+  static const String profile = '/driver/profile';
+  static const String payout = '/driver/payout';
 }

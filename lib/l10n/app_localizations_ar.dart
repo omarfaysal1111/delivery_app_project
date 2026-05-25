@@ -106,6 +106,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get registerVehicleTypeHint => 'النوع';
 
   @override
+  String get registerVehicleNumberLabel => 'رقم المركبة';
+
+  @override
+  String get registerVehicleNumberHint => 'رقم المركبة';
+
+  @override
   String get vehicleTypeMotorcycle => 'موتوسيكل';
 
   @override
@@ -168,6 +174,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get validationVehicleTypeRequired => 'نوع المركبة مطلوب';
+
+  @override
+  String get validationVehicleNumberRequired => 'رقم المركبة مطلوب';
 
   @override
   String get validationDocumentRequired => 'يرجى رفع هذا المستند';

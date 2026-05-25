@@ -106,6 +106,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get registerVehicleTypeHint => 'Type';
 
   @override
+  String get registerVehicleNumberLabel => 'Vehicle number';
+
+  @override
+  String get registerVehicleNumberHint => 'Vehicle number';
+
+  @override
   String get vehicleTypeMotorcycle => 'Motorcycle';
 
   @override
@@ -169,6 +175,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get validationVehicleTypeRequired => 'Vehicle type is required';
+
+  @override
+  String get validationVehicleNumberRequired => 'Vehicle number is required';
 
   @override
   String get validationDocumentRequired => 'Please upload this document';

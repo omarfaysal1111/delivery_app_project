@@ -6,6 +6,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../features/auth/data/repositories/auth_repository_impl.dart';
 import '../../features/auth/domain/repositories/auth_repository.dart';
 import '../../features/auth/domain/usecases/check_auth_session_usecase.dart';
+import '../../features/auth/domain/usecases/register_driver_usecase.dart';
+import '../../features/auth/domain/usecases/upload_media_usecase.dart';
 import '../../features/auth/presentation/bloc/auth_bloc.dart';
 import '../../features/earnings/data/datasources/earnings_local_datasource.dart';
 import '../../features/earnings/data/datasources/earnings_remote_datasource.dart';
@@ -71,8 +73,16 @@ Future<void> init({required SharedPreferences prefs}) async {
   );
 
   sl.registerLazySingleton<AuthRepository>(
-    () => AuthRepositoryImpl(localDataSource: sl()),
+    () => AuthRepositoryImpl(localDataSource: sl(), remoteDataSource: sl()),
   );
   sl.registerLazySingleton(() => CheckAuthSessionUseCase(sl()));
-  sl.registerFactory(() => AuthBloc(checkAuthSession: sl()));
+  sl.registerLazySingleton(() => RegisterDriverUseCase(sl()));
+  sl.registerLazySingleton(() => UploadMediaUseCase(sl()));
+  sl.registerFactory(
+    () => AuthBloc(
+      checkAuthSession: sl(),
+      registerDriver: sl(),
+      uploadMedia: sl(),
+    ),
+  );
 }

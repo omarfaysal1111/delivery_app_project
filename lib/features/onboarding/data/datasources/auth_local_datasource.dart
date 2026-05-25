@@ -4,6 +4,7 @@ import '../../../../core/error/exceptions.dart';
 
 abstract class AuthLocalDataSource {
   Future<void> saveToken(String token);
+  Future<void> saveRefreshToken(String token);
   String getToken();
   Future<void> saveDriverId(String id);
   String getDriverId();
@@ -19,6 +20,10 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   @override
   Future<void> saveToken(String token) =>
       prefs.setString(AppStrings.keyToken, token);
+
+  @override
+  Future<void> saveRefreshToken(String token) =>
+      prefs.setString(AppStrings.keyRefreshToken, token);
 
   @override
   String getToken() {
@@ -49,6 +54,7 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   @override
   Future<void> clearSession() async {
     await prefs.remove(AppStrings.keyToken);
+    await prefs.remove(AppStrings.keyRefreshToken);
     await prefs.remove(AppStrings.keyDriverId);
   }
 }

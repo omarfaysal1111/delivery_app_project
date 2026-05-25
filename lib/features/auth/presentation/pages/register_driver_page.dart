@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -13,6 +14,9 @@ import '../../../../core/theme/text_styles.dart';
 import '../../../../core/utils/auth_form_validation.dart';
 import '../../../../core/utils/auth_validators.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../bloc/auth_bloc.dart';
+import '../bloc/auth_event.dart';
+import '../bloc/auth_state.dart';
 import '../widgets/app_language_picker_modal.dart';
 import '../widgets/auth_image_upload_box.dart';
 import '../widgets/auth_language_chip_align.dart';
@@ -21,6 +25,8 @@ import '../widgets/auth_text_field.dart';
 import '../widgets/document_upload_tile.dart';
 import '../widgets/phone_number_field.dart';
 import '../widgets/vehicle_type_field.dart';
+
+enum _MediaSlot { profile, driverLicense, vehicleLicense, nationalId }
 
 class RegisterDriverPage extends StatefulWidget {
   const RegisterDriverPage({super.key});
@@ -35,9 +41,16 @@ class _RegisterDriverPageState extends State<RegisterDriverPage> {
   final _phoneController = TextEditingController();
   final _emailController = TextEditingController();
   final _nationalIdController = TextEditingController();
+  final _vehicleNumberController = TextEditingController();
   final _picker = ImagePicker();
 
   String? _vehicleType;
+  String? _profilePhotoUrl;
+  String? _driverLicensePhotoUrl;
+  String? _vehicleLicensePhotoUrl;
+  String? _nationalIdPhotoUrl;
+  final Map<_MediaSlot, int> _uploadVersions = {};
+  final Set<_MediaSlot> _uploadingSlots = {};
   bool _hasAttemptedSubmit = false;
 
   static const _vehicleTypes = ['motorcycle', 'car', 'bicycle'];
@@ -48,6 +61,7 @@ class _RegisterDriverPageState extends State<RegisterDriverPage> {
     _phoneController.dispose();
     _emailController.dispose();
     _nationalIdController.dispose();
+    _vehicleNumberController.dispose();
     super.dispose();
   }
 
@@ -70,6 +84,51 @@ class _RegisterDriverPageState extends State<RegisterDriverPage> {
     return File(picked.path);
   }
 
+  String _apiPhoneNumber() {
+    var digits = _phoneController.text.replaceAll(RegExp(r'\D'), '');
+    if (digits.startsWith('20')) return '+$digits';
+    if (digits.startsWith('0')) digits = digits.substring(1);
+    return '+20$digits';
+  }
+
+  Future<void> _onMediaChanged(_MediaSlot slot, File? file) async {
+    final version = (_uploadVersions[slot] ?? 0) + 1;
+    _uploadVersions[slot] = version;
+    setState(() {
+      _setMediaUrl(slot, null);
+      if (file == null) {
+        _uploadingSlots.remove(slot);
+      } else {
+        _uploadingSlots.add(slot);
+      }
+    });
+    if (file == null) return;
+
+    final url = await context.read<AuthBloc>().uploadMedia(file.path);
+    if (!mounted || _uploadVersions[slot] != version) return;
+    setState(() {
+      _setMediaUrl(slot, url);
+      _uploadingSlots.remove(slot);
+    });
+  }
+
+  void _setMediaUrl(_MediaSlot slot, String? url) {
+    switch (slot) {
+      case _MediaSlot.profile:
+        _profilePhotoUrl = url;
+        break;
+      case _MediaSlot.driverLicense:
+        _driverLicensePhotoUrl = url;
+        break;
+      case _MediaSlot.vehicleLicense:
+        _vehicleLicensePhotoUrl = url;
+        break;
+      case _MediaSlot.nationalId:
+        _nationalIdPhotoUrl = url;
+        break;
+    }
+  }
+
   void _onRegisterPressed() {
     FocusScope.of(context).unfocus();
 
@@ -80,7 +139,20 @@ class _RegisterDriverPageState extends State<RegisterDriverPage> {
     final isValid = _formKey.currentState?.validate() ?? false;
     if (!isValid) return;
 
-    context.go(RouteNames.registrationPending);
+    context.read<AuthBloc>().add(
+      AuthRegisterRequested(
+        name: _usernameController.text.trim(),
+        phone: _apiPhoneNumber(),
+        email: _emailController.text.trim(),
+        vehicleType: _vehicleType!,
+        vehicleNumber: _vehicleNumberController.text.trim(),
+        nationalId: _nationalIdController.text.trim(),
+        profilePhotoUrl: _profilePhotoUrl,
+        driverLicensePhotoUrl: _driverLicensePhotoUrl,
+        vehicleLicensePhotoUrl: _vehicleLicensePhotoUrl,
+        nationalIdPhotoUrl: _nationalIdPhotoUrl,
+      ),
+    );
   }
 
   @override
@@ -88,159 +160,202 @@ class _RegisterDriverPageState extends State<RegisterDriverPage> {
     final l10n = AppLocalizations.of(context)!;
     final fieldAutovalidate = authAutovalidateMode(_hasAttemptedSubmit);
 
-    return Scaffold(
-      backgroundColor: AppColors.scaffoldBackground(context),
-      bottomNavigationBar: SafeArea(
-        child: Container(
-          color: AppColors.surfaceCard(context),
-          padding: const EdgeInsets.fromLTRB(16, 20, 16, 20),
-          child: AuthPrimaryButton(
-            label: l10n.registerSubmit,
-            onPressed: _onRegisterPressed,
-          ),
-        ),
-      ),
-      body: SafeArea(
-        child: Form(
-          key: _formKey,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-              AuthLanguageChipAlign(
-                label: context.isArabic
-                    ? l10n.languageArabicChip
-                    : l10n.languageEnglishChip,
-                flagAsset:
-                    context.isArabic ? AppAssets.flagEg : AppAssets.flagUsa,
-                onTap: () => showAppLanguagePicker(context),
+    return BlocConsumer<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state is AuthRegisterSucceeded) {
+          context.go(RouteNames.registrationPending);
+        } else if (state is AuthRegisterFailed) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                state.message,
+                style: AppTextStyles.snackBarMessage(context),
               ),
-              const SizedBox(height: 16),
-              Text(
-                l10n.registerWelcomeTitle,
-                textAlign: TextAlign.start,
-                style: AppTextStyles.screenTitle(context),
+            ),
+          );
+        }
+      },
+      builder: (context, state) {
+        final isSubmitting = state is AuthRegisterInProgress;
+        final isUploading = _uploadingSlots.isNotEmpty;
+        return Scaffold(
+          backgroundColor: AppColors.scaffoldBackground(context),
+          bottomNavigationBar: SafeArea(
+            child: Container(
+              color: AppColors.surfaceCard(context),
+              padding: const EdgeInsets.fromLTRB(16, 20, 16, 20),
+              child: AuthPrimaryButton(
+                label: l10n.registerSubmit,
+                onPressed: isSubmitting || isUploading
+                    ? null
+                    : _onRegisterPressed,
               ),
-              const SizedBox(height: 8),
-              Text(
-                l10n.registerWelcomeSubtitle,
-                textAlign: TextAlign.start,
-                style: AppTextStyles.subtitle(context),
-              ),
-              const SizedBox(height: 24),
-              _ProfilePhotoFormField(
-                fieldKey: const ValueKey('register_profile_photo'),
-                label: l10n.registerProfilePhotoLabel,
-                requiredMessage: l10n.validationProfilePhotoRequired,
-                autovalidateMode: fieldAutovalidate,
-                onPick: _pickImageFile,
-              ),
-              const SizedBox(height: 20),
-              AuthTextField(
-                key: const ValueKey('register_username'),
-                controller: _usernameController,
-                label: l10n.registerUsernameLabel,
-                hintText: l10n.registerUsernameHint,
-                autovalidateMode: fieldAutovalidate,
-                validator: (v) => AuthValidators.usernameRegister(
-                  v,
-                  requiredMessage: l10n.validationUsernameRequired,
-                  minMessage: l10n.validationUsernameMin3,
-                ),
-              ),
-              const SizedBox(height: 20),
-              PhoneNumberField(
-                key: const ValueKey('register_phone'),
-                controller: _phoneController,
-                label: l10n.registerPhoneLabel,
-                hintText: l10n.registerPhoneHint,
-                autovalidateMode: fieldAutovalidate,
-                validator: (v) => AuthValidators.egyptianPhone(
-                  v,
-                  requiredMessage: l10n.validationPhoneRequired,
-                  invalidMessage: l10n.validationPhoneEgyptian,
-                ),
-              ),
-              const SizedBox(height: 20),
-              AuthTextField(
-                key: const ValueKey('register_email'),
-                controller: _emailController,
-                label: l10n.registerEmailLabel,
-                hintText: l10n.registerEmailHint,
-                keyboardType: TextInputType.emailAddress,
-                autovalidateMode: fieldAutovalidate,
-                validator: (v) => AuthValidators.emailBasic(
-                  v,
-                  requiredMessage: l10n.validationEmailRequired,
-                  invalidMessage: l10n.validationEmailInvalid,
-                ),
-              ),
-              const SizedBox(height: 20),
-              AuthTextField(
-                key: const ValueKey('register_national_id'),
-                controller: _nationalIdController,
-                label: l10n.registerNationalIdLabel,
-                hintText: l10n.registerNationalIdHint,
-                keyboardType: TextInputType.number,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                autovalidateMode: fieldAutovalidate,
-                validator: (v) => AuthValidators.egyptianNationalId(
-                  v,
-                  requiredMessage: l10n.validationNationalIdRequired,
-                  invalidMessage: l10n.validationNationalIdInvalid,
-                ),
-              ),
-              const SizedBox(height: 20),
-              VehicleTypeField(
-                key: const ValueKey('register_vehicle_type'),
-                label: l10n.registerVehicleTypeLabel,
-                hintText: l10n.registerVehicleTypeHint,
-                items: _vehicleTypes,
-                itemLabelBuilder: (t) => _vehicleLabel(l10n, t),
-                initialValue: _vehicleType,
-                autovalidateMode: fieldAutovalidate,
-                validator: (v) => AuthValidators.requiredSelection(
-                  v,
-                  requiredMessage: l10n.validationVehicleTypeRequired,
-                ),
-                onChanged: (v) => setState(() => _vehicleType = v),
-              ),
-              const SizedBox(height: 20),
-              _DocumentUploadFormField(
-                fieldKey: const ValueKey('register_driving_license'),
-                label: l10n.registerUploadDrivingLicense,
-                hintText: l10n.registerUploadDrivingLicense,
-                tapToUploadLabel: l10n.uploadTapToUpload,
-                requiredMessage: l10n.validationDocumentRequired,
-                autovalidateMode: fieldAutovalidate,
-                onPick: _pickImageFile,
-              ),
-              const SizedBox(height: 20),
-              _DocumentUploadFormField(
-                fieldKey: const ValueKey('register_vehicle_license'),
-                label: l10n.registerUploadVehicleLicense,
-                hintText: l10n.registerUploadVehicleLicense,
-                tapToUploadLabel: l10n.uploadTapToUpload,
-                requiredMessage: l10n.validationDocumentRequired,
-                autovalidateMode: fieldAutovalidate,
-                onPick: _pickImageFile,
-              ),
-              const SizedBox(height: 20),
-              _DocumentUploadFormField(
-                fieldKey: const ValueKey('register_national_id_doc'),
-                label: l10n.registerUploadNationalId,
-                hintText: l10n.registerUploadNationalId,
-                tapToUploadLabel: l10n.uploadTapToUpload,
-                requiredMessage: l10n.validationDocumentRequired,
-                autovalidateMode: fieldAutovalidate,
-                onPick: _pickImageFile,
-              ),
-            ],
             ),
           ),
-        ),
-      ),
+          body: SafeArea(
+            child: Form(
+              key: _formKey,
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    AuthLanguageChipAlign(
+                      label: context.isArabic
+                          ? l10n.languageArabicChip
+                          : l10n.languageEnglishChip,
+                      flagAsset: context.isArabic
+                          ? AppAssets.flagEg
+                          : AppAssets.flagUsa,
+                      onTap: () => showAppLanguagePicker(context),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      l10n.registerWelcomeTitle,
+                      textAlign: TextAlign.start,
+                      style: AppTextStyles.screenTitle(context),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      l10n.registerWelcomeSubtitle,
+                      textAlign: TextAlign.start,
+                      style: AppTextStyles.subtitle(context),
+                    ),
+                    const SizedBox(height: 24),
+                    _ProfilePhotoFormField(
+                      fieldKey: const ValueKey('register_profile_photo'),
+                      label: l10n.registerProfilePhotoLabel,
+                      requiredMessage: l10n.validationProfilePhotoRequired,
+                      autovalidateMode: fieldAutovalidate,
+                      onPick: _pickImageFile,
+                      onChanged: (file) =>
+                          _onMediaChanged(_MediaSlot.profile, file),
+                    ),
+                    const SizedBox(height: 20),
+                    AuthTextField(
+                      key: const ValueKey('register_username'),
+                      controller: _usernameController,
+                      label: l10n.registerUsernameLabel,
+                      hintText: l10n.registerUsernameHint,
+                      autovalidateMode: fieldAutovalidate,
+                      validator: (v) => AuthValidators.usernameRegister(
+                        v,
+                        requiredMessage: l10n.validationUsernameRequired,
+                        minMessage: l10n.validationUsernameMin3,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    PhoneNumberField(
+                      key: const ValueKey('register_phone'),
+                      controller: _phoneController,
+                      label: l10n.registerPhoneLabel,
+                      hintText: l10n.registerPhoneHint,
+                      autovalidateMode: fieldAutovalidate,
+                      validator: (v) => AuthValidators.egyptianPhone(
+                        v,
+                        requiredMessage: l10n.validationPhoneRequired,
+                        invalidMessage: l10n.validationPhoneEgyptian,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    AuthTextField(
+                      key: const ValueKey('register_email'),
+                      controller: _emailController,
+                      label: l10n.registerEmailLabel,
+                      hintText: l10n.registerEmailHint,
+                      keyboardType: TextInputType.emailAddress,
+                      autovalidateMode: fieldAutovalidate,
+                      validator: (v) => AuthValidators.emailBasic(
+                        v,
+                        requiredMessage: l10n.validationEmailRequired,
+                        invalidMessage: l10n.validationEmailInvalid,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    AuthTextField(
+                      key: const ValueKey('register_national_id'),
+                      controller: _nationalIdController,
+                      label: l10n.registerNationalIdLabel,
+                      hintText: l10n.registerNationalIdHint,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      autovalidateMode: fieldAutovalidate,
+                      validator: (v) => AuthValidators.egyptianNationalId(
+                        v,
+                        requiredMessage: l10n.validationNationalIdRequired,
+                        invalidMessage: l10n.validationNationalIdInvalid,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    VehicleTypeField(
+                      key: const ValueKey('register_vehicle_type'),
+                      label: l10n.registerVehicleTypeLabel,
+                      hintText: l10n.registerVehicleTypeHint,
+                      items: _vehicleTypes,
+                      itemLabelBuilder: (t) => _vehicleLabel(l10n, t),
+                      initialValue: _vehicleType,
+                      autovalidateMode: fieldAutovalidate,
+                      validator: (v) => AuthValidators.requiredSelection(
+                        v,
+                        requiredMessage: l10n.validationVehicleTypeRequired,
+                      ),
+                      onChanged: (v) => setState(() => _vehicleType = v),
+                    ),
+                    const SizedBox(height: 20),
+                    AuthTextField(
+                      key: const ValueKey('register_vehicle_number'),
+                      controller: _vehicleNumberController,
+                      label: l10n.registerVehicleNumberLabel,
+                      hintText: l10n.registerVehicleNumberHint,
+                      autovalidateMode: fieldAutovalidate,
+                      validator: (v) => AuthValidators.requiredText(
+                        v,
+                        requiredMessage: l10n.validationVehicleNumberRequired,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    _DocumentUploadFormField(
+                      fieldKey: const ValueKey('register_driving_license'),
+                      label: l10n.registerUploadDrivingLicense,
+                      hintText: l10n.registerUploadDrivingLicense,
+                      tapToUploadLabel: l10n.uploadTapToUpload,
+                      requiredMessage: l10n.validationDocumentRequired,
+                      autovalidateMode: fieldAutovalidate,
+                      onPick: _pickImageFile,
+                      onChanged: (file) =>
+                          _onMediaChanged(_MediaSlot.driverLicense, file),
+                    ),
+                    const SizedBox(height: 20),
+                    _DocumentUploadFormField(
+                      fieldKey: const ValueKey('register_vehicle_license'),
+                      label: l10n.registerUploadVehicleLicense,
+                      hintText: l10n.registerUploadVehicleLicense,
+                      tapToUploadLabel: l10n.uploadTapToUpload,
+                      requiredMessage: l10n.validationDocumentRequired,
+                      autovalidateMode: fieldAutovalidate,
+                      onPick: _pickImageFile,
+                      onChanged: (file) =>
+                          _onMediaChanged(_MediaSlot.vehicleLicense, file),
+                    ),
+                    const SizedBox(height: 20),
+                    _DocumentUploadFormField(
+                      fieldKey: const ValueKey('register_national_id_doc'),
+                      label: l10n.registerUploadNationalId,
+                      hintText: l10n.registerUploadNationalId,
+                      tapToUploadLabel: l10n.uploadTapToUpload,
+                      requiredMessage: l10n.validationDocumentRequired,
+                      autovalidateMode: fieldAutovalidate,
+                      onPick: _pickImageFile,
+                      onChanged: (file) =>
+                          _onMediaChanged(_MediaSlot.nationalId, file),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -252,6 +367,7 @@ class _ProfilePhotoFormField extends StatelessWidget {
     required this.requiredMessage,
     required this.autovalidateMode,
     required this.onPick,
+    required this.onChanged,
   });
 
   final Key fieldKey;
@@ -259,14 +375,14 @@ class _ProfilePhotoFormField extends StatelessWidget {
   final String requiredMessage;
   final AutovalidateMode autovalidateMode;
   final Future<File?> Function() onPick;
+  final ValueChanged<File?> onChanged;
 
   @override
   Widget build(BuildContext context) {
     return FormField<File>(
       key: fieldKey,
       autovalidateMode: autovalidateMode,
-      validator: (file) =>
-          file == null ? requiredMessage : null,
+      validator: (file) => file == null ? requiredMessage : null,
       builder: (field) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -287,6 +403,7 @@ class _ProfilePhotoFormField extends StatelessWidget {
                 final file = await onPick();
                 if (file != null) {
                   field.didChange(file);
+                  onChanged(file);
                 }
               },
             ),
@@ -315,6 +432,7 @@ class _DocumentUploadFormField extends StatelessWidget {
     required this.requiredMessage,
     required this.autovalidateMode,
     required this.onPick,
+    required this.onChanged,
   });
 
   final Key fieldKey;
@@ -324,14 +442,14 @@ class _DocumentUploadFormField extends StatelessWidget {
   final String requiredMessage;
   final AutovalidateMode autovalidateMode;
   final Future<File?> Function() onPick;
+  final ValueChanged<File?> onChanged;
 
   @override
   Widget build(BuildContext context) {
     return FormField<File>(
       key: fieldKey,
       autovalidateMode: autovalidateMode,
-      validator: (file) =>
-          file == null ? requiredMessage : null,
+      validator: (file) => file == null ? requiredMessage : null,
       builder: (field) {
         return DocumentUploadTile(
           label: label,
@@ -344,9 +462,13 @@ class _DocumentUploadFormField extends StatelessWidget {
             final file = await onPick();
             if (file != null) {
               field.didChange(file);
+              onChanged(file);
             }
           },
-          onRemove: () => field.didChange(null),
+          onRemove: () {
+            field.didChange(null);
+            onChanged(null);
+          },
         );
       },
     );

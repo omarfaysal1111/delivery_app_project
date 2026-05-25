@@ -284,6 +284,18 @@ abstract class AppLocalizations {
   /// **'Type'**
   String get registerVehicleTypeHint;
 
+  /// No description provided for @registerVehicleNumberLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Vehicle number'**
+  String get registerVehicleNumberLabel;
+
+  /// No description provided for @registerVehicleNumberHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Vehicle number'**
+  String get registerVehicleNumberHint;
+
   /// No description provided for @vehicleTypeMotorcycle.
   ///
   /// In en, this message translates to:
@@ -409,6 +421,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Vehicle type is required'**
   String get validationVehicleTypeRequired;
+
+  /// No description provided for @validationVehicleNumberRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Vehicle number is required'**
+  String get validationVehicleNumberRequired;
 
   /// No description provided for @validationDocumentRequired.
   ///
