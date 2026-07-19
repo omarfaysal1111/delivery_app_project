@@ -9,4 +9,11 @@ class RouteNames {
   static const pending = '/pending';
 
   static const driverHome = '/home';
+
+  // Migrated feature routes
+  static const settings = '/settings';
+  static const notifications = '/notifications';
+  static const reviews = '/reviews';
+  static const support = '/support';
+  static const termsAndConditions = '/terms-and-conditions';
 }

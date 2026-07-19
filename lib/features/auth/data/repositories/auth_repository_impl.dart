@@ -2,8 +2,8 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
-import '../../../onboarding/data/datasources/auth_local_datasource.dart';
-import '../../../onboarding/data/datasources/auth_remote_datasource.dart';
+import '../datasources/auth_local_datasource.dart';
+import '../datasources/auth_remote_datasource.dart';
 import '../../domain/entities/driver_registration.dart';
 import '../../domain/entities/driver_session.dart';
 import '../../domain/repositories/auth_repository.dart';
@@ -154,6 +154,60 @@ class AuthRepositoryImpl implements AuthRepository {
       return Right(authResponse);
     } on ServerException catch (e) {
       return Left(ServerFailure(e.message));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, AuthResponse>> refreshToken(String refreshToken) async {
+    try {
+      final authResponse = await remoteDataSource.refreshToken(refreshToken);
+      
+      if (authResponse.accessToken.isNotEmpty) {
+        await localDataSource.saveToken(authResponse.accessToken);
+      }
+      if (authResponse.refreshToken.isNotEmpty) {
+        await localDataSource.saveRefreshToken(authResponse.refreshToken);
+      }
+
+      return Right(authResponse);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(e.message));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<String?> getAccessToken() async {
+    try {
+      return await localDataSource.getToken();
+    } catch (_) {
+      return null;
+    }
+  }
+
+  @override
+  Future<String?> getRefreshToken() async {
+    try {
+      return await localDataSource.getRefreshToken();
+    } catch (_) {
+      return null;
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> logout() async {
+    try {
+      final refreshToken = await localDataSource.getRefreshToken();
+      try {
+        await remoteDataSource.logout(refreshToken);
+      } catch (_) {
+        // Even if remote logout fails, we still clear the local session
+      }
+      await localDataSource.clearSession();
+      return const Right(null);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }

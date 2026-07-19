@@ -33,7 +33,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get loginPhoneHint => 'رقم الجوال';
 
   @override
-  String get loginSubmit => 'تسجيل دخول';
+  String get loginSubmit => 'تأكيد';
 
   @override
   String get loginNoAccount => 'سائق جديد؟ ';
@@ -226,4 +226,101 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get registerUploadPhoto => 'قم برفع الصورة من هنا';
+
+  @override
+  String get drawerHome => 'الرئيسية';
+
+  @override
+  String get drawerGeneralSettings => 'الإعدادات العامة';
+
+  @override
+  String get drawerNotifications => 'الإشعارات';
+
+  @override
+  String get drawerReviews => 'التقييمات';
+
+  @override
+  String get drawerWallet => 'المحفظة';
+
+  @override
+  String get drawerSupport => 'الدعم الفني';
+
+  @override
+  String get drawerTerms => 'الشروط والأحكام';
+
+  @override
+  String get drawerLogout => 'تسجيل الخروج';
+
+  @override
+  String get drawerGuestName => 'مستخدم';
+
+  @override
+  String get logoutConfirmTitle => 'تسجيل الخروج';
+
+  @override
+  String get logoutConfirmMessage => 'هل أنت متأكد من تسجيل الخروج؟';
+
+  @override
+  String get confirm => 'تأكيد';
+
+  @override
+  String get cancel => 'إلغاء';
+
+  @override
+  String get deleteAccountSuccess => 'تم حذف الحساب بنجاح';
+
+  @override
+  String get settingsUpdatedSuccess => 'تم تحديث الإعدادات بنجاح';
+
+  @override
+  String get generalSettingsTitle => 'الإعدادات العامة';
+
+  @override
+  String get changeAppLanguage => 'تغيير لغة التطبيق';
+
+  @override
+  String get arabicLanguage => 'عربي';
+
+  @override
+  String get englishLanguage => 'English';
+
+  @override
+  String get notificationsControl => 'الإشعارات';
+
+  @override
+  String get darkMode => 'الوضع الداكن';
+
+  @override
+  String get deleteAccount => 'حذف الحساب';
+
+  @override
+  String get deleteAccountConfirmationTitle => 'حذف الحساب';
+
+  @override
+  String get deleteAccountConfirmationMessage =>
+      'هل أنت متأكد من حذف الحساب؟ لا يمكن التراجع عن هذا الإجراء.';
+
+  @override
+  String get supportChatTitle => 'الدعم الفني';
+
+  @override
+  String get supportToday => 'اليوم';
+
+  @override
+  String get supportGoodEvening => 'مساء الخير';
+
+  @override
+  String get supportHowCanWeHelp => 'كيف يمكننا مساعدتك؟';
+
+  @override
+  String get supportSampleUserIssue => 'لدي مشكلة في التطبيق.';
+
+  @override
+  String get supportInputHint => 'اكتب رسالتك هنا...';
+
+  @override
+  String get termsTitle => 'الشروط والأحكام';
+
+  @override
+  String get termsBody => 'هذه هي الشروط والأحكام...';
 }

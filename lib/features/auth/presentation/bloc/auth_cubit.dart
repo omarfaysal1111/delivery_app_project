@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../../domain/usecases/check_auth_session_usecase.dart';
 import '../../domain/usecases/register_driver_usecase.dart';
@@ -15,6 +16,7 @@ class AuthCubit extends Cubit<AuthState> {
     required this.verifyDriverLoginOtp,
     required this.registerDriver,
     required this.uploadMedia,
+    required this.authRepository,
   }) : super(AuthInitial());
 
   final CheckAuthSessionUseCase checkAuthSession;
@@ -22,9 +24,51 @@ class AuthCubit extends Cubit<AuthState> {
   final VerifyDriverLoginOtpUseCase verifyDriverLoginOtp;
   final RegisterDriverUseCase registerDriver;
   final UploadMediaUseCase uploadMedia;
+  final AuthRepository authRepository;
 
   String? _phoneNumber;
   String? get phoneNumber => _phoneNumber;
+
+  Future<void> checkAuthStatus() async {
+    emit(AuthLoading());
+
+    final accessToken = await authRepository.getAccessToken();
+    if (accessToken == null || accessToken.isEmpty) {
+      emit(AuthUnauthenticated());
+      return;
+    }
+
+    bool isExpired = true;
+    try {
+      isExpired = JwtDecoder.isExpired(accessToken);
+    } catch (e) {
+      isExpired = true; // Default to expired if parsing fails
+    }
+
+    if (!isExpired) {
+      emit(AuthAuthenticated());
+      return;
+    }
+
+    // Token is expired, try to refresh
+    final refreshTokenStr = await authRepository.getRefreshToken();
+    if (refreshTokenStr == null || refreshTokenStr.isEmpty) {
+      await authRepository.clearSession();
+      emit(AuthUnauthenticated());
+      return;
+    }
+
+    final result = await authRepository.refreshToken(refreshTokenStr);
+    result.fold(
+      (failure) async {
+        await authRepository.clearSession();
+        emit(AuthUnauthenticated());
+      },
+      (authResponse) {
+        emit(AuthAuthenticated());
+      },
+    );
+  }
 
   Future<void> submitPhone(String phone) async {
     _phoneNumber = phone;
@@ -115,5 +159,11 @@ class AuthCubit extends Cubit<AuthState> {
     } catch (e) {
       emit(AuthError("Failed to upload media or register. Please try again."));
     }
+  }
+
+  Future<void> logout() async {
+    emit(AuthLogoutLoading());
+    await authRepository.logout();
+    emit(AuthUnauthenticated());
   }
 }

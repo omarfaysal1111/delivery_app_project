@@ -13,13 +13,15 @@ import '../../features/auth/domain/usecases/send_driver_login_otp_usecase.dart';
 import '../../features/auth/domain/usecases/upload_media_usecase.dart';
 import '../../features/auth/domain/usecases/verify_driver_login_otp_usecase.dart';
 import '../../features/auth/presentation/bloc/auth_cubit.dart';
+import '../../features/profile/presentation/bloc/chat_cubit.dart';
+import '../../features/profile/presentation/bloc/profile_bloc.dart';
 import '../../features/earnings/data/datasources/earnings_local_datasource.dart';
 import '../../features/earnings/data/datasources/earnings_remote_datasource.dart';
 import '../../features/home/data/datasources/home_local_datasource.dart';
 import '../../features/home/data/datasources/home_remote_datasource.dart';
 import '../../features/navigation_map/data/datasources/map_remote_datasource.dart';
-import '../../features/onboarding/data/datasources/auth_local_datasource.dart';
-import '../../features/onboarding/data/datasources/auth_remote_datasource.dart';
+import '../../features/auth/data/datasources/auth_local_datasource.dart';
+import '../../features/auth/data/datasources/auth_remote_datasource.dart';
 import '../../features/orders/data/datasources/order_local_datasource.dart';
 import '../../features/orders/data/datasources/order_remote_datasource.dart';
 import '../../features/profile/data/datasources/profile_local_datasource.dart';
@@ -54,7 +56,7 @@ Future<void> init({required SharedPreferences prefs}) async {
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
 
   sl.registerLazySingleton<AuthLocalDataSource>(
-    () => AuthLocalDataSourceImpl(sl(), sl()),
+    () => AuthLocalDataSourceImpl(secureStorage: sl(), sharedPreferences: sl()),
   );
 
   sl.registerLazySingleton(() => ApiClient(dio: sl(), localDataSource: sl()));
@@ -112,6 +114,10 @@ Future<void> init({required SharedPreferences prefs}) async {
       verifyDriverLoginOtp: sl(),
       registerDriver: sl(),
       uploadMedia: sl(),
+      authRepository: sl(),
     ),
   );
+
+  sl.registerFactory(() => ChatCubit());
+  sl.registerFactory(() => ProfileBloc());
 }

@@ -34,7 +34,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get loginPhoneHint => 'Mobile number';
 
   @override
-  String get loginSubmit => 'Sign in';
+  String get loginSubmit => 'Confirm';
 
   @override
   String get loginNoAccount => 'New driver? ';
@@ -229,4 +229,101 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get registerUploadPhoto => 'Upload photo here';
+
+  @override
+  String get drawerHome => 'Home';
+
+  @override
+  String get drawerGeneralSettings => 'General Settings';
+
+  @override
+  String get drawerNotifications => 'Notifications';
+
+  @override
+  String get drawerReviews => 'Reviews';
+
+  @override
+  String get drawerWallet => 'Wallet';
+
+  @override
+  String get drawerSupport => 'Technical Support';
+
+  @override
+  String get drawerTerms => 'Terms & Conditions';
+
+  @override
+  String get drawerLogout => 'Logout';
+
+  @override
+  String get drawerGuestName => 'User';
+
+  @override
+  String get logoutConfirmTitle => 'Logout';
+
+  @override
+  String get logoutConfirmMessage => 'Are you sure you want to logout?';
+
+  @override
+  String get confirm => 'Confirm';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get deleteAccountSuccess => 'Account deleted successfully';
+
+  @override
+  String get settingsUpdatedSuccess => 'Settings updated successfully';
+
+  @override
+  String get generalSettingsTitle => 'General Settings';
+
+  @override
+  String get changeAppLanguage => 'Change Language';
+
+  @override
+  String get arabicLanguage => 'Arabic';
+
+  @override
+  String get englishLanguage => 'English';
+
+  @override
+  String get notificationsControl => 'Notifications';
+
+  @override
+  String get darkMode => 'Dark Mode';
+
+  @override
+  String get deleteAccount => 'Delete Account';
+
+  @override
+  String get deleteAccountConfirmationTitle => 'Delete Account';
+
+  @override
+  String get deleteAccountConfirmationMessage =>
+      'Are you sure you want to delete your account? This action cannot be undone.';
+
+  @override
+  String get supportChatTitle => 'Technical Support';
+
+  @override
+  String get supportToday => 'Today';
+
+  @override
+  String get supportGoodEvening => 'Good evening';
+
+  @override
+  String get supportHowCanWeHelp => 'How can we help you?';
+
+  @override
+  String get supportSampleUserIssue => 'I have an issue with the application.';
+
+  @override
+  String get supportInputHint => 'Write your message here...';
+
+  @override
+  String get termsTitle => 'Terms & Conditions';
+
+  @override
+  String get termsBody => 'These are the terms and conditions...';
 }

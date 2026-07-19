@@ -149,7 +149,7 @@ abstract class AppLocalizations {
   /// No description provided for @loginSubmit.
   ///
   /// In en, this message translates to:
-  /// **'Sign in'**
+  /// **'Confirm'**
   String get loginSubmit;
 
   /// No description provided for @loginNoAccount.
@@ -523,6 +523,198 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Upload photo here'**
   String get registerUploadPhoto;
+
+  /// No description provided for @drawerHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get drawerHome;
+
+  /// No description provided for @drawerGeneralSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'General Settings'**
+  String get drawerGeneralSettings;
+
+  /// No description provided for @drawerNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get drawerNotifications;
+
+  /// No description provided for @drawerReviews.
+  ///
+  /// In en, this message translates to:
+  /// **'Reviews'**
+  String get drawerReviews;
+
+  /// No description provided for @drawerWallet.
+  ///
+  /// In en, this message translates to:
+  /// **'Wallet'**
+  String get drawerWallet;
+
+  /// No description provided for @drawerSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Technical Support'**
+  String get drawerSupport;
+
+  /// No description provided for @drawerTerms.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms & Conditions'**
+  String get drawerTerms;
+
+  /// No description provided for @drawerLogout.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get drawerLogout;
+
+  /// No description provided for @drawerGuestName.
+  ///
+  /// In en, this message translates to:
+  /// **'User'**
+  String get drawerGuestName;
+
+  /// No description provided for @logoutConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get logoutConfirmTitle;
+
+  /// No description provided for @logoutConfirmMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to logout?'**
+  String get logoutConfirmMessage;
+
+  /// No description provided for @confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirm;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @deleteAccountSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Account deleted successfully'**
+  String get deleteAccountSuccess;
+
+  /// No description provided for @settingsUpdatedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings updated successfully'**
+  String get settingsUpdatedSuccess;
+
+  /// No description provided for @generalSettingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'General Settings'**
+  String get generalSettingsTitle;
+
+  /// No description provided for @changeAppLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Language'**
+  String get changeAppLanguage;
+
+  /// No description provided for @arabicLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Arabic'**
+  String get arabicLanguage;
+
+  /// No description provided for @englishLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get englishLanguage;
+
+  /// No description provided for @notificationsControl.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notificationsControl;
+
+  /// No description provided for @darkMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark Mode'**
+  String get darkMode;
+
+  /// No description provided for @deleteAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Account'**
+  String get deleteAccount;
+
+  /// No description provided for @deleteAccountConfirmationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Account'**
+  String get deleteAccountConfirmationTitle;
+
+  /// No description provided for @deleteAccountConfirmationMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete your account? This action cannot be undone.'**
+  String get deleteAccountConfirmationMessage;
+
+  /// No description provided for @supportChatTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Technical Support'**
+  String get supportChatTitle;
+
+  /// No description provided for @supportToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get supportToday;
+
+  /// No description provided for @supportGoodEvening.
+  ///
+  /// In en, this message translates to:
+  /// **'Good evening'**
+  String get supportGoodEvening;
+
+  /// No description provided for @supportHowCanWeHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'How can we help you?'**
+  String get supportHowCanWeHelp;
+
+  /// No description provided for @supportSampleUserIssue.
+  ///
+  /// In en, this message translates to:
+  /// **'I have an issue with the application.'**
+  String get supportSampleUserIssue;
+
+  /// No description provided for @supportInputHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write your message here...'**
+  String get supportInputHint;
+
+  /// No description provided for @termsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms & Conditions'**
+  String get termsTitle;
+
+  /// No description provided for @termsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'These are the terms and conditions...'**
+  String get termsBody;
 }
 
 class _AppLocalizationsDelegate
