@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../l10n/app_localizations.dart';
 
-import '../../../../core/constants/app_assets.dart';
-import '../../../../core/localization/context_locale_ext.dart';
-import '../../../../core/router/route_names.dart';
+import '../widgets/language_picker_sheet.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/text_styles.dart';
-import '../../../../core/utils/auth_form_validation.dart';
-import '../../../../core/utils/auth_validators.dart';
-import '../../../../core/widgets/app_media.dart';
-import '../../../../l10n/app_localizations.dart';
-import '../widgets/app_language_picker_modal.dart';
-import '../widgets/auth_language_chip_align.dart';
-import '../widgets/auth_primary_button.dart';
-import '../widgets/phone_number_field.dart';
+import '../widgets/auth_text_field.dart';
+import '../bloc/auth_cubit.dart';
+import '../bloc/auth_state.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -23,148 +19,206 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _formKey = GlobalKey<FormState>();
-  final _phoneController = TextEditingController();
-  bool _hasAttemptedSubmit = false;
-
-  @override
-  void dispose() {
-    _phoneController.dispose();
-    super.dispose();
-  }
+  final TextEditingController _phoneController = TextEditingController();
 
   void _submit() {
-    FocusScope.of(context).unfocus();
-    setState(() => _hasAttemptedSubmit = true);
-    if (!(_formKey.currentState?.validate() ?? false)) return;
-    context.push(RouteNames.otp, extra: _phoneController.text.trim());
+    final phone = _phoneController.text.trim();
+    final l10n = AppLocalizations.of(context)!;
+    
+    if (phone.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(l10n.validationPhoneRequired)),
+      );
+      return;
+    }
+    
+    if (phone.length < 10) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(l10n.validationPhoneEgyptian)),
+      );
+      return;
+    }
+    
+    // Add the country code since it's hardcoded in the UI prefix
+    final fullPhone = '+20$phone';
+    context.read<AuthCubit>().submitPhone(fullPhone);
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final isAr = Localizations.localeOf(context).languageCode == 'ar';
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.scaffoldBackground(context),
-      body: Column(
-        children: [
-          Expanded(
-            child: SafeArea(
-              bottom: false,
-              child: GestureDetector(
-                behavior: HitTestBehavior.translucent,
-                onTap: () => FocusScope.of(context).unfocus(),
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.fromLTRB(16, 20, 16, 24),
-                  keyboardDismissBehavior:
-                      ScrollViewKeyboardDismissBehavior.onDrag,
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        AuthLanguageChipAlign(
-                          label: context.isArabic
-                              ? l10n.languageArabicChip
-                              : l10n.languageEnglishChip,
-                          flagAsset: context.isArabic
-                              ? AppAssets.flagEg
-                              : AppAssets.flagUsa,
-                          onTap: () => showAppLanguagePicker(context),
-                        ),
-                        const SizedBox(height: 20),
-                        Center(
-                          child: AppSvgImage.asset(
-                            AppAssets.loginLogo,
-                            width: 85,
-                            height: 68,
-                            fit: BoxFit.contain,
+      body: SafeArea(
+        child: BlocConsumer<AuthCubit, AuthState>(
+          listenWhen: (prev, curr) => curr is AuthPhoneSubmitted || curr is AuthError,
+          listener: (context, state) {
+            if (state is AuthPhoneSubmitted) {
+              if (ModalRoute.of(context)?.isCurrent == true) {
+                context.push('/otp');
+              }
+            } else if (state is AuthError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    state.message,
+                    style: AppTextStyles.snackBarMessage(context),
+                  ),
+                ),
+              );
+            }
+          },
+          builder: (context, state) {
+            final isLoading = state is AuthLoading;
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const SizedBox(height: 16),
+              // Top Header: Language Chip & Logo
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Image.asset(
+                    'assets/images/login_header_logo.png',
+                    height: 32,
+                    fit: BoxFit.contain,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        barrierColor: AppColors.modalBarrierScrim(context),
+                        builder: (context) {
+                          return const LanguagePickerSheet();
+                        },
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                        color: AppColors.surfaceCard(context),
+                        borderRadius: BorderRadius.circular(8.0),
+                        border: Border.all(color: AppColors.border(context)),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SvgPicture.asset(
+                            isAr ? 'assets/images/flag_eg.svg' : 'assets/images/flag_usa.svg',
+                            width: 16,
+                            height: 16,
                           ),
-                        ),
-                        const SizedBox(height: 40),
+                          const SizedBox(width: 4),
+                          Text(
+                            isAr ? l10n.languageArabicChip : l10n.languageEnglishChip,
+                            style: AppTextStyles.languageChipLabel(context),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 32),
+              // Title and Subtitle
+              Text(
+                l10n.loginPhoneLabel, 
+                style: AppTextStyles.screenTitle(context),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                l10n.loginSubtitle, 
+                style: AppTextStyles.subtitle(context),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 32),
+              // Phone Input Section 
+              ValueListenableBuilder<TextEditingValue>(
+                valueListenable: _phoneController,
+                builder: (context, value, child) {
+                  final flagWidget = Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SvgPicture.asset(
+                            'assets/images/flag_eg.svg',
+                            width: 16,
+                            height: 16,
+                          ),
+                        const SizedBox(width: 4),
                         Text(
-                          l10n.loginTitle,
-                          textAlign: TextAlign.start,
-                          style: AppTextStyles.screenTitle(context),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          l10n.loginSubtitle,
-                          textAlign: TextAlign.start,
-                          style: AppTextStyles.subtitle(context),
-                        ),
-                        const SizedBox(height: 32),
-                        PhoneNumberField(
-                          controller: _phoneController,
-                          label: l10n.loginPhoneLabel,
-                          hintText: l10n.loginPhoneHint,
-                          autovalidateMode:
-                              authAutovalidateMode(_hasAttemptedSubmit),
-                          validator: (v) => AuthValidators.egyptianPhone(
-                            v,
-                            requiredMessage: l10n.validationPhoneRequired,
-                            invalidMessage: l10n.validationPhoneEgyptian,
+                          '+20',
+                          style: AppTextStyles.inputText(context).copyWith(
+                            color: AppColors.paragraph(context),
                           ),
                         ),
-                        const SizedBox(height: 20),
-                        AuthPrimaryButton(
-                          label: l10n.loginSubmit,
-                          onPressed: _submit,
-                        ),
-                        const SizedBox(height: 24),
-                        Center(
-                          child: TextButton(
-                            onPressed: () => context.push(RouteNames.register),
-                            child: RichText(
-                              text: TextSpan(
-                                style: AppTextStyles.richTextBase14,
-                                children: [
-                                  TextSpan(
-                                    text: l10n.loginNoAccount,
-                                    style: AppTextStyles.footerSecondary(
-                                      context,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: l10n.loginCreateAccount,
-                                    style: AppTextStyles.linkEmphasis,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                        const SizedBox(width: 8),
+                        Container(
+                          width: 1,
+                          height: 16,
+                          color: AppColors.border(context),
                         ),
                       ],
                     ),
                   ),
-                ),
+                );
+
+                  return AuthTextField(
+                    controller: _phoneController,
+                    label: l10n.loginPhoneLabel,
+                    hintText: l10n.loginPhoneHint,
+                    keyboardType: TextInputType.phone,
+                    textAlign: value.text.isEmpty && isAr ? TextAlign.right : TextAlign.left,
+                    textDirection: TextDirection.ltr,
+                    prefixIcon: isAr ? null : flagWidget,
+                    suffixIcon: isAr ? flagWidget : null,
+                  );
+                },
               ),
-            ),
-          ),
-          SafeArea(
-            top: false,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 40),
-              child: Center(
-                child: IconButton(
-                  onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(l10n.biometricSoon)),
-                    );
-                  },
-                  icon: AppSvgImage.asset(
-                    AppAssets.icFaceId,
-                    width: 40,
-                    height: 40,
-                    color: AppColors.onSurface(context),
+              const SizedBox(height: 32),
+              // Bottom Button
+              ElevatedButton(
+                onPressed: isLoading ? null : _submit,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primary,
+                  disabledBackgroundColor: AppColors.hint(context),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
+                  padding: const EdgeInsets.all(16.0),
+                  elevation: 0,
                 ),
+                child: isLoading
+                    ? const SizedBox(
+                        height: 24,
+                        width: 24,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2,
+                        ),
+                      )
+                    : Text(
+                        l10n.loginSubmit,
+                        style: AppTextStyles.primaryButtonLabel,
+                      ),
               ),
-            ),
+              const Spacer(),
+            ],
           ),
-        ],
-      ),
-    );
-  }
+        );
+      },
+    ),
+  ),
+);
+}
 }

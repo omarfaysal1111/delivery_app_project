@@ -7,7 +7,7 @@
   "languageEnglishChip": "English",
 
   "loginTitle": "Sign in!",
-  "loginSubtitle": "Welcome back — sign in to continue.",
+  "loginSubtitle": "Enter your mobile number to complete the registration process",
   "loginPhoneLabel": "Mobile number",
   "loginPhoneHint": "Mobile number",
   "loginSubmit": "Sign in",
@@ -28,7 +28,7 @@
   "otpResentSnackbar": "Code sent again",
 
   "registerWelcomeTitle": "Welcome!",
-  "registerWelcomeSubtitle": "Join us today and enjoy a faster delivery experience.",
+  "registerWelcomeSubtitle": "Please enter the required registration details",
   "registerProfilePhotoLabel": "Profile photo",
   "registerUsernameLabel": "Username",
   "registerUsernameHint": "Username",
@@ -69,5 +69,20 @@
   "validationDocumentRequired": "Please upload this document",
   "validationProfilePhotoRequired": "Profile photo is required",
   "validationOtpRequired": "Verification code is required",
-  "validationOtpSixDigits": "Please enter 6 digits"
+  "validationOtpSixDigits": "Please enter 6 digits",
+
+  "otpVerifyButton": "Verify",
+  "otpResendCode": "Resend Code?",
+  "otpSeconds": "seconds",
+
+  "pendingSuccessTitle": "Request submitted successfully",
+  "pendingSuccessSubtitle": "Your request is being reviewed by the administration and will be answered as soon as possible",
+
+  "registerTitle": "Register your data",
+  "registerSubtitle": "Please complete the following data to complete the registration process",
+  "registerDriverLicense": "Driver's license photo",
+  "registerNationalId": "National ID / Iqama photo",
+  "registerCarRegistration": "Car registration photo",
+  "registerSubmitButton": "Submit Data",
+  "registerUploadPhoto": "Upload photo here"
 }

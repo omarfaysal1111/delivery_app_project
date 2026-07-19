@@ -24,7 +24,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get loginTitle => 'تسجيل دخول !';
 
   @override
-  String get loginSubtitle => 'مرحبا بعودتك مره اخرى سجل دخول الان !';
+  String get loginSubtitle => 'أدخل رقم الجوال الخاص بك لإتمام عملية التسجيل';
 
   @override
   String get loginPhoneLabel => 'رقم الجوال';
@@ -69,8 +69,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get registerWelcomeTitle => 'مرحباً بك !';
 
   @override
-  String get registerWelcomeSubtitle =>
-      'انضم إلينا اليوم واستمتع بتجربة توصيل أسرع';
+  String get registerWelcomeSubtitle => 'قم بإدخال بيانات التسجيل المطلوبة';
 
   @override
   String get registerProfilePhotoLabel => 'الصورة الشخصية';
@@ -189,4 +188,42 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get validationOtpSixDigits => 'يرجى إدخال ٦ أرقام';
+
+  @override
+  String get otpVerifyButton => 'تحقق';
+
+  @override
+  String get otpResendCode => 'إعادة إرسال الكود ؟';
+
+  @override
+  String get otpSeconds => 'ثانية';
+
+  @override
+  String get pendingSuccessTitle => 'تم تقديم الطلب بنجاح';
+
+  @override
+  String get pendingSuccessSubtitle =>
+      'جاري مراجعة طلبك من قبل الإدارة وسيتم الرد عليك في أقرب وقت ممكن';
+
+  @override
+  String get registerTitle => 'تسجيل بياناتك';
+
+  @override
+  String get registerSubtitle =>
+      'يرجى استكمال البيانات التالية لإتمام عملية التسجيل';
+
+  @override
+  String get registerDriverLicense => 'صورة رخصة القيادة';
+
+  @override
+  String get registerNationalId => 'صورة الهوية الوطنية / الإقامة';
+
+  @override
+  String get registerCarRegistration => 'صورة استمارة السيارة';
+
+  @override
+  String get registerSubmitButton => 'إرسال البيانات';
+
+  @override
+  String get registerUploadPhoto => 'قم برفع الصورة من هنا';
 }

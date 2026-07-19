@@ -10,7 +10,7 @@ class LocaleController extends ChangeNotifier {
 
   final SharedPreferences _prefs;
 
-  Locale _locale = const Locale('en');
+  Locale _locale = const Locale('ar');
 
   Locale get locale => _locale;
 
@@ -29,8 +29,8 @@ class LocaleController extends ChangeNotifier {
   static Locale _localeFromPlatform() {
     final code =
         ui.PlatformDispatcher.instance.locale.languageCode.toLowerCase();
-    if (code == 'ar') return const Locale('ar');
-    return const Locale('en');
+    if (code == 'en') return const Locale('en');
+    return const Locale('ar');
   }
 
   Future<void> setLocale(Locale locale) async {

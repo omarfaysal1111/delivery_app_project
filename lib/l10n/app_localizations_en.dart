@@ -24,7 +24,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get loginTitle => 'Sign in!';
 
   @override
-  String get loginSubtitle => 'Welcome back — sign in to continue.';
+  String get loginSubtitle =>
+      'Enter your mobile number to complete the registration process';
 
   @override
   String get loginPhoneLabel => 'Mobile number';
@@ -70,7 +71,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get registerWelcomeSubtitle =>
-      'Join us today and enjoy a faster delivery experience.';
+      'Please enter the required registration details';
 
   @override
   String get registerProfilePhotoLabel => 'Profile photo';
@@ -190,4 +191,42 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get validationOtpSixDigits => 'Please enter 6 digits';
+
+  @override
+  String get otpVerifyButton => 'Verify';
+
+  @override
+  String get otpResendCode => 'Resend Code?';
+
+  @override
+  String get otpSeconds => 'seconds';
+
+  @override
+  String get pendingSuccessTitle => 'Request submitted successfully';
+
+  @override
+  String get pendingSuccessSubtitle =>
+      'Your request is being reviewed by the administration and will be answered as soon as possible';
+
+  @override
+  String get registerTitle => 'Register your data';
+
+  @override
+  String get registerSubtitle =>
+      'Please complete the following data to complete the registration process';
+
+  @override
+  String get registerDriverLicense => 'Driver\'s license photo';
+
+  @override
+  String get registerNationalId => 'National ID / Iqama photo';
+
+  @override
+  String get registerCarRegistration => 'Car registration photo';
+
+  @override
+  String get registerSubmitButton => 'Submit Data';
+
+  @override
+  String get registerUploadPhoto => 'Upload photo here';
 }

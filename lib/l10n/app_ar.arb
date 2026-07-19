@@ -7,7 +7,7 @@
   "languageEnglishChip": "English",
 
   "loginTitle": "تسجيل دخول !",
-  "loginSubtitle": "مرحبا بعودتك مره اخرى سجل دخول الان !",
+  "loginSubtitle": "أدخل رقم الجوال الخاص بك لإتمام عملية التسجيل",
   "loginPhoneLabel": "رقم الجوال",
   "loginPhoneHint": "رقم الجوال",
   "loginSubmit": "تسجيل دخول",
@@ -23,7 +23,7 @@
   "otpResentSnackbar": "تم إرسال الكود مرة أخرى",
 
   "registerWelcomeTitle": "مرحباً بك !",
-  "registerWelcomeSubtitle": "انضم إلينا اليوم واستمتع بتجربة توصيل أسرع",
+  "registerWelcomeSubtitle": "قم بإدخال بيانات التسجيل المطلوبة",
   "registerProfilePhotoLabel": "الصورة الشخصية",
   "registerUsernameLabel": "اسم المستخدم",
   "registerUsernameHint": "اسم المستخدم",
@@ -64,5 +64,20 @@
   "validationDocumentRequired": "يرجى رفع هذا المستند",
   "validationProfilePhotoRequired": "الصورة الشخصية مطلوبة",
   "validationOtpRequired": "رمز التحقق مطلوب",
-  "validationOtpSixDigits": "يرجى إدخال ٦ أرقام"
+  "validationOtpSixDigits": "يرجى إدخال ٦ أرقام",
+
+  "otpVerifyButton": "تحقق",
+  "otpResendCode": "إعادة إرسال الكود ؟",
+  "otpSeconds": "ثانية",
+
+  "pendingSuccessTitle": "تم تقديم الطلب بنجاح",
+  "pendingSuccessSubtitle": "جاري مراجعة طلبك من قبل الإدارة وسيتم الرد عليك في أقرب وقت ممكن",
+
+  "registerTitle": "تسجيل بياناتك",
+  "registerSubtitle": "يرجى استكمال البيانات التالية لإتمام عملية التسجيل",
+  "registerDriverLicense": "صورة رخصة القيادة",
+  "registerNationalId": "صورة الهوية الوطنية / الإقامة",
+  "registerCarRegistration": "صورة استمارة السيارة",
+  "registerSubmitButton": "إرسال البيانات",
+  "registerUploadPhoto": "قم برفع الصورة من هنا"
 }

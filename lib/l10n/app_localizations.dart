@@ -131,7 +131,7 @@ abstract class AppLocalizations {
   /// No description provided for @loginSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Welcome back — sign in to continue.'**
+  /// **'Enter your mobile number to complete the registration process'**
   String get loginSubtitle;
 
   /// No description provided for @loginPhoneLabel.
@@ -215,7 +215,7 @@ abstract class AppLocalizations {
   /// No description provided for @registerWelcomeSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Join us today and enjoy a faster delivery experience.'**
+  /// **'Please enter the required registration details'**
   String get registerWelcomeSubtitle;
 
   /// No description provided for @registerProfilePhotoLabel.
@@ -451,6 +451,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please enter 6 digits'**
   String get validationOtpSixDigits;
+
+  /// No description provided for @otpVerifyButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify'**
+  String get otpVerifyButton;
+
+  /// No description provided for @otpResendCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend Code?'**
+  String get otpResendCode;
+
+  /// No description provided for @otpSeconds.
+  ///
+  /// In en, this message translates to:
+  /// **'seconds'**
+  String get otpSeconds;
+
+  /// No description provided for @pendingSuccessTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Request submitted successfully'**
+  String get pendingSuccessTitle;
+
+  /// No description provided for @pendingSuccessSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your request is being reviewed by the administration and will be answered as soon as possible'**
+  String get pendingSuccessSubtitle;
+
+  /// No description provided for @registerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Register your data'**
+  String get registerTitle;
+
+  /// No description provided for @registerSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Please complete the following data to complete the registration process'**
+  String get registerSubtitle;
+
+  /// No description provided for @registerDriverLicense.
+  ///
+  /// In en, this message translates to:
+  /// **'Driver\'s license photo'**
+  String get registerDriverLicense;
+
+  /// No description provided for @registerNationalId.
+  ///
+  /// In en, this message translates to:
+  /// **'National ID / Iqama photo'**
+  String get registerNationalId;
+
+  /// No description provided for @registerCarRegistration.
+  ///
+  /// In en, this message translates to:
+  /// **'Car registration photo'**
+  String get registerCarRegistration;
+
+  /// No description provided for @registerSubmitButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit Data'**
+  String get registerSubmitButton;
+
+  /// No description provided for @registerUploadPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload photo here'**
+  String get registerUploadPhoto;
 }
 
 class _AppLocalizationsDelegate

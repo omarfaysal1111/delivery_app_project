@@ -3,10 +3,12 @@ import 'package:dartz/dartz.dart';
 import '../../../../core/error/failures.dart';
 import '../entities/driver_registration.dart';
 import '../entities/driver_session.dart';
+import '../../data/models/auth_response.dart';
 
 class RegisterDriverParams {
   const RegisterDriverParams({
-    required this.name,
+    required this.firstName,
+    required this.lastName,
     required this.phone,
     required this.email,
     required this.vehicleType,
@@ -18,16 +20,17 @@ class RegisterDriverParams {
     required this.nationalIdPhotoUrl,
   });
 
-  final String name;
+  final String firstName;
+  final String lastName;
   final String phone;
   final String email;
   final String vehicleType;
   final String vehicleNumber;
   final String nationalId;
-  final String? profilePhotoUrl;
-  final String? driverLicensePhotoUrl;
-  final String? vehicleLicensePhotoUrl;
-  final String? nationalIdPhotoUrl;
+  final String profilePhotoUrl;
+  final String driverLicensePhotoUrl;
+  final String vehicleLicensePhotoUrl;
+  final String nationalIdPhotoUrl;
 }
 
 abstract class AuthRepository {
@@ -42,4 +45,8 @@ abstract class AuthRepository {
   );
 
   Future<String?> uploadMedia(String filePath);
+
+  Future<Either<Failure, void>> sendDriverLoginOtp(String phone);
+
+  Future<Either<Failure, AuthResponse>> verifyDriverLoginOtp(String phone, String otp);
 }

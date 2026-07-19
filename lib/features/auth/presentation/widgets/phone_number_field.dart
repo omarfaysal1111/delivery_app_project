@@ -63,34 +63,36 @@ class PhoneNumberField extends StatelessWidget {
                         const _PhoneCountryPrefix(),
                         Expanded(
                           child: Directionality(
-                            textDirection: isArabic
-                                ? TextDirection.rtl
-                                : TextDirection.ltr,
-                            child: TextField(
-                              controller: controller,
-                              keyboardType: TextInputType.phone,
-                              textAlign: TextAlign.start,
-                              style: AppTextStyles.inputText(context),
-                              cursorColor: AppColors.cursor(context),
-                              inputFormatters: [
-                                FilteringTextInputFormatter.digitsOnly,
-                              ],
-                              decoration: InputDecoration(
-                                hintText: hintText,
-                                hintStyle: AppTextStyles.inputHint(context),
-                                border: InputBorder.none,
-                                enabledBorder: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                errorBorder: InputBorder.none,
-                                contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 12,
-                                  vertical: 14,
-                                ),
-                                isDense: true,
-                              ),
-                              onChanged: field.didChange,
-                              onTapOutside: (_) =>
-                                  FocusScope.of(context).unfocus(),
+                            textDirection: TextDirection.ltr,
+                            child: ValueListenableBuilder<TextEditingValue>(
+                              valueListenable: controller,
+                              builder: (context, value, child) {
+                                return TextField(
+                                  controller: controller,
+                                  keyboardType: TextInputType.phone,
+                                  textAlign: value.text.isEmpty && isArabic ? TextAlign.right : TextAlign.left,
+                                  style: AppTextStyles.inputText(context),
+                                  cursorColor: AppColors.cursor(context),
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.digitsOnly,
+                                  ],
+                                  decoration: InputDecoration(
+                                    hintText: hintText,
+                                    hintStyle: AppTextStyles.inputHint(context),
+                                    border: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    errorBorder: InputBorder.none,
+                                    contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 12,
+                                      vertical: 14,
+                                    ),
+                                    isDense: true,
+                                  ),
+                                  onChanged: field.didChange,
+                                  onTapOutside: (_) => FocusScope.of(context).unfocus(),
+                                );
+                              },
                             ),
                           ),
                         ),
@@ -135,11 +137,10 @@ class _PhoneCountryPrefix extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 8),
-          AppSvgImage.asset(
-            AppAssets.icPhoneDivider,
+          Container(
             width: 1,
             height: 16,
-            fit: BoxFit.contain,
+            color: AppColors.border(context),
           ),
         ],
       ),

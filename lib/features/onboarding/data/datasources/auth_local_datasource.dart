@@ -1,13 +1,14 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/error/exceptions.dart';
 
 abstract class AuthLocalDataSource {
   Future<void> saveToken(String token);
   Future<void> saveRefreshToken(String token);
-  String getToken();
+  Future<String> getToken();
   Future<void> saveDriverId(String id);
-  String getDriverId();
+  Future<String> getDriverId();
   Future<void> setOnboardingDone();
   bool isOnboardingDone();
   Future<void> clearSession();
@@ -15,30 +16,32 @@ abstract class AuthLocalDataSource {
 
 class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   final SharedPreferences prefs;
-  AuthLocalDataSourceImpl(this.prefs);
+  final FlutterSecureStorage secureStorage;
+
+  AuthLocalDataSourceImpl(this.prefs, this.secureStorage);
 
   @override
   Future<void> saveToken(String token) =>
-      prefs.setString(AppStrings.keyToken, token);
+      secureStorage.write(key: AppStrings.keyToken, value: token);
 
   @override
   Future<void> saveRefreshToken(String token) =>
-      prefs.setString(AppStrings.keyRefreshToken, token);
+      secureStorage.write(key: AppStrings.keyRefreshToken, value: token);
 
   @override
-  String getToken() {
-    final token = prefs.getString(AppStrings.keyToken);
+  Future<String> getToken() async {
+    final token = await secureStorage.read(key: AppStrings.keyToken);
     if (token == null) throw const CacheException('No token cached');
     return token;
   }
 
   @override
   Future<void> saveDriverId(String id) =>
-      prefs.setString(AppStrings.keyDriverId, id);
+      secureStorage.write(key: AppStrings.keyDriverId, value: id);
 
   @override
-  String getDriverId() {
-    final id = prefs.getString(AppStrings.keyDriverId);
+  Future<String> getDriverId() async {
+    final id = await secureStorage.read(key: AppStrings.keyDriverId);
     if (id == null) throw const CacheException('No driver id cached');
     return id;
   }
@@ -53,8 +56,8 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
 
   @override
   Future<void> clearSession() async {
-    await prefs.remove(AppStrings.keyToken);
-    await prefs.remove(AppStrings.keyRefreshToken);
-    await prefs.remove(AppStrings.keyDriverId);
+    await secureStorage.delete(key: AppStrings.keyToken);
+    await secureStorage.delete(key: AppStrings.keyRefreshToken);
+    await secureStorage.delete(key: AppStrings.keyDriverId);
   }
 }

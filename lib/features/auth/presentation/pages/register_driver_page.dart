@@ -14,12 +14,11 @@ import '../../../../core/theme/text_styles.dart';
 import '../../../../core/utils/auth_form_validation.dart';
 import '../../../../core/utils/auth_validators.dart';
 import '../../../../l10n/app_localizations.dart';
-import '../bloc/auth_bloc.dart';
-import '../bloc/auth_event.dart';
+import '../bloc/auth_cubit.dart';
 import '../bloc/auth_state.dart';
 import '../widgets/app_language_picker_modal.dart';
 import '../widgets/auth_image_upload_box.dart';
-import '../widgets/auth_language_chip_align.dart';
+import '../widgets/auth_language_chip.dart';
 import '../widgets/auth_primary_button.dart';
 import '../widgets/auth_text_field.dart';
 import '../widgets/document_upload_tile.dart';
@@ -45,12 +44,10 @@ class _RegisterDriverPageState extends State<RegisterDriverPage> {
   final _picker = ImagePicker();
 
   String? _vehicleType;
-  String? _profilePhotoUrl;
-  String? _driverLicensePhotoUrl;
-  String? _vehicleLicensePhotoUrl;
-  String? _nationalIdPhotoUrl;
-  final Map<_MediaSlot, int> _uploadVersions = {};
-  final Set<_MediaSlot> _uploadingSlots = {};
+  File? _profilePhotoFile;
+  File? _driverLicensePhotoFile;
+  File? _vehicleLicensePhotoFile;
+  File? _nationalIdPhotoFile;
   bool _hasAttemptedSubmit = false;
 
   static const _vehicleTypes = ['motorcycle', 'car', 'bicycle'];
@@ -91,42 +88,23 @@ class _RegisterDriverPageState extends State<RegisterDriverPage> {
     return '+20$digits';
   }
 
-  Future<void> _onMediaChanged(_MediaSlot slot, File? file) async {
-    final version = (_uploadVersions[slot] ?? 0) + 1;
-    _uploadVersions[slot] = version;
+  void _onMediaChanged(_MediaSlot slot, File? file) {
     setState(() {
-      _setMediaUrl(slot, null);
-      if (file == null) {
-        _uploadingSlots.remove(slot);
-      } else {
-        _uploadingSlots.add(slot);
+      switch (slot) {
+        case _MediaSlot.profile:
+          _profilePhotoFile = file;
+          break;
+        case _MediaSlot.driverLicense:
+          _driverLicensePhotoFile = file;
+          break;
+        case _MediaSlot.vehicleLicense:
+          _vehicleLicensePhotoFile = file;
+          break;
+        case _MediaSlot.nationalId:
+          _nationalIdPhotoFile = file;
+          break;
       }
     });
-    if (file == null) return;
-
-    final url = await context.read<AuthBloc>().uploadMedia(file.path);
-    if (!mounted || _uploadVersions[slot] != version) return;
-    setState(() {
-      _setMediaUrl(slot, url);
-      _uploadingSlots.remove(slot);
-    });
-  }
-
-  void _setMediaUrl(_MediaSlot slot, String? url) {
-    switch (slot) {
-      case _MediaSlot.profile:
-        _profilePhotoUrl = url;
-        break;
-      case _MediaSlot.driverLicense:
-        _driverLicensePhotoUrl = url;
-        break;
-      case _MediaSlot.vehicleLicense:
-        _vehicleLicensePhotoUrl = url;
-        break;
-      case _MediaSlot.nationalId:
-        _nationalIdPhotoUrl = url;
-        break;
-    }
   }
 
   void _onRegisterPressed() {
@@ -139,19 +117,18 @@ class _RegisterDriverPageState extends State<RegisterDriverPage> {
     final isValid = _formKey.currentState?.validate() ?? false;
     if (!isValid) return;
 
-    context.read<AuthBloc>().add(
-      AuthRegisterRequested(
-        name: _usernameController.text.trim(),
-        phone: _apiPhoneNumber(),
-        email: _emailController.text.trim(),
-        vehicleType: _vehicleType!,
-        vehicleNumber: _vehicleNumberController.text.trim(),
-        nationalId: _nationalIdController.text.trim(),
-        profilePhotoUrl: _profilePhotoUrl,
-        driverLicensePhotoUrl: _driverLicensePhotoUrl,
-        vehicleLicensePhotoUrl: _vehicleLicensePhotoUrl,
-        nationalIdPhotoUrl: _nationalIdPhotoUrl,
-      ),
+    context.read<AuthCubit>().submitRegistration(
+      firstName: _usernameController.text.trim().split(' ').first,
+      lastName: _usernameController.text.trim().split(' ').length > 1 ? _usernameController.text.trim().split(' ').sublist(1).join(' ') : '',
+      phone: _apiPhoneNumber(),
+      email: _emailController.text.trim(),
+      vehicleType: _vehicleType!,
+      vehicleNumber: _vehicleNumberController.text.trim(),
+      nationalId: _nationalIdController.text.trim(),
+      profilePhoto: _profilePhotoFile,
+      driverLicensePhoto: _driverLicensePhotoFile,
+      vehicleLicensePhoto: _vehicleLicensePhotoFile,
+      nationalIdPhoto: _nationalIdPhotoFile,
     );
   }
 
@@ -160,11 +137,11 @@ class _RegisterDriverPageState extends State<RegisterDriverPage> {
     final l10n = AppLocalizations.of(context)!;
     final fieldAutovalidate = authAutovalidateMode(_hasAttemptedSubmit);
 
-    return BlocConsumer<AuthBloc, AuthState>(
+    return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
-        if (state is AuthRegisterSucceeded) {
-          context.go(RouteNames.registrationPending);
-        } else if (state is AuthRegisterFailed) {
+        if (state is AuthRegistrationSubmitted) {
+          context.go(RouteNames.pending);
+        } else if (state is AuthError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
@@ -176,8 +153,7 @@ class _RegisterDriverPageState extends State<RegisterDriverPage> {
         }
       },
       builder: (context, state) {
-        final isSubmitting = state is AuthRegisterInProgress;
-        final isUploading = _uploadingSlots.isNotEmpty;
+        final isSubmitting = state is AuthLoading;
         return Scaffold(
           backgroundColor: AppColors.scaffoldBackground(context),
           bottomNavigationBar: SafeArea(
@@ -186,7 +162,7 @@ class _RegisterDriverPageState extends State<RegisterDriverPage> {
               padding: const EdgeInsets.fromLTRB(16, 20, 16, 20),
               child: AuthPrimaryButton(
                 label: l10n.registerSubmit,
-                onPressed: isSubmitting || isUploading
+                onPressed: isSubmitting
                     ? null
                     : _onRegisterPressed,
               ),
@@ -200,26 +176,38 @@ class _RegisterDriverPageState extends State<RegisterDriverPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    AuthLanguageChipAlign(
-                      label: context.isArabic
-                          ? l10n.languageArabicChip
-                          : l10n.languageEnglishChip,
-                      flagAsset: context.isArabic
-                          ? AppAssets.flagEg
-                          : AppAssets.flagUsa,
-                      onTap: () => showAppLanguagePicker(context),
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      l10n.registerWelcomeTitle,
-                      textAlign: TextAlign.start,
-                      style: AppTextStyles.screenTitle(context),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      l10n.registerWelcomeSubtitle,
-                      textAlign: TextAlign.start,
-                      style: AppTextStyles.subtitle(context),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                l10n.registerWelcomeTitle,
+                                textAlign: TextAlign.start,
+                                style: AppTextStyles.screenTitle(context),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                l10n.registerWelcomeSubtitle,
+                                textAlign: TextAlign.start,
+                                style: AppTextStyles.subtitle(context),
+                              ),
+                            ],
+                          ),
+                        ),
+                        AuthLanguageChip(
+                          label: context.isArabic
+                              ? l10n.languageArabicChip
+                              : l10n.languageEnglishChip,
+                          flagAsset: context.isArabic
+                              ? AppAssets.flagEg
+                              : AppAssets.flagUsa,
+                          onTap: () => showAppLanguagePicker(context),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 24),
                     _ProfilePhotoFormField(

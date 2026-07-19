@@ -1,50 +1,38 @@
 import 'package:equatable/equatable.dart';
 
-import '../../domain/entities/driver_session.dart';
-import '../../domain/entities/driver_registration.dart';
-
 abstract class AuthState extends Equatable {
   const AuthState();
 
   @override
-  List<Object?> get props => [];
+  List<Object> get props => [];
 }
 
-class AuthStateInitial extends AuthState {
-  const AuthStateInitial();
-}
+class AuthInitial extends AuthState {}
 
-class Authenticated extends AuthState {
-  const Authenticated(this.session);
+class AuthLoading extends AuthState {}
 
-  final DriverSession session;
+class AuthPhoneSubmitted extends AuthState {
+  final String phone;
+  const AuthPhoneSubmitted(this.phone);
 
   @override
-  List<Object?> get props => [session];
+  List<Object> get props => [phone];
 }
 
-class Unauthenticated extends AuthState {
-  const Unauthenticated();
-}
-
-class AuthRegisterInProgress extends AuthState {
-  const AuthRegisterInProgress();
-}
-
-class AuthRegisterSucceeded extends AuthState {
-  const AuthRegisterSucceeded(this.registration);
-
-  final DriverRegistration registration;
+class AuthOtpVerified extends AuthState {
+  final bool isNewDriver;
+  const AuthOtpVerified({required this.isNewDriver});
 
   @override
-  List<Object?> get props => [registration];
+  List<Object> get props => [isNewDriver];
 }
 
-class AuthRegisterFailed extends AuthState {
-  const AuthRegisterFailed(this.message);
+class AuthRegistrationSubmitted extends AuthState {}
 
+class AuthError extends AuthState {
   final String message;
+  const AuthError(this.message);
 
   @override
-  List<Object?> get props => [message];
+  List<Object> get props => [message];
 }
