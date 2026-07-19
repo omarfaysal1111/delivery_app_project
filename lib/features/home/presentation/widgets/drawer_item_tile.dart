@@ -40,11 +40,11 @@ class DrawerItemTile extends StatelessWidget {
                     children: [
                       // Icon — 32×32 circle or rounded-rect (logout)
                       Container(
-                        width: 32,
-                        height: 32,
+                        width: 38,
+                        height: 38,
                         decoration: BoxDecoration(
                           color: iconBgColor,
-                          borderRadius: isLogout ? BorderRadius.circular(8) : BorderRadius.circular(16),
+                          borderRadius: BorderRadius.circular(19),
                         ),
                         child: Center(
                           child: Image.asset(

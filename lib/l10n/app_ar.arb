@@ -89,6 +89,8 @@
   "drawerSupport": "الدعم الفني",
   "drawerTerms": "الشروط والأحكام",
   "drawerLogout": "تسجيل الخروج",
+  "noReviewsYet": "لا توجد تقييمات حتى الآن.",
+  "noNotificationsYet": "لا توجد إشعارات حتى الآن.",
   "drawerGuestName": "مستخدم",
   "logoutConfirmTitle": "تسجيل الخروج",
   "logoutConfirmMessage": "هل أنت متأكد من تسجيل الخروج؟",
@@ -115,5 +117,15 @@
   "supportInputHint": "اكتب رسالتك هنا...",
 
   "termsTitle": "الشروط والأحكام",
-  "termsBody": "هذه هي الشروط والأحكام..."
+  "termsBody": "هذه هي الشروط والأحكام...",
+
+  "changePhoneNumber": "تغيير رقم الجوال",
+  "manageOrderReception": "التحكم في استقبال الطلبات",
+  "currentPhoneLabel": "رقم الجوال الحالي",
+  "newPhoneLabel": "رقم الجوال الجديد",
+  "verifyPhoneButton": "تأكيد",
+  "enterCurrentPhone": "أدخل رقم جوالك الحالي",
+  "enterNewPhone": "أدخل رقم جوالك الجديد",
+  "invalidPhone": "رقم الجوال غير صحيح",
+  "phoneChangedSuccess": "تم تحديث رقم الجوال بنجاح"
 }

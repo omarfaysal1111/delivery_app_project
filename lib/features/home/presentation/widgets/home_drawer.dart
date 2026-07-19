@@ -43,111 +43,120 @@ class HomeDrawer extends StatelessWidget {
           ),
         ),
         child: SafeArea(
-          child: SingleChildScrollView(
-            child: Padding(
-            // Figma: paddingTop=64, R=16, B=16, L=16
-            padding: const EdgeInsets.only(
-              top: 64,
-              right: 16,
-              bottom: 16,
-              left: 16,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // ── Header ─────────────────────────────────────────────
-                _DrawerHeader(l10n: l10n),
-
-                const SizedBox(height: 16),
-                Divider(height: 1, color: Theme.of(context).dividerColor),
-                const SizedBox(height: 16),
-
-                // ── Menu Items ─────────────────────────────────────────
-                ListView(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  padding: EdgeInsets.zero,
-                  children: [
-                      DrawerItemTile(
-                        title: l10n.drawerHome,
-                        iconAsset: 'assets/images/ic_drawer_home.png',
-                        iconBgColor: _colorHome,
-                        onTap: () => Navigator.of(context).pop(),
-                      ),
-                      DrawerItemTile(
-                        title: l10n.drawerGeneralSettings,
-                        iconAsset: 'assets/images/ic_drawer_settings.png',
-                        iconBgColor: _colorSettings,
-                        onTap: () {
-                          Navigator.of(context).pop();
-                          context.push(RouteNames.settings);
-                        },
-                      ),
-                      DrawerItemTile(
-                        title: l10n.drawerNotifications,
-                        iconAsset: 'assets/images/ic_drawer_notifications.png',
-                        iconBgColor: _colorNotifications,
-                        onTap: () {
-                          Navigator.of(context).pop();
-                          context.push(RouteNames.notifications);
-                        },
-                      ),
-                      DrawerItemTile(
-                        title: l10n.drawerReviews,
-                        iconAsset: 'assets/images/ic_drawer_reviews.png',
-                        iconBgColor: _colorReviews,
-                        onTap: () {
-                          Navigator.of(context).pop();
-                          context.push(RouteNames.reviews);
-                        },
-                      ),
-                      DrawerItemTile(
-                        title: l10n.drawerWallet,
-                        iconAsset: 'assets/images/ic_drawer_wallet.png',
-                        iconBgColor: _colorWallet,
-                        onTap: () => Navigator.of(context).pop(),
-                      ),
-                      DrawerItemTile(
-                        title: l10n.drawerSupport,
-                        iconAsset: 'assets/images/ic_drawer_support.png',
-                        iconBgColor: _colorSupport,
-                        onTap: () {
-                          Navigator.of(context).pop();
-                          context.push(RouteNames.support);
-                        },
-                      ),
-                      DrawerItemTile(
-                        title: l10n.drawerTerms,
-                        iconAsset: 'assets/images/ic_drawer_terms.png',
-                        iconBgColor: _colorTerms,
-                        onTap: () {
-                          Navigator.of(context).pop();
-                          context.push(RouteNames.termsAndConditions);
-                        },
-                        showDivider: false, // hide the divider for the last item
-                      ),
-                  ],
+        child: SafeArea(
+          child: CustomScrollView(
+            slivers: [
+              SliverPadding(
+                padding: const EdgeInsets.only(
+                  top: 20,
+                  right: 16,
+                  left: 16,
                 ),
+                sliver: SliverList(
+                  delegate: SliverChildListDelegate([
+                    // ── Header ─────────────────────────────────────────────
+                    _DrawerHeader(l10n: l10n),
 
-                // ── Logout (pinned at bottom) ───────────────────────────
-                const SizedBox(height: 16),
-                BlocBuilder<AuthCubit, AuthState>(
-                  builder: (context, state) {
-                    final isLoading = state is AuthLogoutLoading;
-                    return DrawerItemTile(
-                      title: isLoading ? '...' : l10n.drawerLogout,
-                      iconAsset: 'assets/images/ic_drawer_logout.png',
-                      iconBgColor: _colorLogout,
-                      isLogout: true,
-                      showDivider: false, // no divider under logout
-                      onTap: isLoading
-                          ? () {}
-                          : () => _confirmLogout(context, l10n),
-                    );
-                  },
+                    const SizedBox(height: 16),
+                    Divider(height: 1, color: Theme.of(context).dividerColor),
+                    const SizedBox(height: 16),
+
+                    // ── Menu Items ─────────────────────────────────────────
+                    DrawerItemTile(
+                      title: l10n.drawerHome,
+                      iconAsset: 'assets/images/ic_drawer_home.png',
+                      iconBgColor: _colorHome,
+                      onTap: () => Navigator.of(context).pop(),
+                    ),
+                    DrawerItemTile(
+                      title: l10n.drawerGeneralSettings,
+                      iconAsset: 'assets/images/ic_drawer_settings.png',
+                      iconBgColor: _colorSettings,
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        context.push(RouteNames.settings);
+                      },
+                    ),
+                    DrawerItemTile(
+                      title: l10n.drawerNotifications,
+                      iconAsset: 'assets/images/ic_drawer_notifications.png',
+                      iconBgColor: _colorNotifications,
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        context.push(RouteNames.notifications);
+                      },
+                    ),
+                    DrawerItemTile(
+                      title: l10n.drawerReviews,
+                      iconAsset: 'assets/images/ic_drawer_reviews.png',
+                      iconBgColor: _colorReviews,
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        context.push(RouteNames.reviews);
+                      },
+                    ),
+                    DrawerItemTile(
+                      title: l10n.drawerWallet,
+                      iconAsset: 'assets/images/ic_drawer_wallet.png',
+                      iconBgColor: _colorWallet,
+                      onTap: () => Navigator.of(context).pop(),
+                    ),
+                    DrawerItemTile(
+                      title: l10n.drawerSupport,
+                      iconAsset: 'assets/images/ic_drawer_support.png',
+                      iconBgColor: _colorSupport,
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        context.push(RouteNames.support);
+                      },
+                    ),
+                    DrawerItemTile(
+                      title: l10n.drawerTerms,
+                      iconAsset: 'assets/images/ic_drawer_terms.png',
+                      iconBgColor: _colorTerms,
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        context.push(RouteNames.termsAndConditions);
+                      },
+                      showDivider: false, // hide the divider for the last item
+                    ),
+                  ]),
                 ),
-              ],
-            ),
+              ),
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    right: 16,
+                    left: 16,
+                    bottom: 24, // 24px safe area from bottom
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      // ── Logout (pinned at bottom) ───────────────────────────
+                      const SizedBox(height: 16),
+                      BlocBuilder<AuthCubit, AuthState>(
+                        builder: (context, state) {
+                          final isLoading = state is AuthLogoutLoading;
+                          return DrawerItemTile(
+                            title: isLoading ? '...' : l10n.drawerLogout,
+                            iconAsset: 'assets/images/ic_drawer_logout.png',
+                            iconBgColor: _colorLogout,
+                            isLogout: true,
+                            showDivider: false, // no divider under logout
+                            onTap: isLoading
+                                ? () {}
+                                : () => _confirmLogout(context, l10n),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

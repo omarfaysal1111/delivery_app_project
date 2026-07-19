@@ -17,7 +17,12 @@ class DeleteAccountEvent extends ProfileEvent {
 
 class UpdateSettingsRequest {
   final bool? pushNotifications;
+  final bool? receiveOrders;
   final String? theme;
 
-  const UpdateSettingsRequest({this.pushNotifications, this.theme});
+  const UpdateSettingsRequest({
+    this.pushNotifications,
+    this.receiveOrders,
+    this.theme,
+  });
 }

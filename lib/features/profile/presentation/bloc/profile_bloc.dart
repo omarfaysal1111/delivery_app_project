@@ -14,7 +14,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     await Future.delayed(const Duration(milliseconds: 500));
     emit(state.copyWith(
       isLoading: false,
-      settings: const ProfileSettings(pushNotifications: true),
+      settings: const ProfileSettings(pushNotifications: true, receiveOrders: true),
     ));
   }
 
@@ -26,6 +26,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       updateSettingsSuccess: true,
       settings: ProfileSettings(
         pushNotifications: event.request.pushNotifications ?? state.settings?.pushNotifications ?? true,
+        receiveOrders: event.request.receiveOrders ?? state.settings?.receiveOrders ?? true,
       ),
     ));
     // Reset success flag

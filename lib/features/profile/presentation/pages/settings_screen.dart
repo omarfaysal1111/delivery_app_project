@@ -12,9 +12,12 @@ import 'package:delivery_app_project/features/auth/presentation/widgets/app_lang
 import 'package:delivery_app_project/l10n/app_localizations.dart';
 import 'package:delivery_app_project/core/widgets/app_directional_icons.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:delivery_app_project/features/profile/presentation/bloc/profile_bloc.dart';
-import 'package:delivery_app_project/features/profile/presentation/bloc/profile_event.dart';
-import 'package:delivery_app_project/features/profile/presentation/bloc/profile_state.dart';
+import '../../../../core/di/injection_container.dart';
+import '../bloc/profile_bloc.dart';
+import '../bloc/phone_change/phone_change_cubit.dart';
+import '../bloc/profile_event.dart';
+import '../bloc/profile_state.dart';
+import '../widgets/change_phone_bottom_sheet.dart';
 import 'package:delivery_app_project/features/auth/presentation/bloc/auth_cubit.dart';
 
 
@@ -76,7 +79,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 Column(
                   children: [
                     _SettingsHeader(title: l10n.generalSettingsTitle),
-                    const SizedBox(height: 28),
+                    const SizedBox(height: 20),
                     Padding(
                       padding: const EdgeInsetsDirectional.symmetric(
                         horizontal: AppSpacing.md,
@@ -92,6 +95,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   : l10n.englishLanguage,
                             ),
                             onTap: () => showAppLanguagePicker(context),
+                          ),
+                          _SettingsDivider(),
+                          _SettingsRow(
+                            iconAsset: AppAssets.generalSettingsChangePhone,
+                            title: l10n.changePhoneNumber,
+                            trailing: Icon(
+                              AppDirectionalIcons.backChevron(context),
+                              size: 24,
+                              color: Colors.grey,
+                            ),
+                            onTap: () => _showChangePhoneBottomSheet(context),
+                          ),
+                          _SettingsDivider(),
+                          _SettingsRow(
+                            iconAsset: AppAssets.generalSettingsManageOrders,
+                            title: l10n.manageOrderReception,
+                            trailing: _NotificationSwitch(
+                              value: state.settings?.receiveOrders ?? true,
+                              onChanged: (value) {
+                                context.read<ProfileBloc>().add(
+                                  UpdateSettingsEvent(
+                                    UpdateSettingsRequest(
+                                      receiveOrders: value,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
                           ),
                           _SettingsDivider(),
                           _SettingsRow(
@@ -157,6 +188,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
+  void _showChangePhoneBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: AppColors.scaffoldBackground(context),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (context) {
+        return BlocProvider<PhoneChangeCubit>(
+          create: (context) => sl<PhoneChangeCubit>(),
+          child: const ChangePhoneBottomSheet(),
+        );
+      },
+    );
+  }
+
   Future<void> _showDeleteAccountDialog(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
@@ -194,7 +242,7 @@ class _SettingsHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 56,
+      height: 28,
       child: Padding(
         padding: const EdgeInsetsDirectional.symmetric(
           horizontal: AppSpacing.md,
@@ -277,14 +325,16 @@ class _LanguageTrailing extends StatelessWidget {
 
 class _SettingsRow extends StatelessWidget {
   const _SettingsRow({
-    required this.iconAsset,
+    this.iconAsset,
+    this.iconData,
     required this.title,
     this.trailing,
     this.onTap,
     this.titleColor,
   });
 
-  final String iconAsset;
+  final String? iconAsset;
+  final IconData? iconData;
   final String title;
   final Widget? trailing;
   final VoidCallback? onTap;
@@ -299,7 +349,10 @@ class _SettingsRow extends StatelessWidget {
         height: 64,
         child: Row(
           children: [
-            AppSvgImage.asset(iconAsset, width: 32, height: 32),
+            if (iconAsset != null)
+              AppSvgImage.asset(iconAsset!, width: 32, height: 32)
+            else if (iconData != null)
+              Icon(iconData, size: 32, color: AppColors.onSurface(context)),
             const SizedBox(width: 12),
             Expanded(
               child: Text(

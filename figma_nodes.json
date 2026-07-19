@@ -1,0 +1,466 @@
+[
+  {
+    "id": null,
+    "name": "food delivery app"
+  },
+  {
+    "id": "7838:11415",
+    "name": "order Detiles"
+  },
+  {
+    "id": "7838:11416",
+    "name": "iPhone X/Status Bars/Status Bar (Black)"
+  },
+  {
+    "id": "I7838:11416;3:294",
+    "name": "Rectangle"
+  },
+  {
+    "id": "I7838:11416;3:295",
+    "name": "Group 3"
+  },
+  {
+    "id": "I7838:11416;3:296",
+    "name": "Battery"
+  },
+  {
+    "id": "I7838:11416;3:297",
+    "name": "Border"
+  },
+  {
+    "id": "I7838:11416;3:298",
+    "name": "Cap"
+  },
+  {
+    "id": "I7838:11416;3:299",
+    "name": "Capacity"
+  },
+  {
+    "id": "I7838:11416;3:300",
+    "name": "Wifi"
+  },
+  {
+    "id": "I7838:11416;3:301",
+    "name": "Wifi-path"
+  },
+  {
+    "id": "I7838:11416;3:302",
+    "name": "Wifi-path"
+  },
+  {
+    "id": "I7838:11416;3:303",
+    "name": "Wifi-path"
+  },
+  {
+    "id": "I7838:11416;3:304",
+    "name": "Cellular Connection"
+  },
+  {
+    "id": "I7838:11416;3:305",
+    "name": "Cellular_Connection-path"
+  },
+  {
+    "id": "I7838:11416;3:306",
+    "name": "Cellular_Connection-path"
+  },
+  {
+    "id": "I7838:11416;3:307",
+    "name": "Cellular_Connection-path"
+  },
+  {
+    "id": "I7838:11416;3:308",
+    "name": "Cellular_Connection-path"
+  },
+  {
+    "id": "I7838:11416;3:309",
+    "name": "Time Style"
+  },
+  {
+    "id": "I7838:11416;6:17",
+    "name": "↳ Time"
+  },
+  {
+    "id": "7838:11417",
+    "name": "Frame 1984078581"
+  },
+  {
+    "id": "7838:11418",
+    "name": "Frame 1171279388"
+  },
+  {
+    "id": "I7838:11418;6667:3065",
+    "name": "تغيير الموقع الجغرافي"
+  },
+  {
+    "id": "I7838:11418;6667:3066",
+    "name": "back"
+  },
+  {
+    "id": "I7838:11418;6667:3066;6195:111",
+    "name": "arrow-right-01"
+  },
+  {
+    "id": "I7838:11418;6667:3066;6195:111;6:1789",
+    "name": "elements"
+  },
+  {
+    "id": "I7838:11418;6667:3066;6195:111;6:1790",
+    "name": "Icon"
+  },
+  {
+    "id": "7838:11419",
+    "name": "Frame 1984078566"
+  },
+  {
+    "id": "7838:11420",
+    "name": "Frame 1984078558"
+  },
+  {
+    "id": "7838:11421",
+    "name": "Frame 1984078557"
+  },
+  {
+    "id": "I7838:11421;7182:6146",
+    "name": "Frame 1984078567"
+  },
+  {
+    "id": "I7838:11421;7182:6134",
+    "name": "arrow-left-01"
+  },
+  {
+    "id": "I7838:11421;7182:6134;6:1717",
+    "name": "elements"
+  },
+  {
+    "id": "I7838:11421;7182:6134;6:1718",
+    "name": "Icon"
+  },
+  {
+    "id": "I7838:11421;7182:6144",
+    "name": "عربي"
+  },
+  {
+    "id": "I7838:11421;7182:6135",
+    "name": "Frame 1984078556"
+  },
+  {
+    "id": "I7838:11421;7182:6136",
+    "name": "المفضلة"
+  },
+  {
+    "id": "I7838:11421;7182:6137",
+    "name": "Group 1171276123"
+  },
+  {
+    "id": "I7838:11421;7182:6138",
+    "name": "Ellipse 14"
+  },
+  {
+    "id": "I7838:11421;7182:6139",
+    "name": "language-skill"
+  },
+  {
+    "id": "I7838:11421;7182:6139;6:90037",
+    "name": "elements"
+  },
+  {
+    "id": "I7838:11421;7182:6139;6:90038",
+    "name": "Icon"
+  },
+  {
+    "id": "7838:11422",
+    "name": "Line 13"
+  },
+  {
+    "id": "7849:12693",
+    "name": "Frame 1984078566"
+  },
+  {
+    "id": "7849:12694",
+    "name": "Frame 1984078557"
+  },
+  {
+    "id": "I7849:12694;7182:6146",
+    "name": "Frame 1984078567"
+  },
+  {
+    "id": "I7849:12694;7182:6134",
+    "name": "arrow-left-01"
+  },
+  {
+    "id": "I7849:12694;7182:6134;6:1717",
+    "name": "elements"
+  },
+  {
+    "id": "I7849:12694;7182:6134;6:1718",
+    "name": "Icon"
+  },
+  {
+    "id": "I7849:12694;7182:6144",
+    "name": "عربي"
+  },
+  {
+    "id": "I7849:12694;7182:6135",
+    "name": "Frame 1984078556"
+  },
+  {
+    "id": "I7849:12694;7182:6136",
+    "name": "المفضلة"
+  },
+  {
+    "id": "I7849:12694;7182:6137",
+    "name": "Group 1171276123"
+  },
+  {
+    "id": "I7849:12694;7182:6138",
+    "name": "Ellipse 14"
+  },
+  {
+    "id": "I7849:12694;7182:6139",
+    "name": "smart-phone-02"
+  },
+  {
+    "id": "I7849:12694;7182:6139;6:36266",
+    "name": "elements"
+  },
+  {
+    "id": "I7849:12694;7182:6139;6:36267",
+    "name": "Icon"
+  },
+  {
+    "id": "7849:12695",
+    "name": "Line 13"
+  },
+  {
+    "id": "7838:11423",
+    "name": "Frame 1984078562"
+  },
+  {
+    "id": "7838:11424",
+    "name": "Frame 1984078557"
+  },
+  {
+    "id": "I7838:11424;7186:6963",
+    "name": "toggle"
+  },
+  {
+    "id": "I7838:11424;7186:6963;6439:840",
+    "name": "Ellipse 1"
+  },
+  {
+    "id": "I7838:11424;7186:6713",
+    "name": "Frame 1984078556"
+  },
+  {
+    "id": "I7838:11424;7186:6714",
+    "name": "المفضلة"
+  },
+  {
+    "id": "I7838:11424;7186:6715",
+    "name": "Group 1171276123"
+  },
+  {
+    "id": "I7838:11424;7186:6716",
+    "name": "Ellipse 14"
+  },
+  {
+    "id": "I7838:11424;7186:6717",
+    "name": "package-open"
+  },
+  {
+    "id": "I7838:11424;7186:6717;6:55656",
+    "name": "elements"
+  },
+  {
+    "id": "I7838:11424;7186:6717;6:55657",
+    "name": "Icon"
+  },
+  {
+    "id": "7838:11425",
+    "name": "Line 13"
+  },
+  {
+    "id": "7838:12010",
+    "name": "Frame 1984078565"
+  },
+  {
+    "id": "7838:12011",
+    "name": "Frame 1984078557"
+  },
+  {
+    "id": "I7838:12011;7186:6963",
+    "name": "toggle"
+  },
+  {
+    "id": "I7838:12011;7186:6963;6439:840",
+    "name": "Ellipse 1"
+  },
+  {
+    "id": "I7838:12011;7186:6713",
+    "name": "Frame 1984078556"
+  },
+  {
+    "id": "I7838:12011;7186:6714",
+    "name": "المفضلة"
+  },
+  {
+    "id": "I7838:12011;7186:6715",
+    "name": "Group 1171276123"
+  },
+  {
+    "id": "I7838:12011;7186:6716",
+    "name": "Ellipse 14"
+  },
+  {
+    "id": "I7838:12011;7186:6717",
+    "name": "notification-03"
+  },
+  {
+    "id": "I7838:12011;7186:6717;6:6684",
+    "name": "elements"
+  },
+  {
+    "id": "I7838:12011;7186:6717;6:6685",
+    "name": "Icon"
+  },
+  {
+    "id": "7838:12012",
+    "name": "Line 13"
+  },
+  {
+    "id": "7838:11429",
+    "name": "Frame 1984078564"
+  },
+  {
+    "id": "7838:11430",
+    "name": "Frame 1984078557"
+  },
+  {
+    "id": "I7838:11430;7174:5504",
+    "name": "Frame 1984078556"
+  },
+  {
+    "id": "I7838:11430;7174:5505",
+    "name": "المفضلة"
+  },
+  {
+    "id": "I7838:11430;7174:5524",
+    "name": "Frame 1984078565"
+  },
+  {
+    "id": "I7838:11430;7174:5525",
+    "name": "user-remove-01"
+  },
+  {
+    "id": "I7838:11430;7174:5525;6:102429",
+    "name": "elements"
+  },
+  {
+    "id": "I7838:11430;7174:5525;6:102430",
+    "name": "Icon"
+  },
+  {
+    "id": null,
+    "name": "iPhone X/Status Bars/Status Bar (Black)"
+  },
+  {
+    "id": null,
+    "name": "back"
+  },
+  {
+    "id": null,
+    "name": "back"
+  },
+  {
+    "id": null,
+    "name": "Style=Stroke, Type=Sharp"
+  },
+  {
+    "id": null,
+    "name": "Property 1=Variant3"
+  },
+  {
+    "id": null,
+    "name": "Style=Stroke, Type=Sharp"
+  },
+  {
+    "id": null,
+    "name": "Style=Stroke, Type=Rounded"
+  },
+  {
+    "id": null,
+    "name": "Style=Stroke, Type=Rounded"
+  },
+  {
+    "id": null,
+    "name": "Property 1=Variant4"
+  },
+  {
+    "id": null,
+    "name": "Property 1=Variant4"
+  },
+  {
+    "id": null,
+    "name": "Style=Stroke, Type=Rounded"
+  },
+  {
+    "id": null,
+    "name": "Style=Stroke, Type=Rounded"
+  },
+  {
+    "id": null,
+    "name": "Property 1=Variant2"
+  },
+  {
+    "id": null,
+    "name": "Style=Stroke, Type=Rounded"
+  },
+  {
+    "id": null,
+    "name": "arrow-right-01"
+  },
+  {
+    "id": null,
+    "name": "Frame 1984078557"
+  },
+  {
+    "id": null,
+    "name": "arrow-left-01"
+  },
+  {
+    "id": null,
+    "name": "language-skill"
+  },
+  {
+    "id": null,
+    "name": "smart-phone-02"
+  },
+  {
+    "id": null,
+    "name": "toggle"
+  },
+  {
+    "id": null,
+    "name": "package-open"
+  },
+  {
+    "id": null,
+    "name": "notification-03"
+  },
+  {
+    "id": null,
+    "name": "user-remove-01"
+  },
+  {
+    "id": null,
+    "name": "Mobile/h3"
+  },
+  {
+    "id": null,
+    "name": "Mobile/12 m"
+  },
+  {
+    "id": null,
+    "name": "Mobile/Button"
+  }
+]

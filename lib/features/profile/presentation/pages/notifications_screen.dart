@@ -34,7 +34,7 @@ class NotificationsScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              "No notifications yet.", // Typically l10n, using simple string for placeholder
+              l10n.noNotificationsYet,
               style: AppTextStyles.body(context).copyWith(
                 color: AppColors.paragraph(context),
               ),

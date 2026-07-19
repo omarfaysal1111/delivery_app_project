@@ -17,6 +17,8 @@ class AppAssets {
   static const generalSettingsLanguage = 'assets/images/icons/general_settings/language.svg';
   static const generalSettingsNotifications = 'assets/images/icons/general_settings/notifications.svg';
   static const generalSettingsDarkMode = 'assets/images/icons/general_settings/dark_mode.svg';
+  static const generalSettingsChangePhone = 'assets/images/icons/general_settings/change_phone.svg';
+  static const generalSettingsManageOrders = 'assets/images/icons/general_settings/manage_orders.svg';
   static const generalSettingsDeleteAccount = 'assets/images/icons/general_settings/delete_account.svg';
 
   static const supportHeaderPattern = 'assets/images/support/header_pattern.png';

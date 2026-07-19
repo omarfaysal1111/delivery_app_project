@@ -572,6 +572,18 @@ abstract class AppLocalizations {
   /// **'Logout'**
   String get drawerLogout;
 
+  /// No description provided for @noReviewsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No reviews yet.'**
+  String get noReviewsYet;
+
+  /// No description provided for @noNotificationsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No notifications yet.'**
+  String get noNotificationsYet;
+
   /// No description provided for @drawerGuestName.
   ///
   /// In en, this message translates to:
@@ -715,6 +727,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'These are the terms and conditions...'**
   String get termsBody;
+
+  /// No description provided for @changePhoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Phone Number'**
+  String get changePhoneNumber;
+
+  /// No description provided for @manageOrderReception.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Order Reception'**
+  String get manageOrderReception;
+
+  /// No description provided for @currentPhoneLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Phone Number'**
+  String get currentPhoneLabel;
+
+  /// No description provided for @newPhoneLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'New Phone Number'**
+  String get newPhoneLabel;
+
+  /// No description provided for @verifyPhoneButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify'**
+  String get verifyPhoneButton;
+
+  /// No description provided for @enterCurrentPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your current phone number'**
+  String get enterCurrentPhone;
+
+  /// No description provided for @enterNewPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your new phone number'**
+  String get enterNewPhone;
+
+  /// No description provided for @invalidPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid phone number'**
+  String get invalidPhone;
+
+  /// No description provided for @phoneChangedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number updated successfully'**
+  String get phoneChangedSuccess;
 }
 
 class _AppLocalizationsDelegate

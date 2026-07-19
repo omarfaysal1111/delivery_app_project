@@ -255,6 +255,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get drawerLogout => 'Logout';
 
   @override
+  String get noReviewsYet => 'No reviews yet.';
+
+  @override
+  String get noNotificationsYet => 'No notifications yet.';
+
+  @override
   String get drawerGuestName => 'User';
 
   @override
@@ -326,4 +332,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get termsBody => 'These are the terms and conditions...';
+
+  @override
+  String get changePhoneNumber => 'Change Phone Number';
+
+  @override
+  String get manageOrderReception => 'Manage Order Reception';
+
+  @override
+  String get currentPhoneLabel => 'Current Phone Number';
+
+  @override
+  String get newPhoneLabel => 'New Phone Number';
+
+  @override
+  String get verifyPhoneButton => 'Verify';
+
+  @override
+  String get enterCurrentPhone => 'Enter your current phone number';
+
+  @override
+  String get enterNewPhone => 'Enter your new phone number';
+
+  @override
+  String get invalidPhone => 'Invalid phone number';
+
+  @override
+  String get phoneChangedSuccess => 'Phone number updated successfully';
 }

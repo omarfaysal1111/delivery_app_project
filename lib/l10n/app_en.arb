@@ -94,6 +94,8 @@
   "drawerSupport": "Technical Support",
   "drawerTerms": "Terms & Conditions",
   "drawerLogout": "Logout",
+  "noReviewsYet": "No reviews yet.",
+  "noNotificationsYet": "No notifications yet.",
   "drawerGuestName": "User",
   "logoutConfirmTitle": "Logout",
   "logoutConfirmMessage": "Are you sure you want to logout?",
@@ -120,5 +122,15 @@
   "supportInputHint": "Write your message here...",
 
   "termsTitle": "Terms & Conditions",
-  "termsBody": "These are the terms and conditions..."
+  "termsBody": "These are the terms and conditions...",
+
+  "changePhoneNumber": "Change Phone Number",
+  "manageOrderReception": "Manage Order Reception",
+  "currentPhoneLabel": "Current Phone Number",
+  "newPhoneLabel": "New Phone Number",
+  "verifyPhoneButton": "Verify",
+  "enterCurrentPhone": "Enter your current phone number",
+  "enterNewPhone": "Enter your new phone number",
+  "invalidPhone": "Invalid phone number",
+  "phoneChangedSuccess": "Phone number updated successfully"
 }

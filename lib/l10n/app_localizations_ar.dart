@@ -252,6 +252,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get drawerLogout => 'تسجيل الخروج';
 
   @override
+  String get noReviewsYet => 'لا توجد تقييمات حتى الآن.';
+
+  @override
+  String get noNotificationsYet => 'لا توجد إشعارات حتى الآن.';
+
+  @override
   String get drawerGuestName => 'مستخدم';
 
   @override
@@ -323,4 +329,31 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get termsBody => 'هذه هي الشروط والأحكام...';
+
+  @override
+  String get changePhoneNumber => 'تغيير رقم الجوال';
+
+  @override
+  String get manageOrderReception => 'التحكم في استقبال الطلبات';
+
+  @override
+  String get currentPhoneLabel => 'رقم الجوال الحالي';
+
+  @override
+  String get newPhoneLabel => 'رقم الجوال الجديد';
+
+  @override
+  String get verifyPhoneButton => 'تأكيد';
+
+  @override
+  String get enterCurrentPhone => 'أدخل رقم جوالك الحالي';
+
+  @override
+  String get enterNewPhone => 'أدخل رقم جوالك الجديد';
+
+  @override
+  String get invalidPhone => 'رقم الجوال غير صحيح';
+
+  @override
+  String get phoneChangedSuccess => 'تم تحديث رقم الجوال بنجاح';
 }

@@ -32,5 +32,9 @@ class ProfileState {
 
 class ProfileSettings {
   final bool pushNotifications;
-  const ProfileSettings({this.pushNotifications = true});
+  final bool receiveOrders;
+  const ProfileSettings({
+    this.pushNotifications = true,
+    this.receiveOrders = true,
+  });
 }
