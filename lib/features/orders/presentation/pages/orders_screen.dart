@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:delivery_app_project/core/theme/text_styles.dart';
 import 'package:delivery_app_project/features/orders/presentation/widgets/order_card.dart';
 import 'package:delivery_app_project/features/orders/domain/entities/order_entity.dart';
+import 'package:delivery_app_project/features/orders/presentation/pages/order_details_screen.dart';
 import 'package:delivery_app_project/l10n/app_localizations.dart';
 
 class OrdersScreen extends StatelessWidget {
@@ -23,7 +24,7 @@ class OrdersScreen extends StatelessWidget {
         createdAt: DateTime.now().subtract(const Duration(minutes: 5)),
         totalItems: 3,
         estimatedDistance: '2.4 km',
-        estimatedTime: '10 min',
+        estimatedTime: '20 : 15 دقيقة',
       ),
       OrderEntity(
         id: '2',
@@ -37,7 +38,7 @@ class OrdersScreen extends StatelessWidget {
         createdAt: DateTime.now().subtract(const Duration(minutes: 20)),
         totalItems: 1,
         estimatedDistance: '1.2 km',
-        estimatedTime: '5 min',
+        estimatedTime: '08 : 05 دقيقة',
       ),
       OrderEntity(
         id: '3',
@@ -75,7 +76,14 @@ class OrdersScreen extends StatelessWidget {
             padding: const EdgeInsetsDirectional.fromSTEB(16, 20, 16, 24),
             sliver: SliverList.separated(
               itemCount: orders.length,
-              itemBuilder: (context, index) => OrderCard(order: orders[index]),
+              itemBuilder: (context, index) => OrderCard(
+                order: orders[index],
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => OrderDetailsScreen(order: orders[index]),
+                  ),
+                ),
+              ),
               separatorBuilder: (_, _) => const SizedBox(height: 16),
             ),
           ),

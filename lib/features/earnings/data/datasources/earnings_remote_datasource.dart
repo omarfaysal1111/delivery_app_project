@@ -21,7 +21,7 @@ class EarningsRemoteDataSourceImpl implements EarningsRemoteDataSource {
   Future<List<dynamic>> getEarningsHistory({String? from, String? to}) async {
     final res = await client.get(
       ApiConstants.earningsHistory,
-      queryParams: {if (from != null) 'from': from, if (to != null) 'to': to},
+      queryParams: {'from': ?from, 'to': ?to},
     );
     return res['data'] as List<dynamic>;
   }

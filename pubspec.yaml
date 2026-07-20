@@ -31,6 +31,7 @@ dependencies:
   jwt_decoder: ^2.0.1
   dotted_border: ^3.1.0
 
+  intl: any
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -46,6 +47,10 @@ flutter:
     - assets/images/image-upload.png
     - assets/images/user_avatar.png
     - assets/images/profile_avatar.png
+    - assets/images/orders/
+    - assets/images/orders/2.0x/
+    - assets/images/orders/3.0x/
+    - assets/images/icons/orders/
     - assets/icons/
     - assets/images/support/
     - assets/images/icons/support/
