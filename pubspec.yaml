@@ -52,6 +52,7 @@ flutter:
     - assets/images/orders/3.0x/
     - assets/images/icons/orders/
     - assets/icons/
+    - assets/icons/orders/
     - assets/images/support/
     - assets/images/icons/support/
     - assets/images/icons/general_settings/

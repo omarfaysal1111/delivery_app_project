@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:delivery_app_project/core/theme/app_colors.dart';
 import 'package:delivery_app_project/core/theme/text_styles.dart';
 import 'package:delivery_app_project/features/orders/domain/entities/order_entity.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 /// Order Details Screen — Figma node-id: 7811-9813
 /// Layout: Real map image (40%) → overlapping white details card (60%+).
@@ -12,121 +13,120 @@ class OrderDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: Stack(
-          children: [
-            // ── Real map image — 40% of screen ────────────────────────────
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              height: screenHeight * 0.40,
-              child: Image.asset(
-                'assets/images/map_placeholder.png',
-                fit: BoxFit.cover,
-                errorBuilder: (_, _, _) => Container(
-                  color: const Color(0xFFD6E4F0),
-                  child: Center(
-                    child: Icon(
-                      Icons.map_outlined,
-                      size: 70,
-                      color: Colors.blueGrey.withValues(alpha: 0.35),
-                    ),
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.white,
+          elevation: 0,
+          titleSpacing: 16, // Screen side padding
+          title: Row(
+            children: [
+              InkWell(
+                onTap: () => Navigator.of(context).pop(),
+                child: Transform.flip(
+                  flipX: Directionality.of(context) == TextDirection.ltr,
+                  child: Image.asset(
+                    'assets/images/orders/back.png',
+                    width: 28,
+                    height: 28,
                   ),
                 ),
               ),
-            ),
-
-            // ── Transparent back button overlaid on map ────────────────────
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 6,
-                  ),
-                  child: Align(
-                    alignment: AlignmentDirectional.centerStart,
-                    child: Material(
-                      color: Colors.white.withValues(alpha: 0.88),
-                      shape: const CircleBorder(),
-                      elevation: 2,
-                      child: InkWell(
-                        customBorder: const CircleBorder(),
-                        onTap: () => Navigator.of(context).pop(),
-                        child: const Padding(
-                          padding: EdgeInsets.all(9),
-                          child: Icon(
-                            Icons.arrow_forward_ios_rounded,
-                            size: 18,
-                            color: Colors.black87,
-                          ),
+              const SizedBox(width: 4), // Exactly 4px gap
+              const Text(
+                'تفاصيل الطلب',
+                style: TextStyle(
+                  color: Color(0xFF1B1B1B),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: 'ExpoArabic',
+                ),
+              ),
+            ],
+          ),
+        ),
+        body: LayoutBuilder(
+          builder: (context, constraints) {
+            final availableHeight = constraints.maxHeight;
+            return Stack(
+              children: [
+                // ── Real map image — 40% to 45% of available height ─────────
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: availableHeight * 0.45,
+                  child: Image.asset(
+                    'assets/images/map_placeholder.png',
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, _, _) => Container(
+                      color: const Color(0xFFD6E4F0),
+                      child: Center(
+                        child: Icon(
+                          Icons.map_outlined,
+                          size: 70,
+                          color: Colors.blueGrey.withValues(alpha: 0.35),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ),
 
-            // ── Details card overlapping the map ──────────────────────────
-            Positioned(
-              top: screenHeight * 0.34,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(0x18000000),
-                      blurRadius: 20,
-                      offset: Offset(0, -6),
+                // ── Details card overlapping the map ──────────────────────────
+                Positioned(
+                  top: availableHeight * 0.40,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0x18000000),
+                          blurRadius: 20,
+                          offset: Offset(0, -6),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.fromLTRB(20, 24, 20, 40),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // ── Order Header ─────────────────────────────────────
-                      _OrderHeader(order: order),
-                      _Divider(),
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.fromLTRB(20, 24, 20, 40),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // ── Order Header ─────────────────────────────────────
+                          _OrderHeader(order: order),
+                          const _Divider(),
 
-                      // ── Restaurant Info ───────────────────────────────────
-                      _RestaurantSection(order: order),
-                      _Divider(),
+                          // ── Restaurant Info ───────────────────────────────────
+                          _RestaurantSection(order: order),
+                          const _Divider(),
 
-                      // ── Customer Info ─────────────────────────────────────
-                      _CustomerSection(order: order),
-                      _Divider(),
+                          // ── Customer Info ─────────────────────────────────────
+                          _CustomerSection(order: order),
+                          const _Divider(),
 
-                      // ── Delivery Route ────────────────────────────────────
-                      _DeliveryRouteSection(order: order),
-                      _Divider(),
+                          // ── Delivery Route ────────────────────────────────────
+                          _DeliveryRouteSection(order: order),
+                          const _Divider(),
 
-                      // ── Customer Rating ───────────────────────────────────
-                      _RatingSection(),
-                    ],
+                          // ── Customer Rating ───────────────────────────────────
+                          const _RatingSection(),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-          ],
+              ],
+            );
+          },
         ),
       ),
     );
@@ -144,21 +144,58 @@ class _OrderHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        // Right (start): Order ID
-        Text(
-          '#${order.id} :طلب رقم',
-          style: AppTextStyles.body(context).copyWith(
-            fontSize: 14,
-            fontWeight: FontWeight.w700,
-          ),
+        // Right (start): Order ID fixing RTL Bidirectional rendering
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'طلب رقم : ',
+              style: AppTextStyles.body(context).copyWith(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                color: const Color(0xFF787878),
+              ),
+            ),
+            Text(
+              '#${order.id}',
+              textDirection: TextDirection.ltr,
+              style: AppTextStyles.body(context).copyWith(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                color: const Color(0xFF1B1B1B),
+              ),
+            ),
+          ],
         ),
         const Spacer(),
         // Left (end): items • price
-        Text(
-          '${order.totalItems} منتجات • ${order.deliveryFee.toStringAsFixed(0)} ج.م',
-          style: AppTextStyles.caption(context).copyWith(
-            fontSize: 12,
-            color: AppColors.paragraph(context),
+        RichText(
+          textDirection: TextDirection.rtl,
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: '${order.totalItems} منتجات ',
+                style: AppTextStyles.caption(context).copyWith(
+                  fontSize: 12,
+                  color: const Color(0xFF787878),
+                ),
+              ),
+              TextSpan(
+                text: '• ',
+                style: AppTextStyles.caption(context).copyWith(
+                  fontSize: 12,
+                  color: const Color(0xFFA3090F),
+                ),
+              ),
+              TextSpan(
+                text: '${order.deliveryFee.toStringAsFixed(0)} ج.م',
+                style: AppTextStyles.caption(context).copyWith(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: const Color(0xFF1B1B1B),
+                ),
+              ),
+            ],
           ),
         ),
       ],
@@ -189,7 +226,7 @@ class _RestaurantSection extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Image.asset(
-                'assets/images/restaurant/az_al_sham_logo.png',
+                'assets/images/orders/az_al_sham_logo.png',
                 width: 44,
                 height: 44,
                 fit: BoxFit.cover,
@@ -212,23 +249,25 @@ class _RestaurantSection extends StatelessWidget {
                 Text(
                   order.restaurantName,
                   style: AppTextStyles.body(context).copyWith(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: const Color(0xFF1B1B1B),
                   ),
                 ),
                 const SizedBox(height: 4),
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    const _RedCallIcon(),
+                    const SizedBox(width: 8),
                     Text(
                       order.customerPhone,
+                      textDirection: TextDirection.ltr,
                       style: AppTextStyles.caption(context).copyWith(
                         fontSize: 12,
                         color: AppColors.paragraph(context),
                       ),
                     ),
-                    const SizedBox(width: 6),
-                    _RedCallIcon(),
                   ],
                 ),
               ],
@@ -255,8 +294,9 @@ class _CustomerSection extends StatelessWidget {
         Text(
           'بيانات العميل :',
           style: AppTextStyles.body(context).copyWith(
-            fontSize: 13,
-            fontWeight: FontWeight.w700,
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+            color: const Color(0xFF1B1B1B),
           ),
         ),
         const SizedBox(height: 10),
@@ -267,23 +307,25 @@ class _CustomerSection extends StatelessWidget {
             Text(
               order.customerName,
               style: AppTextStyles.body(context).copyWith(
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                color: const Color(0xFF1B1B1B),
               ),
             ),
             const SizedBox(height: 4),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
+                const _RedSmartphoneIcon(),
+                const SizedBox(width: 8),
                 Text(
                   order.customerPhone,
+                  textDirection: TextDirection.ltr,
                   style: AppTextStyles.caption(context).copyWith(
                     fontSize: 12,
                     color: AppColors.paragraph(context),
                   ),
                 ),
-                const SizedBox(width: 6),
-                _RedCallIcon(),
               ],
             ),
           ],
@@ -308,8 +350,9 @@ class _DeliveryRouteSection extends StatelessWidget {
         Text(
           'نطاق التوصيل :',
           style: AppTextStyles.body(context).copyWith(
-            fontSize: 13,
-            fontWeight: FontWeight.w700,
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+            color: const Color(0xFF1B1B1B),
           ),
         ),
         const SizedBox(height: 16),
@@ -321,13 +364,23 @@ class _DeliveryRouteSection extends StatelessWidget {
             // Vertical icon column with dotted connector
             Column(
               children: [
-                const Icon(Icons.location_on, color: Colors.black87, size: 22),
+                SvgPicture.asset(
+                  'assets/icons/orders/pin_location.svg',
+                  width: 22,
+                  height: 22,
+                  colorFilter: const ColorFilter.mode(Colors.black87, BlendMode.srcIn),
+                ),
                 SizedBox(
                   height: 36,
                   width: 2,
                   child: CustomPaint(painter: _DottedLinePainter()),
                 ),
-                Icon(Icons.location_on, color: AppColors.primary, size: 22),
+                SvgPicture.asset(
+                  'assets/icons/orders/pin_location.svg',
+                  width: 22,
+                  height: 22,
+                  colorFilter: ColorFilter.mode(AppColors.primary, BlendMode.srcIn),
+                ),
               ],
             ),
             const SizedBox(width: 10),
@@ -387,8 +440,9 @@ class _RatingSection extends StatelessWidget {
         Text(
           'تقييم العميل :',
           style: AppTextStyles.body(context).copyWith(
-            fontSize: 13,
-            fontWeight: FontWeight.w700,
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+            color: const Color(0xFF1B1B1B),
           ),
         ),
         const SizedBox(height: 10),
@@ -396,16 +450,31 @@ class _RatingSection extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: List.generate(
             5,
-            (_) => const Icon(
-              Icons.star_rounded,
-              color: Color(0xFFFFC107),
-              size: 22,
-            ),
+            (index) {
+              if (index == 4) {
+                return Padding(
+                  padding: const EdgeInsets.only(left: 2),
+                  child: Image.asset(
+                    'assets/images/orders/star_half.png',
+                    width: 22,
+                    height: 22,
+                  ),
+                );
+              }
+              return Padding(
+                padding: const EdgeInsets.only(left: 2),
+                child: Image.asset(
+                  'assets/images/orders/star_full.png',
+                  width: 22,
+                  height: 22,
+                ),
+              );
+            },
           ),
         ),
         const SizedBox(height: 8),
         Text(
-          'المندوب كان في غاية من الاحترام والتعامل الراقي مع العميل.',
+          'المندوب كان في غاية من الاحترام ، والسرعة',
           style: AppTextStyles.body(context).copyWith(
             fontSize: 12,
             color: AppColors.paragraph(context),
@@ -427,18 +496,26 @@ class _RedCallIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 28,
-      height: 28,
-      decoration: BoxDecoration(
-        color: AppColors.primary.withValues(alpha: 0.12),
-        shape: BoxShape.circle,
-      ),
-      child: Icon(
-        Icons.phone_rounded,
-        color: AppColors.primary,
-        size: 14,
-      ),
+    return SvgPicture.asset(
+      'assets/icons/orders/calling.svg',
+      width: 16,
+      height: 16,
+      colorFilter: ColorFilter.mode(AppColors.primary, BlendMode.srcIn),
+    );
+  }
+}
+
+/// Red circular smartphone icon button.
+class _RedSmartphoneIcon extends StatelessWidget {
+  const _RedSmartphoneIcon();
+
+  @override
+  Widget build(BuildContext context) {
+    return SvgPicture.asset(
+      'assets/icons/orders/smart_phone.svg',
+      width: 16,
+      height: 16,
+      colorFilter: ColorFilter.mode(AppColors.primary, BlendMode.srcIn),
     );
   }
 }
