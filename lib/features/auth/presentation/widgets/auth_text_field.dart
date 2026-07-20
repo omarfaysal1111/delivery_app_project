@@ -13,6 +13,7 @@ class AuthTextField extends StatefulWidget {
   final Widget? suffixIcon;
   final String? Function(String?)? validator;
   final bool enabled;
+  final bool readOnly;
   final int? maxLength;
   final List<TextInputFormatter>? inputFormatters;
   final InputBorder? border;
@@ -31,6 +32,7 @@ class AuthTextField extends StatefulWidget {
     this.suffixIcon,
     this.validator,
     this.enabled = true,
+    this.readOnly = false,
     this.maxLength,
     this.inputFormatters,
     this.border,
@@ -86,10 +88,7 @@ class _AuthTextFieldState extends State<AuthTextField> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (widget.label != null) ...[
-          Text(
-            widget.label!,
-            style: AppTextStyles.fieldLabel(context),
-          ),
+          Text(widget.label!, style: AppTextStyles.fieldLabel(context)),
           const SizedBox(height: 8),
         ],
         TextFormField(
@@ -101,11 +100,16 @@ class _AuthTextFieldState extends State<AuthTextField> {
           validator: widget.validator,
           autovalidateMode: widget.autovalidateMode,
           textAlign: widget.textAlign ?? TextAlign.start,
-          style: AppTextStyles.inputText(context),
+          style: AppTextStyles.inputText(context).copyWith(
+            color: widget.readOnly
+                ? AppColors.paragraph(context)
+                : AppColors.onSurface(context),
+          ),
           cursorColor: AppColors.cursor(context),
           maxLength: widget.maxLength,
           inputFormatters: widget.inputFormatters,
-          textDirection: widget.textDirection ?? _getDirection(widget.controller.text),
+          textDirection:
+              widget.textDirection ?? _getDirection(widget.controller.text),
           onChanged: (val) {
             setState(() {});
           },
@@ -131,41 +135,51 @@ class _AuthTextFieldState extends State<AuthTextField> {
             hintText: widget.hintText,
             hintStyle: AppTextStyles.inputHint(context),
             filled: true,
-            fillColor: AppColors.surfaceCard(context),
+            fillColor: widget.readOnly
+                ? AppColors.scaffoldBackground(context)
+                : AppColors.surfaceCard(context),
             prefixIcon: widget.prefixIcon,
             suffixIcon: widget.suffixIcon,
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 16,
               vertical: 16,
             ),
-            enabledBorder: widget.border ?? OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
-                color: AppColors.border(context),
-                width: 0.5,
-              ),
-            ),
-            focusedBorder: widget.border ?? OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
-                color: AppColors.fieldFocusBorder(context),
-                width: 0.5,
-              ),
-            ),
-            errorBorder: widget.border ?? OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
-                color: AppColors.fieldError(context),
-                width: 0.5,
-              ),
-            ),
-            focusedErrorBorder: widget.border ?? OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
-                color: AppColors.fieldError(context),
-                width: 0.5,
-              ),
-            ),
+            enabledBorder:
+                widget.border ??
+                OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: AppColors.border(context),
+                    width: 0.5,
+                  ),
+                ),
+            focusedBorder:
+                widget.border ??
+                OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: AppColors.fieldFocusBorder(context),
+                    width: 0.5,
+                  ),
+                ),
+            errorBorder:
+                widget.border ??
+                OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: AppColors.fieldError(context),
+                    width: 0.5,
+                  ),
+                ),
+            focusedErrorBorder:
+                widget.border ??
+                OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: AppColors.fieldError(context),
+                    width: 0.5,
+                  ),
+                ),
           ),
         ),
       ],

@@ -9,14 +9,20 @@ class PendingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    
+
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        centerTitle: false,
+        titleSpacing: 4.0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: AppColors.onSurface(context), size: 20),
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: AppColors.onSurface(context),
+            size: 20,
+          ),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -28,7 +34,10 @@ class PendingPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 16),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 40,
+                  horizontal: 16,
+                ),
                 decoration: BoxDecoration(
                   color: AppColors.surfaceCard(context),
                   borderRadius: BorderRadius.circular(12.0),

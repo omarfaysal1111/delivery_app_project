@@ -66,12 +66,13 @@ class DrawerItemTile extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                           color: isLogout
                               ? theme.colorScheme.error
-                              : theme.textTheme.bodyMedium?.color ?? theme.colorScheme.onSurface,
+                              : theme.textTheme.bodyMedium?.color ??
+                                    theme.colorScheme.onSurface,
                         ),
                       ),
                     ],
                   ),
-                  
+
                   const Spacer(),
 
                   // END: trailing arrow (hidden for logout)
@@ -79,7 +80,9 @@ class DrawerItemTile extends StatelessWidget {
                     Icon(
                       Icons.arrow_forward_ios,
                       size: 16,
-                      color: theme.iconTheme.color ?? theme.colorScheme.onSurfaceVariant,
+                      color:
+                          theme.iconTheme.color ??
+                          theme.colorScheme.onSurfaceVariant,
                     )
                   else
                     const SizedBox(width: 16),
@@ -90,11 +93,7 @@ class DrawerItemTile extends StatelessWidget {
         ),
         // Divider (hidden for last item if showDivider=false)
         if (showDivider)
-          Divider(
-            height: 0.5,
-            thickness: 0.5,
-            color: theme.dividerColor,
-          ),
+          Divider(height: 0.5, thickness: 0.5, color: theme.dividerColor),
       ],
     );
   }

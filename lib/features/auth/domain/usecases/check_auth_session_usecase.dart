@@ -5,8 +5,7 @@ import '../../../../core/usecases/usecase.dart';
 import '../entities/driver_session.dart';
 import '../repositories/auth_repository.dart';
 
-class CheckAuthSessionUseCase
-    implements UseCase<DriverSession?, NoParams> {
+class CheckAuthSessionUseCase implements UseCase<DriverSession?, NoParams> {
   CheckAuthSessionUseCase(this._repository);
 
   final AuthRepository _repository;

@@ -168,6 +168,7 @@ class AppColors {
   }
 
   static Color uploadDashedBorder(BuildContext context) => border(context);
-  static Color profilePhotoOverlay(BuildContext context) => const Color(0x80000000);
+  static Color profilePhotoOverlay(BuildContext context) =>
+      const Color(0x80000000);
   static Color documentUploadStroke(BuildContext context) => border(context);
 }

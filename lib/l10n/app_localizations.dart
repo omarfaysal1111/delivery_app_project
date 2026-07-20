@@ -530,6 +530,12 @@ abstract class AppLocalizations {
   /// **'Home'**
   String get drawerHome;
 
+  /// No description provided for @drawerOrders.
+  ///
+  /// In en, this message translates to:
+  /// **'Orders'**
+  String get drawerOrders;
+
   /// No description provided for @drawerGeneralSettings.
   ///
   /// In en, this message translates to:
@@ -589,6 +595,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'User'**
   String get drawerGuestName;
+
+  /// No description provided for @walletTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Wallet'**
+  String get walletTitle;
+
+  /// No description provided for @currentBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Your current balance'**
+  String get currentBalance;
+
+  /// No description provided for @withdrawButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Withdraw'**
+  String get withdrawButton;
+
+  /// No description provided for @transactionHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction History'**
+  String get transactionHistory;
+
+  /// No description provided for @walletTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get walletTotal;
+
+  /// No description provided for @walletPaymentMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Method'**
+  String get walletPaymentMethod;
+
+  /// No description provided for @walletOrderDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Date'**
+  String get walletOrderDate;
+
+  /// No description provided for @walletOrderNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Number'**
+  String get walletOrderNumber;
 
   /// No description provided for @logoutConfirmTitle.
   ///
@@ -725,7 +779,7 @@ abstract class AppLocalizations {
   /// No description provided for @termsBody.
   ///
   /// In en, this message translates to:
-  /// **'These are the terms and conditions...'**
+  /// **'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.\n\nThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text.'**
   String get termsBody;
 
   /// No description provided for @changePhoneNumber.
@@ -781,6 +835,288 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Phone number updated successfully'**
   String get phoneChangedSuccess;
+
+  /// No description provided for @profilePersonalData.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal Data'**
+  String get profilePersonalData;
+
+  /// No description provided for @profileEditPersonalData.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Personal Data'**
+  String get profileEditPersonalData;
+
+  /// No description provided for @profileRequestEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Request Edit'**
+  String get profileRequestEdit;
+
+  /// No description provided for @profileUserName.
+  ///
+  /// In en, this message translates to:
+  /// **'User Name'**
+  String get profileUserName;
+
+  /// No description provided for @profilePhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get profilePhone;
+
+  /// No description provided for @profileEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Email Address'**
+  String get profileEmail;
+
+  /// No description provided for @profileNationalId.
+  ///
+  /// In en, this message translates to:
+  /// **'National ID'**
+  String get profileNationalId;
+
+  /// No description provided for @profileVehicleType.
+  ///
+  /// In en, this message translates to:
+  /// **'Vehicle Type'**
+  String get profileVehicleType;
+
+  /// No description provided for @profileDriverLicense.
+  ///
+  /// In en, this message translates to:
+  /// **'Driver License Image'**
+  String get profileDriverLicense;
+
+  /// No description provided for @profileVehicleRegistration.
+  ///
+  /// In en, this message translates to:
+  /// **'Vehicle Registration Image'**
+  String get profileVehicleRegistration;
+
+  /// No description provided for @profileNationalIdImage.
+  ///
+  /// In en, this message translates to:
+  /// **'National ID Image'**
+  String get profileNationalIdImage;
+
+  /// No description provided for @profileUploadPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to upload'**
+  String get profileUploadPrompt;
+
+  /// No description provided for @profileProfileImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile Image'**
+  String get profileProfileImage;
+
+  /// No description provided for @trackingOrderNo.
+  ///
+  /// In en, this message translates to:
+  /// **'Order No: #{id}'**
+  String trackingOrderNo(String id);
+
+  /// No description provided for @trackingItems.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} Items'**
+  String trackingItems(String count);
+
+  /// No description provided for @trackingFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'From: {location}'**
+  String trackingFrom(String location);
+
+  /// No description provided for @trackingTo.
+  ///
+  /// In en, this message translates to:
+  /// **'To: {location}'**
+  String trackingTo(String location);
+
+  /// No description provided for @trackingExpectedDistanceShort.
+  ///
+  /// In en, this message translates to:
+  /// **'(approx {distance} km)'**
+  String trackingExpectedDistanceShort(String distance);
+
+  /// No description provided for @trackingExpectedTotalDistance.
+  ///
+  /// In en, this message translates to:
+  /// **'Total expected distance {distance} km'**
+  String trackingExpectedTotalDistance(String distance);
+
+  /// No description provided for @trackingCustomerDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Details :'**
+  String get trackingCustomerDetails;
+
+  /// No description provided for @trackingConfirmPickup.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Pickup'**
+  String get trackingConfirmPickup;
+
+  /// No description provided for @trackingConfirmDelivery.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Delivery'**
+  String get trackingConfirmDelivery;
+
+  /// No description provided for @trackingMapOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Map'**
+  String get trackingMapOpen;
+
+  /// No description provided for @trackingNewOrderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New Order Assigned'**
+  String get trackingNewOrderTitle;
+
+  /// No description provided for @trackingNewOrderBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You have a new delivery request'**
+  String get trackingNewOrderBody;
+
+  /// No description provided for @ordersTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Orders'**
+  String get ordersTitle;
+
+  /// No description provided for @orderStatusNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New Request'**
+  String get orderStatusNew;
+
+  /// No description provided for @orderStatusPreparing.
+  ///
+  /// In en, this message translates to:
+  /// **'Restaurant Preparing'**
+  String get orderStatusPreparing;
+
+  /// No description provided for @orderStatusReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready for Pickup'**
+  String get orderStatusReady;
+
+  /// No description provided for @orderStatusOnWay.
+  ///
+  /// In en, this message translates to:
+  /// **'On the way to Customer'**
+  String get orderStatusOnWay;
+
+  /// No description provided for @orderStatusDelivered.
+  ///
+  /// In en, this message translates to:
+  /// **'Delivered'**
+  String get orderStatusDelivered;
+
+  /// No description provided for @orderStatusCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get orderStatusCancelled;
+
+  /// No description provided for @orderFee.
+  ///
+  /// In en, this message translates to:
+  /// **'Fee: {fee}'**
+  String orderFee(String fee);
+
+  /// No description provided for @orderItemsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} Items'**
+  String orderItemsCount(String count);
+
+  /// No description provided for @orderEstTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Est. Time'**
+  String get orderEstTime;
+
+  /// No description provided for @orderActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get orderActive;
+
+  /// No description provided for @orderClosed.
+  ///
+  /// In en, this message translates to:
+  /// **'Closed'**
+  String get orderClosed;
+
+  /// No description provided for @orderDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Details'**
+  String get orderDetails;
+
+  /// No description provided for @mockRestaurantName1.
+  ///
+  /// In en, this message translates to:
+  /// **'Az Al Sham'**
+  String get mockRestaurantName1;
+
+  /// No description provided for @mockRestaurantName2.
+  ///
+  /// In en, this message translates to:
+  /// **'Burger King'**
+  String get mockRestaurantName2;
+
+  /// No description provided for @mockRestaurantName3.
+  ///
+  /// In en, this message translates to:
+  /// **'Pizza Hut'**
+  String get mockRestaurantName3;
+
+  /// No description provided for @mockUserName1.
+  ///
+  /// In en, this message translates to:
+  /// **'Ahmad M.'**
+  String get mockUserName1;
+
+  /// No description provided for @mockUserName2.
+  ///
+  /// In en, this message translates to:
+  /// **'Sarah K.'**
+  String get mockUserName2;
+
+  /// No description provided for @mockUserName3.
+  ///
+  /// In en, this message translates to:
+  /// **'John D.'**
+  String get mockUserName3;
+
+  /// No description provided for @mockReviewDate.
+  ///
+  /// In en, this message translates to:
+  /// **'2026/6/{day}'**
+  String mockReviewDate(String day);
+
+  /// No description provided for @mockReviewUserName.
+  ///
+  /// In en, this message translates to:
+  /// **'User Name {id}'**
+  String mockReviewUserName(String id);
+
+  /// No description provided for @mockReviewText.
+  ///
+  /// In en, this message translates to:
+  /// **'This is a mock review text. The service was great and the delivery was fast. Highly recommended!'**
+  String get mockReviewText;
 }
 
 class _AppLocalizationsDelegate

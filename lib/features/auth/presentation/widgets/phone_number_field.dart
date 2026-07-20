@@ -16,6 +16,7 @@ class PhoneNumberField extends StatelessWidget {
     required this.hintText,
     this.validator,
     this.autovalidateMode = AutovalidateMode.onUserInteraction,
+    this.readOnly = false,
   });
 
   final TextEditingController controller;
@@ -23,6 +24,7 @@ class PhoneNumberField extends StatelessWidget {
   final String hintText;
   final String? Function(String?)? validator;
   final AutovalidateMode autovalidateMode;
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +54,9 @@ class PhoneNumberField extends StatelessWidget {
                 Container(
                   height: 48,
                   decoration: BoxDecoration(
-                    color: AppColors.surfaceCard(context),
+                    color: readOnly
+                        ? AppColors.scaffoldBackground(context)
+                        : AppColors.surfaceCard(context),
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(color: borderColor, width: 0.5),
                   ),
@@ -70,8 +74,16 @@ class PhoneNumberField extends StatelessWidget {
                                 return TextField(
                                   controller: controller,
                                   keyboardType: TextInputType.phone,
-                                  textAlign: value.text.isEmpty && isArabic ? TextAlign.right : TextAlign.left,
-                                  style: AppTextStyles.inputText(context),
+                                  textAlign: value.text.isEmpty && isArabic
+                                      ? TextAlign.right
+                                      : TextAlign.left,
+                                  style: AppTextStyles.inputText(context)
+                                      .copyWith(
+                                        color: readOnly
+                                            ? AppColors.paragraph(context)
+                                            : AppColors.onSurface(context),
+                                      ),
+                                  readOnly: readOnly,
                                   cursorColor: AppColors.cursor(context),
                                   inputFormatters: [
                                     FilteringTextInputFormatter.digitsOnly,
@@ -90,7 +102,8 @@ class PhoneNumberField extends StatelessWidget {
                                     isDense: true,
                                   ),
                                   onChanged: field.didChange,
-                                  onTapOutside: (_) => FocusScope.of(context).unfocus(),
+                                  onTapOutside: (_) =>
+                                      FocusScope.of(context).unfocus(),
                                 );
                               },
                             ),
@@ -132,16 +145,12 @@ class _PhoneCountryPrefix extends StatelessWidget {
           const SizedBox(width: 4),
           Text(
             '+20',
-            style: AppTextStyles.inputHint(context).copyWith(
-              color: AppColors.paragraph(context),
-            ),
+            style: AppTextStyles.inputHint(
+              context,
+            ).copyWith(color: AppColors.paragraph(context)),
           ),
           const SizedBox(width: 8),
-          Container(
-            width: 1,
-            height: 16,
-            color: AppColors.border(context),
-          ),
+          Container(width: 1, height: 16, color: AppColors.border(context)),
         ],
       ),
     );

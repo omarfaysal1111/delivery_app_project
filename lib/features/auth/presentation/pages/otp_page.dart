@@ -25,12 +25,15 @@ class _OtpPageState extends State<OtpPage> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    
+
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground(context),
       body: SafeArea(
         child: BlocListener<AuthCubit, AuthState>(
-          listenWhen: (prev, curr) => curr is AuthOtpVerified || curr is AuthError || curr is AuthPhoneSubmitted,
+          listenWhen: (prev, curr) =>
+              curr is AuthOtpVerified ||
+              curr is AuthError ||
+              curr is AuthPhoneSubmitted,
           listener: (context, state) {
             if (state is AuthOtpVerified) {
               if (state.isNewDriver) {
@@ -99,13 +102,18 @@ class _OtpPageState extends State<OtpPage> {
                   ),
                   const SizedBox(height: 32),
                   BlocBuilder<AuthCubit, AuthState>(
-                    buildWhen: (prev, curr) => curr is AuthLoading || curr is AuthInitial || curr is AuthError || curr is AuthOtpVerified || curr is AuthPhoneSubmitted,
+                    buildWhen: (prev, curr) =>
+                        curr is AuthLoading ||
+                        curr is AuthInitial ||
+                        curr is AuthError ||
+                        curr is AuthOtpVerified ||
+                        curr is AuthPhoneSubmitted,
                     builder: (context, state) {
                       String? errorMessage;
                       if (state is AuthError) {
                         errorMessage = state.message;
                       }
-                      
+
                       return AppOtpInput(
                         isLoading: state is AuthLoading,
                         errorMessage: errorMessage,

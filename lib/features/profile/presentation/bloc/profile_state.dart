@@ -23,7 +23,8 @@ class ProfileState {
     return ProfileState(
       isLoading: isLoading ?? this.isLoading,
       deleteAccountSuccess: deleteAccountSuccess ?? this.deleteAccountSuccess,
-      updateSettingsSuccess: updateSettingsSuccess ?? this.updateSettingsSuccess,
+      updateSettingsSuccess:
+          updateSettingsSuccess ?? this.updateSettingsSuccess,
       errorMessage: errorMessage ?? this.errorMessage,
       settings: settings ?? this.settings,
     );

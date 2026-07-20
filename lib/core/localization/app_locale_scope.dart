@@ -11,7 +11,10 @@ class AppLocaleScope extends InheritedNotifier<LocaleController> {
 
   static LocaleController of(BuildContext context) {
     final scope = context.dependOnInheritedWidgetOfExactType<AppLocaleScope>();
-    assert(scope?.notifier != null, 'AppLocaleScope missing above this context');
+    assert(
+      scope?.notifier != null,
+      'AppLocaleScope missing above this context',
+    );
     return scope!.notifier!;
   }
 }

@@ -20,8 +20,12 @@ class NotificationsScreen extends StatelessWidget {
         foregroundColor: fg,
         elevation: 0,
         leading: BackButton(color: fg, onPressed: () => context.pop()),
-        title: Text(l10n.drawerNotifications, style: AppTextStyles.appBarTitle(context)),
-        centerTitle: true,
+        title: Text(
+          l10n.drawerNotifications,
+          style: AppTextStyles.appBarTitle(context),
+        ),
+        centerTitle: false,
+        titleSpacing: 4.0,
       ),
       body: Center(
         child: Column(
@@ -35,9 +39,9 @@ class NotificationsScreen extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               l10n.noNotificationsYet,
-              style: AppTextStyles.body(context).copyWith(
-                color: AppColors.paragraph(context),
-              ),
+              style: AppTextStyles.body(
+                context,
+              ).copyWith(color: AppColors.paragraph(context)),
             ),
           ],
         ),

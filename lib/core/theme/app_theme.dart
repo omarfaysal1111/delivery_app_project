@@ -32,6 +32,16 @@ class AppTheme {
     fontFamily: fontFamily,
     scaffoldBackgroundColor: AppColors.lightScaffold,
     hintColor: AppColors.lightHint,
+    splashColor: Colors.transparent,
+    highlightColor: Colors.transparent,
+    hoverColor: Colors.transparent,
+    appBarTheme: const AppBarTheme(
+      elevation: 0.0,
+      scrolledUnderElevation: 0.0,
+    ),
+    listTileTheme: const ListTileThemeData(
+      selectedTileColor: Colors.transparent,
+    ),
     colorScheme: const ColorScheme(
       brightness: Brightness.light,
       primary: AppColors.primary,
@@ -68,6 +78,16 @@ class AppTheme {
     fontFamily: fontFamily,
     scaffoldBackgroundColor: AppColors.darkScaffold,
     hintColor: AppColors.darkHint,
+    splashColor: Colors.transparent,
+    highlightColor: Colors.transparent,
+    hoverColor: Colors.transparent,
+    appBarTheme: const AppBarTheme(
+      elevation: 0.0,
+      scrolledUnderElevation: 0.0,
+    ),
+    listTileTheme: const ListTileThemeData(
+      selectedTileColor: Colors.transparent,
+    ),
     colorScheme: const ColorScheme(
       brightness: Brightness.dark,
       primary: AppColors.primary,

@@ -40,9 +40,7 @@ class _LanguagePickerSheetState extends State<LanguagePickerSheet> {
           children: [
             Text(
               AppLocalizations.of(context)!.changeAppLanguageTitle,
-              style: AppTextStyles.heading4(context).copyWith(
-                fontSize: 15,
-              ),
+              style: AppTextStyles.heading4(context).copyWith(fontSize: 15),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 12),
@@ -80,7 +78,9 @@ class _LanguagePickerSheetState extends State<LanguagePickerSheet> {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(
-                color: isSelected ? AppColors.onSurface(context) : AppColors.hint(context),
+                color: isSelected
+                    ? AppColors.onSurface(context)
+                    : AppColors.hint(context),
                 width: 2,
               ),
             ),
@@ -100,7 +100,9 @@ class _LanguagePickerSheetState extends State<LanguagePickerSheet> {
               fontFamily: 'ExpoArabic',
               fontSize: 14,
               fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
-              color: isSelected ? AppColors.onSurface(context) : AppColors.paragraph(context),
+              color: isSelected
+                  ? AppColors.onSurface(context)
+                  : AppColors.paragraph(context),
             ),
           ),
         ],

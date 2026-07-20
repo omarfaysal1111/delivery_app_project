@@ -3,8 +3,7 @@ import '../../../../core/network/api_client.dart';
 
 abstract class EarningsRemoteDataSource {
   Future<Map<String, dynamic>> getEarnings(String period);
-  Future<List<dynamic>> getEarningsHistory(
-      {String? from, String? to});
+  Future<List<dynamic>> getEarningsHistory({String? from, String? to});
   Future<List<dynamic>> getIncentives();
   Future<Map<String, dynamic>> getPerformance();
   Future<void> requestWithdrawal();
@@ -20,8 +19,10 @@ class EarningsRemoteDataSourceImpl implements EarningsRemoteDataSource {
 
   @override
   Future<List<dynamic>> getEarningsHistory({String? from, String? to}) async {
-    final res = await client.get(ApiConstants.earningsHistory,
-        queryParams: {if (from != null) 'from': from, if (to != null) 'to': to});
+    final res = await client.get(
+      ApiConstants.earningsHistory,
+      queryParams: {if (from != null) 'from': from, if (to != null) 'to': to},
+    );
     return res['data'] as List<dynamic>;
   }
 

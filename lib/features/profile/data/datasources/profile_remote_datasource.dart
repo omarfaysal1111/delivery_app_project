@@ -12,8 +12,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   ProfileRemoteDataSourceImpl(this.client);
 
   @override
-  Future<Map<String, dynamic>> getProfile() =>
-      client.get(ApiConstants.profile);
+  Future<Map<String, dynamic>> getProfile() => client.get(ApiConstants.profile);
 
   @override
   Future<Map<String, dynamic>> updateProfile(Map<String, dynamic> body) =>

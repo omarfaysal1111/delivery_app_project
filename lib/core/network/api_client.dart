@@ -27,7 +27,7 @@ class ApiClient {
         },
       ),
     );
-    
+
     dio.interceptors.add(
       LogInterceptor(
         requestBody: true,
@@ -44,10 +44,7 @@ class ApiClient {
     Map<String, dynamic>? queryParams,
   }) async {
     try {
-      final response = await dio.get(
-        endpoint,
-        queryParameters: queryParams,
-      );
+      final response = await dio.get(endpoint, queryParameters: queryParams);
       return _extractData(response.data);
     } on DioException catch (e) {
       throw _handleDioError(e);
@@ -59,10 +56,7 @@ class ApiClient {
     Map<String, dynamic>? body,
   }) async {
     try {
-      final response = await dio.post(
-        endpoint,
-        data: body,
-      );
+      final response = await dio.post(endpoint, data: body);
       return _extractData(response.data);
     } on DioException catch (e) {
       throw _handleDioError(e);
@@ -95,10 +89,7 @@ class ApiClient {
     Map<String, dynamic>? body,
   }) async {
     try {
-      final response = await dio.put(
-        endpoint,
-        data: body,
-      );
+      final response = await dio.put(endpoint, data: body);
       return _extractData(response.data);
     } on DioException catch (e) {
       throw _handleDioError(e);
@@ -126,7 +117,7 @@ class ApiClient {
         e.type == DioExceptionType.connectionError) {
       return const ServerException('No internet connection');
     }
-    
+
     if (e.response != null && e.response?.data is Map<String, dynamic>) {
       final data = e.response?.data as Map<String, dynamic>;
       final message = data['message'] as String?;

@@ -36,7 +36,8 @@ class OrderRemoteDataSourceImpl implements OrderRemoteDataSource {
   @override
   Future<void> confirmDelivery(String orderId, String photoPath) async {
     final uri = Uri.parse(
-        '${ApiConstants.baseUrl}${ApiConstants.confirmOrder.replaceFirst('{id}', orderId)}');
+      '${ApiConstants.baseUrl}${ApiConstants.confirmOrder.replaceFirst('{id}', orderId)}',
+    );
     final request = http.MultipartRequest('POST', uri)
       ..files.add(await http.MultipartFile.fromPath('photo', photoPath));
     final streamed = await request.send();
@@ -46,9 +47,8 @@ class OrderRemoteDataSourceImpl implements OrderRemoteDataSource {
   }
 
   @override
-  Future<void> reportIssue(String orderId, Map<String, dynamic> body) =>
-      client.post(ApiConstants.reportIssue.replaceFirst('{id}', orderId),
-          body: body);
+  Future<void> reportIssue(String orderId, Map<String, dynamic> body) => client
+      .post(ApiConstants.reportIssue.replaceFirst('{id}', orderId), body: body);
 
   @override
   Future<void> updateLocation(double lat, double lng) =>

@@ -86,16 +86,12 @@ class AuthCubit extends Cubit<AuthState> {
       return;
     }
     emit(AuthLoading());
-    final result = await verifyDriverLoginOtp(VerifyDriverLoginOtpParams(
-      phone: _phoneNumber!,
-      otp: otp,
-    ));
-    result.fold(
-      (failure) => emit(AuthError(failure.message)),
-      (authResponse) {
-        emit(AuthOtpVerified(isNewDriver: authResponse.newUser));
-      },
+    final result = await verifyDriverLoginOtp(
+      VerifyDriverLoginOtpParams(phone: _phoneNumber!, otp: otp),
     );
+    result.fold((failure) => emit(AuthError(failure.message)), (authResponse) {
+      emit(AuthOtpVerified(isNewDriver: authResponse.newUser));
+    });
   }
 
   Future<void> submitRegistration({
@@ -138,19 +134,21 @@ class AuthCubit extends Cubit<AuthState> {
         nationalIdPhotoUrl = url ?? '';
       }
 
-      final result = await registerDriver(RegisterDriverParams(
-        firstName: firstName,
-        lastName: lastName,
-        phone: phone,
-        email: email,
-        vehicleType: vehicleType,
-        vehicleNumber: vehicleNumber,
-        nationalId: nationalId,
-        profilePhotoUrl: profilePhotoUrl,
-        driverLicensePhotoUrl: driverLicensePhotoUrl,
-        vehicleLicensePhotoUrl: vehicleLicensePhotoUrl,
-        nationalIdPhotoUrl: nationalIdPhotoUrl,
-      ));
+      final result = await registerDriver(
+        RegisterDriverParams(
+          firstName: firstName,
+          lastName: lastName,
+          phone: phone,
+          email: email,
+          vehicleType: vehicleType,
+          vehicleNumber: vehicleNumber,
+          nationalId: nationalId,
+          profilePhotoUrl: profilePhotoUrl,
+          driverLicensePhotoUrl: driverLicensePhotoUrl,
+          vehicleLicensePhotoUrl: vehicleLicensePhotoUrl,
+          nationalIdPhotoUrl: nationalIdPhotoUrl,
+        ),
+      );
 
       result.fold(
         (failure) => emit(AuthError(failure.message)),

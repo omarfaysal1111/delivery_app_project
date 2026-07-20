@@ -119,7 +119,9 @@ class _RegisterDriverPageState extends State<RegisterDriverPage> {
 
     context.read<AuthCubit>().submitRegistration(
       firstName: _usernameController.text.trim().split(' ').first,
-      lastName: _usernameController.text.trim().split(' ').length > 1 ? _usernameController.text.trim().split(' ').sublist(1).join(' ') : '',
+      lastName: _usernameController.text.trim().split(' ').length > 1
+          ? _usernameController.text.trim().split(' ').sublist(1).join(' ')
+          : '',
       phone: _apiPhoneNumber(),
       email: _emailController.text.trim(),
       vehicleType: _vehicleType!,
@@ -162,9 +164,7 @@ class _RegisterDriverPageState extends State<RegisterDriverPage> {
               padding: const EdgeInsets.fromLTRB(16, 20, 16, 20),
               child: AuthPrimaryButton(
                 label: l10n.registerSubmit,
-                onPressed: isSubmitting
-                    ? null
-                    : _onRegisterPressed,
+                onPressed: isSubmitting ? null : _onRegisterPressed,
               ),
             ),
           ),

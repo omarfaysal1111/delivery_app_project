@@ -11,7 +11,7 @@ class PhoneChangeCubit extends Cubit<PhoneChangeState> {
     emit(PhoneChangeLoading());
     // Mock network call
     await Future.delayed(const Duration(seconds: 1));
-    
+
     // In a real scenario, we would validate with backend or AuthRepository
     if (phone.length >= 9) {
       currentPhone = phone;
@@ -25,7 +25,7 @@ class PhoneChangeCubit extends Cubit<PhoneChangeState> {
     emit(PhoneChangeLoading());
     // Mock network call
     await Future.delayed(const Duration(seconds: 1));
-    
+
     if (phone.length >= 9 && phone != currentPhone) {
       newPhone = phone;
       emit(OtpSent());
@@ -38,7 +38,7 @@ class PhoneChangeCubit extends Cubit<PhoneChangeState> {
     emit(PhoneChangeLoading());
     // Mock network call
     await Future.delayed(const Duration(seconds: 1));
-    
+
     if (otp == '123456') {
       emit(PhoneChangedSuccessfully());
     } else {

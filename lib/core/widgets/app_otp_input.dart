@@ -65,7 +65,7 @@ class _AppOtpInputState extends State<AppOtpInput> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -106,8 +106,8 @@ class _AppOtpInputState extends State<AppOtpInput> {
                         color: isFocused
                             ? AppColors.primary
                             : hasChar
-                                ? AppColors.otpActiveBorder(context)
-                                : AppColors.border(context),
+                            ? AppColors.otpActiveBorder(context)
+                            : AppColors.border(context),
                         width: isFocused ? 2 : 1,
                       ),
                     ),
@@ -123,7 +123,7 @@ class _AppOtpInputState extends State<AppOtpInput> {
             ),
           ],
         ),
-        
+
         if (widget.errorMessage != null)
           Padding(
             padding: const EdgeInsets.only(top: 16),
@@ -133,9 +133,9 @@ class _AppOtpInputState extends State<AppOtpInput> {
               style: TextStyle(color: Theme.of(context).colorScheme.error),
             ),
           ),
-          
+
         const SizedBox(height: 32),
-        
+
         // Timer / Resend
         Center(
           child: _seconds > 0
@@ -160,9 +160,9 @@ class _AppOtpInputState extends State<AppOtpInput> {
                   ),
                 ),
         ),
-        
+
         const SizedBox(height: 32),
-        
+
         // Submit Button
         SizedBox(
           height: 56,

@@ -20,7 +20,6 @@ import '../bloc/profile_state.dart';
 import '../widgets/change_phone_bottom_sheet.dart';
 import 'package:delivery_app_project/features/auth/presentation/bloc/auth_cubit.dart';
 
-
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
 
@@ -61,10 +60,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
           );
         }
         if (state.updateSettingsSuccess) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.settingsUpdatedSuccess)));
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(l10n.settingsUpdatedSuccess)));
         }
         if (state.errorMessage != null) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.errorMessage!)));
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.errorMessage!)));
         }
       },
       builder: (context, state) {
@@ -100,10 +103,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           _SettingsRow(
                             iconAsset: AppAssets.generalSettingsChangePhone,
                             title: l10n.changePhoneNumber,
-                            trailing: Icon(
-                              AppDirectionalIcons.backChevron(context),
-                              size: 24,
-                              color: Colors.grey,
+                            trailing: SizedBox(
+                              width: 24,
+                              height: 28,
+                              child: Icon(
+                                Icons.chevron_right_rounded,
+                                size: 24,
+                                color: AppColors.paragraph(context),
+                              ),
                             ),
                             onTap: () => _showChangePhoneBottomSheet(context),
                           ),
@@ -116,9 +123,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               onChanged: (value) {
                                 context.read<ProfileBloc>().add(
                                   UpdateSettingsEvent(
-                                    UpdateSettingsRequest(
-                                      receiveOrders: value,
-                                    ),
+                                    UpdateSettingsRequest(receiveOrders: value),
                                   ),
                                 );
                               },
@@ -326,7 +331,6 @@ class _LanguageTrailing extends StatelessWidget {
 class _SettingsRow extends StatelessWidget {
   const _SettingsRow({
     this.iconAsset,
-    this.iconData,
     required this.title,
     this.trailing,
     this.onTap,
@@ -334,7 +338,6 @@ class _SettingsRow extends StatelessWidget {
   });
 
   final String? iconAsset;
-  final IconData? iconData;
   final String title;
   final Widget? trailing;
   final VoidCallback? onTap;
@@ -350,9 +353,7 @@ class _SettingsRow extends StatelessWidget {
         child: Row(
           children: [
             if (iconAsset != null)
-              AppSvgImage.asset(iconAsset!, width: 32, height: 32)
-            else if (iconData != null)
-              Icon(iconData, size: 32, color: AppColors.onSurface(context)),
+              AppSvgImage.asset(iconAsset!, width: 32, height: 32),
             const SizedBox(width: 12),
             Expanded(
               child: Text(

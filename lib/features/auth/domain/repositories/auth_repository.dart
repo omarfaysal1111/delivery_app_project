@@ -48,7 +48,10 @@ abstract class AuthRepository {
 
   Future<Either<Failure, void>> sendDriverLoginOtp(String phone);
 
-  Future<Either<Failure, AuthResponse>> verifyDriverLoginOtp(String phone, String otp);
+  Future<Either<Failure, AuthResponse>> verifyDriverLoginOtp(
+    String phone,
+    String otp,
+  );
 
   Future<Either<Failure, AuthResponse>> refreshToken(String refreshToken);
 

@@ -11,9 +11,12 @@ class RouteNames {
   static const driverHome = '/home';
 
   // Migrated feature routes
+  static const orders = '/orders';
+  static const wallet = '/wallet';
   static const settings = '/settings';
   static const notifications = '/notifications';
   static const reviews = '/reviews';
   static const support = '/support';
   static const termsAndConditions = '/terms-and-conditions';
+  static const profile = '/profile';
 }

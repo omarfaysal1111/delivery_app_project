@@ -7,7 +7,10 @@ abstract class AuthRemoteDataSource {
   Future<Map<String, dynamic>> verifyDriverLoginOtp(String phone, String otp);
   Future<Map<String, dynamic>> registerDriver(Map<String, dynamic> data);
   Future<Map<String, dynamic>> uploadMedia(String filePath);
-  Future<Map<String, dynamic>> uploadDriverDocument(String type, String filePath);
+  Future<Map<String, dynamic>> uploadDriverDocument(
+    String type,
+    String filePath,
+  );
   Future<AuthResponse> refreshToken(String refreshToken);
   Future<void> logout(String refreshToken);
 }
@@ -19,27 +22,21 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
   @override
   Future<Map<String, dynamic>> sendDriverLoginOtp(String phone) async {
-    return apiClient.post(
-      '/api/v2/auth/otp/send',
-      body: {'phone': phone},
-    );
+    return apiClient.post('/api/v2/auth/otp/send', body: {'phone': phone});
   }
 
   @override
-  Future<Map<String, dynamic>> verifyDriverLoginOtp(String phone, String otp) async {
+  Future<Map<String, dynamic>> verifyDriverLoginOtp(
+    String phone,
+    String otp,
+  ) async {
     final request = VerifyPhoneOtpRequest(phone: phone, otp: otp);
-    return apiClient.post(
-      '/api/v2/auth/otp/verify',
-      body: request.toJson(),
-    );
+    return apiClient.post('/api/v2/auth/otp/verify', body: request.toJson());
   }
 
   @override
   Future<Map<String, dynamic>> registerDriver(Map<String, dynamic> data) async {
-    return apiClient.post(
-      '/api/v1/auth/register/driver',
-      body: data,
-    );
+    return apiClient.post('/api/v1/auth/register/driver', body: data);
   }
 
   @override
@@ -52,7 +49,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<Map<String, dynamic>> uploadDriverDocument(String type, String filePath) async {
+  Future<Map<String, dynamic>> uploadDriverDocument(
+    String type,
+    String filePath,
+  ) async {
     return apiClient.postMultipartFile(
       '/api/v1/driver/documents',
       filePath: filePath,

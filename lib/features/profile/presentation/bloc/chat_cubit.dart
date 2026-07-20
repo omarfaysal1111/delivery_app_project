@@ -10,14 +10,16 @@ class ChatCubit extends Cubit<ChatState> {
     _ticketId = ticketId;
     emit(const ChatLoading());
     await Future.delayed(const Duration(seconds: 1));
-    emit(ChatLoaded([
-      SupportChatMessage(
-        id: '1',
-        text: 'Hello, how can I help you today?',
-        isMine: false,
-        createdAt: DateTime.now(), // Fixed null to valid DateTime
-      )
-    ]));
+    emit(
+      ChatLoaded([
+        SupportChatMessage(
+          id: '1',
+          text: 'Hello, how can I help you today?',
+          isMine: false,
+          createdAt: DateTime.now(), // Fixed null to valid DateTime
+        ),
+      ]),
+    );
   }
 
   Future<void> sendMessage(String text) async {

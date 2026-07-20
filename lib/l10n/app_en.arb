@@ -87,6 +87,7 @@
   "registerUploadPhoto": "Upload photo here",
 
   "drawerHome": "Home",
+  "drawerOrders": "Orders",
   "drawerGeneralSettings": "General Settings",
   "drawerNotifications": "Notifications",
   "drawerReviews": "Reviews",
@@ -97,6 +98,15 @@
   "noReviewsYet": "No reviews yet.",
   "noNotificationsYet": "No notifications yet.",
   "drawerGuestName": "User",
+
+  "walletTitle": "Wallet",
+  "currentBalance": "Your current balance",
+  "withdrawButton": "Withdraw",
+  "transactionHistory": "Transaction History",
+  "walletTotal": "Total",
+  "walletPaymentMethod": "Payment Method",
+  "walletOrderDate": "Order Date",
+  "walletOrderNumber": "Order Number",
   "logoutConfirmTitle": "Logout",
   "logoutConfirmMessage": "Are you sure you want to logout?",
   "confirm": "Confirm",
@@ -122,7 +132,7 @@
   "supportInputHint": "Write your message here...",
 
   "termsTitle": "Terms & Conditions",
-  "termsBody": "These are the terms and conditions...",
+  "termsBody": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.\n\nThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.",
 
   "changePhoneNumber": "Change Phone Number",
   "manageOrderReception": "Manage Order Reception",
@@ -132,5 +142,105 @@
   "enterCurrentPhone": "Enter your current phone number",
   "enterNewPhone": "Enter your new phone number",
   "invalidPhone": "Invalid phone number",
-  "phoneChangedSuccess": "Phone number updated successfully"
+  "phoneChangedSuccess": "Phone number updated successfully",
+
+  "profilePersonalData": "Personal Data",
+  "profileEditPersonalData": "Edit Personal Data",
+  "profileRequestEdit": "Request Edit",
+  "profileUserName": "User Name",
+  "profilePhone": "Phone Number",
+  "profileEmail": "Email Address",
+  "profileNationalId": "National ID",
+  "profileVehicleType": "Vehicle Type",
+  "profileDriverLicense": "Driver License Image",
+  "profileVehicleRegistration": "Vehicle Registration Image",
+  "profileNationalIdImage": "National ID Image",
+  "profileUploadPrompt": "Tap to upload",
+  "profileProfileImage": "Profile Image",
+
+  "trackingOrderNo": "Order No: #{id}",
+  "@trackingOrderNo": {
+    "placeholders": {
+      "id": { "type": "String" }
+    }
+  },
+  "trackingItems": "{count} Items",
+  "@trackingItems": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "trackingFrom": "From: {location}",
+  "@trackingFrom": {
+    "placeholders": {
+      "location": { "type": "String" }
+    }
+  },
+  "trackingTo": "To: {location}",
+  "@trackingTo": {
+    "placeholders": {
+      "location": { "type": "String" }
+    }
+  },
+  "trackingExpectedDistanceShort": "(approx {distance} km)",
+  "@trackingExpectedDistanceShort": {
+    "placeholders": {
+      "distance": { "type": "String" }
+    }
+  },
+  "trackingExpectedTotalDistance": "Total expected distance {distance} km",
+  "@trackingExpectedTotalDistance": {
+    "placeholders": {
+      "distance": { "type": "String" }
+    }
+  },
+  "trackingCustomerDetails": "Customer Details :",
+  "trackingConfirmPickup": "Confirm Pickup",
+  "trackingConfirmDelivery": "Confirm Delivery",
+  "trackingMapOpen": "Open Map",
+  "trackingNewOrderTitle": "New Order Assigned",
+  "trackingNewOrderBody": "You have a new delivery request",
+
+  "ordersTitle": "Orders",
+  "orderStatusNew": "New Request",
+  "orderStatusPreparing": "Restaurant Preparing",
+  "orderStatusReady": "Ready for Pickup",
+  "orderStatusOnWay": "On the way to Customer",
+  "orderStatusDelivered": "Delivered",
+  "orderStatusCancelled": "Cancelled",
+  "orderFee": "Fee: {fee}",
+  "@orderFee": {
+    "placeholders": {
+      "fee": { "type": "String" }
+    }
+  },
+  "orderItemsCount": "{count} Items",
+  "@orderItemsCount": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "orderEstTime": "Est. Time",
+  "orderActive": "Active",
+  "orderClosed": "Closed",
+  "orderDetails": "Details",
+  "mockRestaurantName1": "Az Al Sham",
+  "mockRestaurantName2": "Burger King",
+  "mockRestaurantName3": "Pizza Hut",
+  "mockUserName1": "Ahmad M.",
+  "mockUserName2": "Sarah K.",
+  "mockUserName3": "John D.",
+  "mockReviewDate": "2026/6/{day}",
+  "@mockReviewDate": {
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+  "mockReviewUserName": "User Name {id}",
+  "@mockReviewUserName": {
+    "placeholders": {
+      "id": { "type": "String" }
+    }
+  },
+  "mockReviewText": "This is a mock review text. The service was great and the delivery was fast. Highly recommended!"
 }

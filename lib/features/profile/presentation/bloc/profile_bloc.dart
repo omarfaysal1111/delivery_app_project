@@ -9,31 +9,53 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<DeleteAccountEvent>(_onDeleteAccount);
   }
 
-  Future<void> _onGetSettings(GetSettingsEvent event, Emitter<ProfileState> emit) async {
+  Future<void> _onGetSettings(
+    GetSettingsEvent event,
+    Emitter<ProfileState> emit,
+  ) async {
     emit(state.copyWith(isLoading: true));
     await Future.delayed(const Duration(milliseconds: 500));
-    emit(state.copyWith(
-      isLoading: false,
-      settings: const ProfileSettings(pushNotifications: true, receiveOrders: true),
-    ));
+    emit(
+      state.copyWith(
+        isLoading: false,
+        settings: const ProfileSettings(
+          pushNotifications: true,
+          receiveOrders: true,
+        ),
+      ),
+    );
   }
 
-  Future<void> _onUpdateSettings(UpdateSettingsEvent event, Emitter<ProfileState> emit) async {
+  Future<void> _onUpdateSettings(
+    UpdateSettingsEvent event,
+    Emitter<ProfileState> emit,
+  ) async {
     emit(state.copyWith(isLoading: true));
     await Future.delayed(const Duration(milliseconds: 500));
-    emit(state.copyWith(
-      isLoading: false,
-      updateSettingsSuccess: true,
-      settings: ProfileSettings(
-        pushNotifications: event.request.pushNotifications ?? state.settings?.pushNotifications ?? true,
-        receiveOrders: event.request.receiveOrders ?? state.settings?.receiveOrders ?? true,
+    emit(
+      state.copyWith(
+        isLoading: false,
+        updateSettingsSuccess: true,
+        settings: ProfileSettings(
+          pushNotifications:
+              event.request.pushNotifications ??
+              state.settings?.pushNotifications ??
+              true,
+          receiveOrders:
+              event.request.receiveOrders ??
+              state.settings?.receiveOrders ??
+              true,
+        ),
       ),
-    ));
+    );
     // Reset success flag
     emit(state.copyWith(updateSettingsSuccess: false));
   }
 
-  Future<void> _onDeleteAccount(DeleteAccountEvent event, Emitter<ProfileState> emit) async {
+  Future<void> _onDeleteAccount(
+    DeleteAccountEvent event,
+    Emitter<ProfileState> emit,
+  ) async {
     emit(state.copyWith(isLoading: true));
     await Future.delayed(const Duration(milliseconds: 1000));
     emit(state.copyWith(isLoading: false, deleteAccountSuccess: true));

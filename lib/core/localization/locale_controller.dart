@@ -27,8 +27,8 @@ class LocaleController extends ChangeNotifier {
   }
 
   static Locale _localeFromPlatform() {
-    final code =
-        ui.PlatformDispatcher.instance.locale.languageCode.toLowerCase();
+    final code = ui.PlatformDispatcher.instance.locale.languageCode
+        .toLowerCase();
     if (code == 'en') return const Locale('en');
     return const Locale('ar');
   }

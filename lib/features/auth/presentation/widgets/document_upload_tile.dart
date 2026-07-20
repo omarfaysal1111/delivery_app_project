@@ -23,6 +23,7 @@ class DocumentUploadTile extends StatelessWidget {
     this.imageFile,
     this.errorText,
     this.hasError = false,
+    this.readOnly = false,
   });
 
   final String label;
@@ -33,6 +34,7 @@ class DocumentUploadTile extends StatelessWidget {
   final File? imageFile;
   final String? errorText;
   final bool hasError;
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -45,12 +47,13 @@ class DocumentUploadTile extends StatelessWidget {
           style: AppTextStyles.fieldLabel(context),
         ),
         const SizedBox(height: 8),
-        _DashedUploadBox(
-          hintText: hintText,
-          tapToUploadLabel: tapToUploadLabel,
-          hasError: hasError,
-          onTap: onTap,
-        ),
+        if (!readOnly)
+          _DashedUploadBox(
+            hintText: hintText,
+            tapToUploadLabel: tapToUploadLabel,
+            hasError: hasError,
+            onTap: onTap,
+          ),
         AnimatedSwitcher(
           duration: const Duration(milliseconds: 220),
           switchInCurve: Curves.easeOut,
@@ -64,18 +67,16 @@ class DocumentUploadTile extends StatelessWidget {
           },
           layoutBuilder: (currentChild, previousChildren) => Stack(
             alignment: AlignmentDirectional.topStart,
-            children: [
-              ...previousChildren,
-              ?currentChild,
-            ],
+            children: [...previousChildren, ?currentChild],
           ),
           child: imageFile != null
               ? Padding(
                   key: ValueKey('success_${imageFile!.path}'),
-                  padding: const EdgeInsets.only(top: 12),
+                  padding: EdgeInsets.only(top: readOnly ? 0 : 12),
                   child: UploadSuccessCard(
                     imageFile: imageFile!,
                     onDelete: onRemove,
+                    readOnly: readOnly,
                   ),
                 )
               : const SizedBox(
@@ -86,10 +87,7 @@ class DocumentUploadTile extends StatelessWidget {
         if (errorText != null)
           Padding(
             padding: const EdgeInsetsDirectional.only(top: 6),
-            child: Text(
-              errorText!,
-              style: AppTextStyles.validationCaption,
-            ),
+            child: Text(errorText!, style: AppTextStyles.validationCaption),
           ),
       ],
     );
@@ -112,11 +110,9 @@ class _DashedUploadBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isArabic = context.isArabic;
-    final textDirection =
-        isArabic ? TextDirection.rtl : TextDirection.ltr;
+    final textDirection = isArabic ? TextDirection.rtl : TextDirection.ltr;
     final strokeColor = AppColors.documentUploadStroke(context);
-    final borderColor =
-        hasError ? AppColors.fieldError(context) : strokeColor;
+    final borderColor = hasError ? AppColors.fieldError(context) : strokeColor;
 
     return Material(
       color: AppColors.surfaceCard(context),
@@ -128,13 +124,14 @@ class _DashedUploadBox extends StatelessWidget {
         child: DashedBorder(
           color: borderColor,
           borderRadius: 10,
-          child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+          child: SizedBox(
+            height: 120,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
                 AppSvgImage.asset(
                   AppAssets.icFileUpload,
                   width: 20,
@@ -164,6 +161,7 @@ class _DashedUploadBox extends StatelessWidget {
           ),
         ),
       ),
+      ),
     );
   }
 }
@@ -173,10 +171,12 @@ class UploadSuccessCard extends StatelessWidget {
     super.key,
     required this.imageFile,
     required this.onDelete,
+    this.readOnly = false,
   });
 
   final File imageFile;
   final VoidCallback onDelete;
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -191,59 +191,72 @@ class UploadSuccessCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColors.surfaceCard(context),
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: AppColors.border(context),
-            width: 0.5,
-          ),
+          border: Border.all(color: AppColors.border(context), width: 0.5),
         ),
         child: Row(
+          mainAxisAlignment: readOnly
+              ? MainAxisAlignment.end
+              : MainAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.file(
-                imageFile,
-                width: 56,
-                height: 56,
-                fit: BoxFit.cover,
+            if (!readOnly) ...[
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.file(
+                  imageFile,
+                  width: 56,
+                  height: 56,
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          l10n.uploadSuccessAdded,
-                          textAlign: TextAlign.start,
-                          style: AppTextStyles.inputText(context),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            l10n.uploadSuccessAdded,
+                            textAlign: TextAlign.start,
+                            style: AppTextStyles.inputText(context),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        _DeleteIconButton(onPressed: onDelete),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(999),
+                      child: LinearProgressIndicator(
+                        value: 1,
+                        minHeight: 6,
+                        backgroundColor: AppColors.success.withValues(
+                          alpha: 0.15,
+                        ),
+                        valueColor: const AlwaysStoppedAnimation<Color>(
+                          AppColors.success,
                         ),
                       ),
-                      const SizedBox(width: 8),
-                      _DeleteIconButton(onPressed: onDelete),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(999),
-                    child: LinearProgressIndicator(
-                      value: 1,
-                      minHeight: 6,
-                      backgroundColor:
-                          AppColors.success.withValues(alpha: 0.15),
-                      valueColor: const AlwaysStoppedAnimation<Color>(
-                        AppColors.success,
-                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
+            ] else ...[
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.file(
+                  imageFile,
+                  width: 65,
+                  height: 65,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ],
           ],
         ),
       ),
@@ -262,10 +275,7 @@ class _DeleteIconButton extends StatelessWidget {
       onPressed: onPressed,
       padding: EdgeInsets.zero,
       visualDensity: VisualDensity.compact,
-      constraints: const BoxConstraints(
-        minWidth: 32,
-        minHeight: 32,
-      ),
+      constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
       icon: AppSvgImage.asset(
         AppAssets.icDelete,
         width: 20,

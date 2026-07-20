@@ -20,78 +20,109 @@ class ReviewsScreen extends StatelessWidget {
         foregroundColor: fg,
         elevation: 0,
         leading: BackButton(color: fg, onPressed: () => context.pop()),
-        title: Text(l10n.drawerReviews, style: AppTextStyles.appBarTitle(context)),
-        centerTitle: true,
+        title: Text(
+          l10n.drawerReviews,
+          style: AppTextStyles.appBarTitle(context),
+        ),
+        centerTitle: false,
+        titleSpacing: 4.0,
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(16),
         itemCount: 3, // Mock count
         itemBuilder: (context, index) {
-          return Card(
-            color: bg,
-            elevation: 0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-              side: BorderSide(color: AppColors.border(context)),
-            ),
-            margin: const EdgeInsets.only(bottom: 12),
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: AppColors.primary.withValues(alpha: 0.1),
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(Icons.person, color: AppColors.primary),
+          return ReviewCard(index: index, l10n: l10n);
+        },
+      ),
+    );
+  }
+}
+
+class ReviewCard extends StatelessWidget {
+  const ReviewCard({super.key, required this.index, required this.l10n});
+
+  final int index;
+  final AppLocalizations l10n;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 91,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      l10n.mockReviewUserName((index + 1).toString()),
+                      style: AppTextStyles.body(
+                        context,
+                      ).copyWith(fontSize: 12, fontWeight: FontWeight.w500),
+                    ),
+                    Text(
+                      l10n.mockReviewDate((index + 6).toString()),
+                      style: AppTextStyles.caption(context).copyWith(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.paragraph(context),
                       ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "User Name ${index + 1}",
-                              style: AppTextStyles.body(context),
-                            ),
-                            Text(
-                              "2 days ago",
-                              style: AppTextStyles.caption(context),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Row(
-                        children: List.generate(
-                          5,
-                          (starIndex) => Icon(
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: List.generate(
+                        5,
+                        (starIndex) => Padding(
+                          padding: EdgeInsetsDirectional.only(
+                            end: starIndex < 4 ? 4.0 : 0.0,
+                          ),
+                          child: Icon(
                             Icons.star_rounded,
-                            size: 16,
-                            color: starIndex < 4 ? AppColors.ratingStar : AppColors.border(context),
+                            size: 12,
+                            color: starIndex < 4
+                                ? AppColors.ratingStar
+                                : AppColors.border(context),
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    "This is a mock review text. The service was great and the delivery was fast. Highly recommended!",
-                    style: AppTextStyles.body(context).copyWith(
-                      color: AppColors.paragraph(context),
-                      height: 1.4,
                     ),
-                  ),
-                ],
-              ),
+                    const SizedBox(height: 4),
+                    SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        l10n.mockReviewText,
+                        style: AppTextStyles.body(context).copyWith(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.paragraph(context),
+                        ),
+                        textAlign: TextAlign.start,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-          );
-        },
+          ),
+          Divider(
+            height: 0.5,
+            thickness: 0.5,
+            color: AppColors.border(context),
+          ),
+        ],
       ),
     );
   }

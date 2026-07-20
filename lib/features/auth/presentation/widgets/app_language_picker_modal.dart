@@ -13,8 +13,9 @@ class AppLanguagePickerLabels {
 }
 
 Future<void> showAppLanguagePicker(BuildContext context) {
-  final barrierLabel =
-      MaterialLocalizations.of(context).modalBarrierDismissLabel;
+  final barrierLabel = MaterialLocalizations.of(
+    context,
+  ).modalBarrierDismissLabel;
 
   return showGeneralDialog<void>(
     context: context,
@@ -33,10 +34,9 @@ Future<void> showAppLanguagePicker(BuildContext context) {
           child: Material(
             color: AppColors.languageModalBackground(dialogContext),
             elevation: isDark ? 14 : 4,
-            shadowColor: Theme.of(dialogContext)
-                .colorScheme
-                .shadow
-                .withValues(alpha: isDark ? 0.45 : 0.25),
+            shadowColor: Theme.of(
+              dialogContext,
+            ).colorScheme.shadow.withValues(alpha: isDark ? 0.45 : 0.25),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
               side: BorderSide(

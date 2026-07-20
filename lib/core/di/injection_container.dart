@@ -16,6 +16,7 @@ import '../../features/auth/presentation/bloc/auth_cubit.dart';
 import '../../features/profile/presentation/bloc/chat_cubit.dart';
 import '../../features/profile/presentation/bloc/phone_change/phone_change_cubit.dart';
 import '../../features/profile/presentation/bloc/profile_bloc.dart';
+import '../../features/orders/presentation/bloc/active_order_cubit.dart';
 import '../../features/earnings/data/datasources/earnings_local_datasource.dart';
 import '../../features/earnings/data/datasources/earnings_remote_datasource.dart';
 import '../../features/home/data/datasources/home_local_datasource.dart';
@@ -34,7 +35,7 @@ final sl = GetIt.instance;
 
 Future<void> init({required SharedPreferences prefs}) async {
   sl.registerLazySingleton<SharedPreferences>(() => prefs);
-  
+
   const secureStorage = FlutterSecureStorage();
   sl.registerLazySingleton<FlutterSecureStorage>(() => secureStorage);
 
@@ -122,4 +123,6 @@ Future<void> init({required SharedPreferences prefs}) async {
   sl.registerFactory(() => ChatCubit());
   sl.registerFactory(() => ProfileBloc());
   sl.registerFactory(() => PhoneChangeCubit());
+
+  sl.registerLazySingleton(() => ActiveOrderCubit());
 }

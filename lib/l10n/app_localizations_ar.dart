@@ -231,6 +231,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get drawerHome => 'الرئيسية';
 
   @override
+  String get drawerOrders => 'الطلبات';
+
+  @override
   String get drawerGeneralSettings => 'الإعدادات العامة';
 
   @override
@@ -259,6 +262,30 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get drawerGuestName => 'مستخدم';
+
+  @override
+  String get walletTitle => 'المحفظة';
+
+  @override
+  String get currentBalance => 'رصيدك الحالي';
+
+  @override
+  String get withdrawButton => 'سحب';
+
+  @override
+  String get transactionHistory => 'سجل المعاملات';
+
+  @override
+  String get walletTotal => 'الاجمالي';
+
+  @override
+  String get walletPaymentMethod => 'طريقة الدفع';
+
+  @override
+  String get walletOrderDate => 'تاريخ الطلب';
+
+  @override
+  String get walletOrderNumber => 'رقم الطلب';
 
   @override
   String get logoutConfirmTitle => 'تسجيل الخروج';
@@ -328,7 +355,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get termsTitle => 'الشروط والأحكام';
 
   @override
-  String get termsBody => 'هذه هي الشروط والأحكام...';
+  String get termsBody =>
+      'هنالك العديد من الأنواع المتوفرة لنصوص لوريم إيبسوم، ولكن الغالبية تم تعديلها بشكل ما عبر إدخال بعض النوادر أو الكلمات العشوائية إلى النص. إن كنت تريد أن تستخدم نص لوريم إيبسوم ما، عليك أن تتحقق أولاً أن ليس هناك أي كلمات أو عبارات محرجة أو غير لائقة مخبأة في هذا النص. بينما تعمل بعض مولّدات نصوص لوريم إيبسوم على الإنترنت على إعادة تكرار مقاطع من نص لوريم إيبسوم نفسه عدة مرات بما تتطلبه الحاجة، فأن البعض الأخر يستخدم كلمات من قاموس يحوي على أكثر من 200 كلمة لا تينية، مضاف هنالك العديد من الأنواع المتوفرة لنصوص لوريم إيبسوم، ولكن الغالبية تم تعديلها بشكل ما عبر إدخال بعض النوادر أو الكلمات العشوائية إلى النص. إن كنت تريد أن تستخدم نص لوريم إيبسوم ما، عليك أن تتحقق أولاً أن ليس هناك أي كلمات أو عبارات محرجة أو غير لائقة مخبأة في هذا النص. بينما تعمل بعض مولّدات نصوص لوريم إيبسوم على الإنترنت على إعادة تكرار مقاطع من نص لوريم إيبسوم نفسه عدة مرات بما تتطلبه الحاجة، فأن البعض الأخر يستخدم كلمات من قاموس يحوي على أكثر من 200 كلمة لا تينية، مضاف هنالك العديد من الأنواع المتوفرة لنصوص لوريم إيبسوم، ولكن الغالبية تم تعديلها بشكل ما عبر إدخال بعض النوادر أو الكلمات العشوائية إلى النص. إن كنت تريد أن تستخدم نص لوريم إيبسوم ما، عليك أن تتحقق أولاً أن ليس هناك أي كلمات أو عبارات محرجة أو غير لائقة مخبأة في هذا النص. بينما تعمل بعض مولّدات نصوص لوريم إيبسوم على الإنترنت على إعادة تكرار مقاطع من نص لوريم إيبسوم نفسه عدة مرات بما تتطلبه الحاجة، فأن البعض الأخر يستخدم كلمات من قاموس يحوي على أكثر من 200 كلمة لا تينية، مضاف\n\nإعادة تكرار مقاطع من نص لوريم إيبسوم نفسه عدة مرات بما تتطلبه الحاجة، فأن البعض الأخر يستخدم كلمات من قاموس يحوي على أكثر من 200 كلمة لا تينية، مضاف';
 
   @override
   String get changePhoneNumber => 'تغيير رقم الجوال';
@@ -356,4 +384,166 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get phoneChangedSuccess => 'تم تحديث رقم الجوال بنجاح';
+
+  @override
+  String get profilePersonalData => 'البيانات الشخصية';
+
+  @override
+  String get profileEditPersonalData => 'تعديل البيانات الشخصية';
+
+  @override
+  String get profileRequestEdit => 'طلب تعديل';
+
+  @override
+  String get profileUserName => 'اسم المستخدم';
+
+  @override
+  String get profilePhone => 'رقم الجوال';
+
+  @override
+  String get profileEmail => 'البريد الالكتروني';
+
+  @override
+  String get profileNationalId => 'الرقم القومي';
+
+  @override
+  String get profileVehicleType => 'نوع المركبة';
+
+  @override
+  String get profileDriverLicense => 'صوره رخصه القيادة';
+
+  @override
+  String get profileVehicleRegistration => 'صوره رخصه المركبة';
+
+  @override
+  String get profileNationalIdImage => 'صوره الهويه الوطنيه';
+
+  @override
+  String get profileUploadPrompt => 'اضغط للرفع';
+
+  @override
+  String get profileProfileImage => 'الصورة الشخصية';
+
+  @override
+  String trackingOrderNo(String id) {
+    return 'طلب رقم : #$id';
+  }
+
+  @override
+  String trackingItems(String count) {
+    return '$count منتجات';
+  }
+
+  @override
+  String trackingFrom(String location) {
+    return 'من : $location';
+  }
+
+  @override
+  String trackingTo(String location) {
+    return 'الى : $location';
+  }
+
+  @override
+  String trackingExpectedDistanceShort(String distance) {
+    return '(حوالي $distance كم)';
+  }
+
+  @override
+  String trackingExpectedTotalDistance(String distance) {
+    return 'اجمالي المسافة المتوقعة $distance كم';
+  }
+
+  @override
+  String get trackingCustomerDetails => 'بيانات العميل :';
+
+  @override
+  String get trackingConfirmPickup => 'تم استلام الطلب';
+
+  @override
+  String get trackingConfirmDelivery => 'تم تسليم الطلب';
+
+  @override
+  String get trackingMapOpen => 'فتح الخريطة';
+
+  @override
+  String get trackingNewOrderTitle => 'طلب جديد';
+
+  @override
+  String get trackingNewOrderBody => 'لديك طلب توصيل جديد';
+
+  @override
+  String get ordersTitle => 'الطلبات';
+
+  @override
+  String get orderStatusNew => 'طلب جديد';
+
+  @override
+  String get orderStatusPreparing => 'جاري التجهيز';
+
+  @override
+  String get orderStatusReady => 'جاهز للاستلام';
+
+  @override
+  String get orderStatusOnWay => 'في الطريق للعميل';
+
+  @override
+  String get orderStatusDelivered => 'تم التوصيل';
+
+  @override
+  String get orderStatusCancelled => 'ملغي';
+
+  @override
+  String orderFee(String fee) {
+    return 'الرسوم: $fee';
+  }
+
+  @override
+  String orderItemsCount(String count) {
+    return '$count منتجات';
+  }
+
+  @override
+  String get orderEstTime => 'الوقت المتوقع';
+
+  @override
+  String get orderActive => 'نشط';
+
+  @override
+  String get orderClosed => 'مغلق';
+
+  @override
+  String get orderDetails => 'التفاصيل';
+
+  @override
+  String get mockRestaurantName1 => 'عز الشام';
+
+  @override
+  String get mockRestaurantName2 => 'برجر كنج';
+
+  @override
+  String get mockRestaurantName3 => 'بيتزا هت';
+
+  @override
+  String get mockUserName1 => 'أحمد م.';
+
+  @override
+  String get mockUserName2 => 'سارة ك.';
+
+  @override
+  String get mockUserName3 => 'جون د.';
+
+  @override
+  String mockReviewDate(String day) {
+    return '2026/6/$day';
+  }
+
+  @override
+  String mockReviewUserName(String id) {
+    return 'مستخدم $id';
+  }
+
+  @override
+  String get mockReviewText =>
+      'هذا نص تقييم تجريبي. الخدمة كانت ممتازة والتوصيل سريع. أنصح به بشدة!';
 }

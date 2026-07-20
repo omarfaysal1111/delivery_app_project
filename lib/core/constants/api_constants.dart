@@ -1,6 +1,5 @@
 class ApiConstants {
-  static const String baseUrl =
-      'https://delivery-system-api-otmb.onrender.com';
+  static const String baseUrl = 'https://delivery-system-api-otmb.onrender.com';
   static const Duration timeout = Duration(seconds: 30);
 
   // Auth

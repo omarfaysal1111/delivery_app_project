@@ -10,6 +10,9 @@ import '../../features/auth/presentation/pages/registration_pending_page.dart';
 import '../../features/auth/presentation/pages/language_page.dart';
 import '../../features/auth/presentation/pages/splash_screen.dart';
 import '../../features/home/presentation/pages/home_page.dart';
+import '../../features/orders/presentation/pages/orders_screen.dart';
+import '../../features/wallet/presentation/pages/wallet_screen.dart';
+import '../../features/profile/presentation/pages/profile_screen.dart';
 import '../../features/profile/presentation/pages/settings_screen.dart';
 import '../../features/profile/presentation/pages/notifications_screen.dart';
 import '../../features/profile/presentation/pages/reviews_screen.dart';
@@ -23,22 +26,13 @@ class AppRouter {
   static final router = GoRouter(
     initialLocation: RouteNames.splash,
     routes: [
-      GoRoute(
-        path: RouteNames.splash,
-        builder: (c, s) => const SplashScreen(),
-      ),
+      GoRoute(path: RouteNames.splash, builder: (c, s) => const SplashScreen()),
       GoRoute(
         path: RouteNames.language,
         builder: (c, s) => const LanguagePage(),
       ),
-      GoRoute(
-        path: RouteNames.login,
-        builder: (c, s) => const LoginPage(),
-      ),
-      GoRoute(
-        path: RouteNames.otp,
-        builder: (c, s) => const OtpPage(),
-      ),
+      GoRoute(path: RouteNames.login, builder: (c, s) => const LoginPage()),
+      GoRoute(path: RouteNames.otp, builder: (c, s) => const OtpPage()),
       GoRoute(
         path: RouteNames.register,
         builder: (c, s) => const RegisterDriverPage(),
@@ -47,10 +41,9 @@ class AppRouter {
         path: RouteNames.pending,
         builder: (c, s) => const RegistrationPendingPage(),
       ),
-      GoRoute(
-        path: RouteNames.driverHome,
-        builder: (c, s) => const HomePage(),
-      ),
+      GoRoute(path: RouteNames.driverHome, builder: (c, s) => const HomePage()),
+      GoRoute(path: RouteNames.orders, builder: (c, s) => const OrdersScreen()),
+      GoRoute(path: RouteNames.wallet, builder: (c, s) => const WalletScreen()),
       GoRoute(
         path: RouteNames.settings,
         builder: (c, s) => BlocProvider<ProfileBloc>(
@@ -73,6 +66,10 @@ class AppRouter {
       GoRoute(
         path: RouteNames.termsAndConditions,
         builder: (c, s) => const TermsAndConditionsScreen(),
+      ),
+      GoRoute(
+        path: RouteNames.profile,
+        builder: (c, s) => const ProfileScreen(),
       ),
     ],
   );

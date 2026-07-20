@@ -20,7 +20,8 @@ class TermsAndConditionsScreen extends StatelessWidget {
         elevation: 0,
         leading: BackButton(color: fg, onPressed: () => context.pop()),
         title: Text(l10n.termsTitle, style: AppTextStyles.appBarTitle(context)),
-        centerTitle: true,
+        centerTitle: false,
+        titleSpacing: 4.0,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsetsDirectional.fromSTEB(20, 8, 20, 32),

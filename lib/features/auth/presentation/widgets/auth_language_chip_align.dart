@@ -18,16 +18,11 @@ class AuthLanguageChipAlign extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final alignment =
-        context.isArabic ? Alignment.topLeft : Alignment.topRight;
+    final alignment = context.isArabic ? Alignment.topLeft : Alignment.topRight;
 
     return Align(
       alignment: alignment,
-      child: AuthLanguageChip(
-        flagAsset: flagAsset,
-        label: label,
-        onTap: onTap,
-      ),
+      child: AuthLanguageChip(flagAsset: flagAsset, label: label, onTap: onTap),
     );
   }
 }

@@ -234,6 +234,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get drawerHome => 'Home';
 
   @override
+  String get drawerOrders => 'Orders';
+
+  @override
   String get drawerGeneralSettings => 'General Settings';
 
   @override
@@ -262,6 +265,30 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get drawerGuestName => 'User';
+
+  @override
+  String get walletTitle => 'Wallet';
+
+  @override
+  String get currentBalance => 'Your current balance';
+
+  @override
+  String get withdrawButton => 'Withdraw';
+
+  @override
+  String get transactionHistory => 'Transaction History';
+
+  @override
+  String get walletTotal => 'Total';
+
+  @override
+  String get walletPaymentMethod => 'Payment Method';
+
+  @override
+  String get walletOrderDate => 'Order Date';
+
+  @override
+  String get walletOrderNumber => 'Order Number';
 
   @override
   String get logoutConfirmTitle => 'Logout';
@@ -331,7 +358,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get termsTitle => 'Terms & Conditions';
 
   @override
-  String get termsBody => 'These are the terms and conditions...';
+  String get termsBody =>
+      'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.\n\nThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text.';
 
   @override
   String get changePhoneNumber => 'Change Phone Number';
@@ -359,4 +387,166 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get phoneChangedSuccess => 'Phone number updated successfully';
+
+  @override
+  String get profilePersonalData => 'Personal Data';
+
+  @override
+  String get profileEditPersonalData => 'Edit Personal Data';
+
+  @override
+  String get profileRequestEdit => 'Request Edit';
+
+  @override
+  String get profileUserName => 'User Name';
+
+  @override
+  String get profilePhone => 'Phone Number';
+
+  @override
+  String get profileEmail => 'Email Address';
+
+  @override
+  String get profileNationalId => 'National ID';
+
+  @override
+  String get profileVehicleType => 'Vehicle Type';
+
+  @override
+  String get profileDriverLicense => 'Driver License Image';
+
+  @override
+  String get profileVehicleRegistration => 'Vehicle Registration Image';
+
+  @override
+  String get profileNationalIdImage => 'National ID Image';
+
+  @override
+  String get profileUploadPrompt => 'Tap to upload';
+
+  @override
+  String get profileProfileImage => 'Profile Image';
+
+  @override
+  String trackingOrderNo(String id) {
+    return 'Order No: #$id';
+  }
+
+  @override
+  String trackingItems(String count) {
+    return '$count Items';
+  }
+
+  @override
+  String trackingFrom(String location) {
+    return 'From: $location';
+  }
+
+  @override
+  String trackingTo(String location) {
+    return 'To: $location';
+  }
+
+  @override
+  String trackingExpectedDistanceShort(String distance) {
+    return '(approx $distance km)';
+  }
+
+  @override
+  String trackingExpectedTotalDistance(String distance) {
+    return 'Total expected distance $distance km';
+  }
+
+  @override
+  String get trackingCustomerDetails => 'Customer Details :';
+
+  @override
+  String get trackingConfirmPickup => 'Confirm Pickup';
+
+  @override
+  String get trackingConfirmDelivery => 'Confirm Delivery';
+
+  @override
+  String get trackingMapOpen => 'Open Map';
+
+  @override
+  String get trackingNewOrderTitle => 'New Order Assigned';
+
+  @override
+  String get trackingNewOrderBody => 'You have a new delivery request';
+
+  @override
+  String get ordersTitle => 'Orders';
+
+  @override
+  String get orderStatusNew => 'New Request';
+
+  @override
+  String get orderStatusPreparing => 'Restaurant Preparing';
+
+  @override
+  String get orderStatusReady => 'Ready for Pickup';
+
+  @override
+  String get orderStatusOnWay => 'On the way to Customer';
+
+  @override
+  String get orderStatusDelivered => 'Delivered';
+
+  @override
+  String get orderStatusCancelled => 'Cancelled';
+
+  @override
+  String orderFee(String fee) {
+    return 'Fee: $fee';
+  }
+
+  @override
+  String orderItemsCount(String count) {
+    return '$count Items';
+  }
+
+  @override
+  String get orderEstTime => 'Est. Time';
+
+  @override
+  String get orderActive => 'Active';
+
+  @override
+  String get orderClosed => 'Closed';
+
+  @override
+  String get orderDetails => 'Details';
+
+  @override
+  String get mockRestaurantName1 => 'Az Al Sham';
+
+  @override
+  String get mockRestaurantName2 => 'Burger King';
+
+  @override
+  String get mockRestaurantName3 => 'Pizza Hut';
+
+  @override
+  String get mockUserName1 => 'Ahmad M.';
+
+  @override
+  String get mockUserName2 => 'Sarah K.';
+
+  @override
+  String get mockUserName3 => 'John D.';
+
+  @override
+  String mockReviewDate(String day) {
+    return '2026/6/$day';
+  }
+
+  @override
+  String mockReviewUserName(String id) {
+    return 'User Name $id';
+  }
+
+  @override
+  String get mockReviewText =>
+      'This is a mock review text. The service was great and the delivery was fast. Highly recommended!';
 }

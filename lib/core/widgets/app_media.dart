@@ -31,8 +31,9 @@ class AppSvgImage extends StatelessWidget {
       width: width,
       height: height,
       fit: fit,
-      colorFilter:
-          color != null ? ColorFilter.mode(color!, BlendMode.srcIn) : null,
+      colorFilter: color != null
+          ? ColorFilter.mode(color!, BlendMode.srcIn)
+          : null,
       semanticsLabel: semanticsLabel,
       placeholderBuilder: (context) => _AssetFallback(
         width: width,
@@ -114,11 +115,7 @@ class _AssetFallback extends StatelessWidget {
     return SizedBox(
       width: width ?? 24,
       height: height ?? 24,
-      child: Icon(
-        icon,
-        size: 20,
-        color: AppColors.hint(context),
-      ),
+      child: Icon(icon, size: 20, color: AppColors.hint(context)),
     );
   }
 }

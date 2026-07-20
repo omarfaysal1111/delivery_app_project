@@ -23,6 +23,7 @@ class VehicleTypeField extends StatefulWidget {
     required this.autovalidateMode,
     this.initialValue,
     this.onChanged,
+    this.readOnly = false,
   });
 
   final String label;
@@ -33,6 +34,7 @@ class VehicleTypeField extends StatefulWidget {
   final AutovalidateMode autovalidateMode;
   final String? initialValue;
   final ValueChanged<String?>? onChanged;
+  final bool readOnly;
 
   @override
   State<VehicleTypeField> createState() => _VehicleTypeFieldState();
@@ -65,18 +67,24 @@ class _VehicleTypeFieldState extends State<VehicleTypeField> {
             ),
             const SizedBox(height: 8),
             Material(
-              color: AppColors.surfaceCard(context),
+              color: widget.readOnly
+                  ? AppColors.scaffoldBackground(context)
+                  : AppColors.surfaceCard(context),
               borderRadius: BorderRadius.circular(10),
               child: InkWell(
                 borderRadius: BorderRadius.circular(10),
-                onTap: () => setState(() => _isOpen = !_isOpen),
+                onTap: widget.readOnly
+                    ? null
+                    : () => setState(() => _isOpen = !_isOpen),
                 child: Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
                     vertical: 16,
                   ),
                   decoration: BoxDecoration(
-                    color: AppColors.surfaceCard(context),
+                    color: widget.readOnly
+                        ? AppColors.scaffoldBackground(context)
+                        : AppColors.surfaceCard(context),
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(color: borderColor, width: 0.5),
                   ),
@@ -89,7 +97,11 @@ class _VehicleTypeFieldState extends State<VehicleTypeField> {
                               : widget.hintText,
                           textAlign: TextAlign.start,
                           style: hasValue
-                              ? AppTextStyles.inputText(context)
+                              ? AppTextStyles.inputText(context).copyWith(
+                                  color: widget.readOnly
+                                      ? AppColors.paragraph(context)
+                                      : AppColors.onSurface(context),
+                                )
                               : AppTextStyles.inputHint(context),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
@@ -99,12 +111,14 @@ class _VehicleTypeFieldState extends State<VehicleTypeField> {
                       AnimatedRotation(
                         turns: _isOpen ? 0.5 : 0,
                         duration: const Duration(milliseconds: 180),
-                        child: AppSvgImage.asset(
-                          AppAssets.icArrowDown,
-                          width: 16,
-                          height: 16,
-                          color: AppColors.paragraph(context),
-                        ),
+                        child: widget.readOnly
+                            ? const SizedBox(width: 16, height: 16)
+                            : AppSvgImage.asset(
+                                AppAssets.icArrowDown,
+                                width: 16,
+                                height: 16,
+                                color: AppColors.paragraph(context),
+                              ),
                       ),
                     ],
                   ),

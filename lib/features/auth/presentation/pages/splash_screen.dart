@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(_minSplashDuration, () {
       if (!mounted) return;
-      
+
       // TODO: Revert this temporary auth bypass
       context.go('/home');
       // context.read<AuthCubit>().checkAuthStatus();
@@ -37,7 +37,8 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: AppColors.primary,
       body: BlocListener<AuthCubit, AuthState>(
-        listenWhen: (prev, curr) => curr is AuthAuthenticated || curr is AuthUnauthenticated,
+        listenWhen: (prev, curr) =>
+            curr is AuthAuthenticated || curr is AuthUnauthenticated,
         listener: (context, state) {
           if (_navigated) return;
           _navigated = true;

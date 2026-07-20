@@ -66,8 +66,11 @@ class _ChangePhoneBottomSheetState extends State<ChangePhoneBottomSheet> {
               ),
               const SizedBox(height: 24),
               if (state is PhoneChangeInitial ||
-                  state is PhoneChangeError && context.read<PhoneChangeCubit>().currentPhone == null ||
-                  state is PhoneChangeLoading && context.read<PhoneChangeCubit>().currentPhone == null) ...[
+                  state is PhoneChangeError &&
+                      context.read<PhoneChangeCubit>().currentPhone == null ||
+                  state is PhoneChangeLoading &&
+                      context.read<PhoneChangeCubit>().currentPhone ==
+                          null) ...[
                 // Step 1: Current Phone
                 Text(
                   l10n.enterCurrentPhone,
@@ -79,7 +82,9 @@ class _ChangePhoneBottomSheetState extends State<ChangePhoneBottomSheet> {
                   keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
                     labelText: l10n.currentPhoneLabel,
-                    errorText: errorMessage == 'invalidPhone' ? l10n.invalidPhone : errorMessage,
+                    errorText: errorMessage == 'invalidPhone'
+                        ? l10n.invalidPhone
+                        : errorMessage,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -90,37 +95,45 @@ class _ChangePhoneBottomSheetState extends State<ChangePhoneBottomSheet> {
                   onPressed: isLoading
                       ? null
                       : () {
-                          context.read<PhoneChangeCubit>().verifyCurrentPhone(_currentPhoneController.text);
+                          context.read<PhoneChangeCubit>().verifyCurrentPhone(
+                            _currentPhoneController.text,
+                          );
                         },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     backgroundColor: AppColors.primary,
                     foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                   ),
                   child: isLoading
                       ? const SizedBox(
                           height: 24,
                           width: 24,
-                          child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2,
+                          ),
                         )
                       : Text(l10n.verifyPhoneButton),
                 ),
               ] else if (state is CurrentPhoneVerified ||
-                  state is PhoneChangeError && context.read<PhoneChangeCubit>().newPhone == null ||
-                  state is PhoneChangeLoading && context.read<PhoneChangeCubit>().newPhone == null) ...[
+                  state is PhoneChangeError &&
+                      context.read<PhoneChangeCubit>().newPhone == null ||
+                  state is PhoneChangeLoading &&
+                      context.read<PhoneChangeCubit>().newPhone == null) ...[
                 // Step 2: New Phone
-                Text(
-                  l10n.enterNewPhone,
-                  style: AppTextStyles.body(context),
-                ),
+                Text(l10n.enterNewPhone, style: AppTextStyles.body(context)),
                 const SizedBox(height: 12),
                 TextField(
                   controller: _newPhoneController,
                   keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
                     labelText: l10n.newPhoneLabel,
-                    errorText: errorMessage == 'invalidPhone' ? l10n.invalidPhone : errorMessage,
+                    errorText: errorMessage == 'invalidPhone'
+                        ? l10n.invalidPhone
+                        : errorMessage,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -131,19 +144,26 @@ class _ChangePhoneBottomSheetState extends State<ChangePhoneBottomSheet> {
                   onPressed: isLoading
                       ? null
                       : () {
-                          context.read<PhoneChangeCubit>().submitNewPhone(_newPhoneController.text);
+                          context.read<PhoneChangeCubit>().submitNewPhone(
+                            _newPhoneController.text,
+                          );
                         },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     backgroundColor: AppColors.primary,
                     foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                   ),
                   child: isLoading
                       ? const SizedBox(
                           height: 24,
                           width: 24,
-                          child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2,
+                          ),
                         )
                       : Text(l10n.verifyPhoneButton),
                 ),
@@ -156,7 +176,9 @@ class _ChangePhoneBottomSheetState extends State<ChangePhoneBottomSheet> {
                     context.read<PhoneChangeCubit>().verifyOtp(otp);
                   },
                   onResend: () {
-                    context.read<PhoneChangeCubit>().submitNewPhone(_newPhoneController.text);
+                    context.read<PhoneChangeCubit>().submitNewPhone(
+                      _newPhoneController.text,
+                    );
                   },
                 ),
               ],

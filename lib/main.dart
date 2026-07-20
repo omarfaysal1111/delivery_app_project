@@ -14,5 +14,10 @@ void main() async {
   localeController.hydrate();
   final themeController = ThemeController(prefs);
   themeController.hydrate();
-  runApp(DriverApp(localeController: localeController, themeController: themeController));
+  runApp(
+    DriverApp(
+      localeController: localeController,
+      themeController: themeController,
+    ),
+  );
 }

@@ -23,6 +23,7 @@ class AuthImageUploadBox extends StatelessWidget {
     this.borderRadius = 12,
     this.iconAsset = AppAssets.icImageUpload,
     this.iconSize = 32,
+    this.readOnly = false,
   });
 
   final File? imageFile;
@@ -32,6 +33,7 @@ class AuthImageUploadBox extends StatelessWidget {
   final double borderRadius;
   final String iconAsset;
   final double iconSize;
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class AuthImageUploadBox extends StatelessWidget {
     final iconColor = hasImage ? AppColors.text : AppColors.onSurface(context);
 
     final box = DashedBorder(
-      color: borderColor,
+      color: readOnly ? Colors.transparent : borderColor,
       borderRadius: borderRadius,
       child: SizedBox(
         width: size,
@@ -55,33 +57,48 @@ class AuthImageUploadBox extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(borderRadius),
                 child: Image.file(imageFile!, fit: BoxFit.cover),
+              )
+            else if (readOnly)
+              Container(
+                decoration: BoxDecoration(
+                  color: AppColors.scaffoldBackground(context),
+                  borderRadius: BorderRadius.circular(borderRadius),
+                ),
+                child: Icon(
+                  Icons.person,
+                  size: size * 0.5,
+                  color: AppColors.paragraph(context).withValues(alpha: 0.5),
+                ),
               ),
-            if (hasImage)
+            if (hasImage && !readOnly)
               DecoratedBox(
                 decoration: BoxDecoration(
                   color: AppColors.profilePhotoOverlay(context),
                   borderRadius: BorderRadius.circular(borderRadius),
                 ),
               ),
-            Center(
-              child: AppSvgImage.asset(
-                iconAsset,
-                width: iconSize,
-                height: iconSize,
-                color: iconColor,
+            if (!readOnly)
+              Center(
+                child: AppSvgImage.asset(
+                  iconAsset,
+                  width: iconSize,
+                  height: iconSize,
+                  color: iconColor,
+                ),
               ),
-            ),
           ],
         ),
       ),
     );
 
     return Material(
-      color: AppColors.surfaceCard(context),
+      color: readOnly
+          ? AppColors.scaffoldBackground(context)
+          : AppColors.surfaceCard(context),
       borderRadius: BorderRadius.circular(borderRadius),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
-        onTap: onTap,
+        onTap: readOnly ? null : onTap,
         borderRadius: BorderRadius.circular(borderRadius),
         child: box,
       ),
