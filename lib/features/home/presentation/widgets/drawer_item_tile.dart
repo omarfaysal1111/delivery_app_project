@@ -64,10 +64,8 @@ class DrawerItemTile extends StatelessWidget {
                           fontFamily: 'ExpoArabic',
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
-                          color: isLogout
-                              ? theme.colorScheme.error
-                              : theme.textTheme.bodyMedium?.color ??
-                                    theme.colorScheme.onSurface,
+                          color: theme.textTheme.bodyMedium?.color ??
+                                theme.colorScheme.onSurface,
                         ),
                       ),
                     ],

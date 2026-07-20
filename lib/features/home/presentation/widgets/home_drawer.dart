@@ -214,65 +214,63 @@ class _DrawerHeader extends StatelessWidget {
       child: Row(
         children: [
           // START: Avatar + Name + Phone
-          InkWell(
-            onTap: () {
-              Navigator.of(context).pop();
-              context.push(RouteNames.profile);
-            },
-            borderRadius: BorderRadius.circular(8),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // Avatar — Figma: 40×40, radius=24, fill=#EC2D30
-                Container(
-                  width: 40,
-                  height: 40,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFEC2D30),
-                    borderRadius: BorderRadius.all(Radius.circular(24)),
+          Expanded(
+            child: InkWell(
+              onTap: () {
+                Navigator.of(context).pop();
+                context.push(RouteNames.profile);
+              },
+              borderRadius: BorderRadius.circular(8),
+              child: Row(
+                children: [
+                  const CircleAvatar(
+                    radius: 20,
+                    backgroundColor: Colors.transparent,
+                    backgroundImage: AssetImage('assets/images/user_avatar.png'),
                   ),
-                  child: const Icon(
-                    Icons.person,
-                    color: Colors.white,
-                    size: 22,
+                  const SizedBox(width: 12),
+                  // Name + Phone
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // User name
+                        Text(
+                          l10n.drawerGuestName,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color:
+                                theme.textTheme.bodyMedium?.color ??
+                                theme.colorScheme.onSurface,
+                          ),
+                        ),
+                        const SizedBox(height: 2),
+                        // Phone
+                        Text(
+                          '+20 123 456 7890',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color:
+                                theme.textTheme.bodySmall?.color ??
+                                theme.colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(width: 12),
-                // Name + Phone
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // User name
-                    Text(
-                      l10n.drawerGuestName,
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color:
-                            theme.textTheme.bodyMedium?.color ??
-                            theme.colorScheme.onSurface,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    // Phone
-                    Text(
-                      '+20 123 456 7890',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color:
-                            theme.textTheme.bodySmall?.color ??
-                            theme.colorScheme.onSurfaceVariant,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                ],
+              ),
             ),
           ),
 
-          const Spacer(),
+          const SizedBox(width: 8),
 
           // END: back/close arrow
           InkWell(

@@ -37,4 +37,7 @@ class AppAssets {
   
   static const chatSentIcon = 'assets/images/sent.png';
   static const chatImageAddIcon = 'assets/images/image-add-01.png';
+  static const userAvatar = 'assets/images/user_avatar.png';
+  static const profileAvatar = 'assets/images/profile_avatar.png';
+  static const profileImageUploadIcon = 'assets/images/image-upload.png';
 }

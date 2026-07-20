@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/widgets/app_media.dart';
-import '../../../../core/widgets/dashed_border.dart';
+import 'package:dotted_border/dotted_border.dart';
 
 /// Profile-photo style upload box (Figma 6323:1301).
 ///
@@ -21,9 +20,8 @@ class AuthImageUploadBox extends StatelessWidget {
     this.hasError = false,
     this.size = 100,
     this.borderRadius = 12,
-    this.iconAsset = AppAssets.icImageUpload,
-    this.iconSize = 32,
     this.readOnly = false,
+    this.imageAsset,
   });
 
   final File? imageFile;
@@ -31,76 +29,65 @@ class AuthImageUploadBox extends StatelessWidget {
   final bool hasError;
   final double size;
   final double borderRadius;
-  final String iconAsset;
-  final double iconSize;
   final bool readOnly;
+  final String? imageAsset;
 
   @override
   Widget build(BuildContext context) {
     final hasImage = imageFile != null;
     final borderColor = hasError
         ? AppColors.fieldError(context)
-        : AppColors.uploadDashedBorder(context);
+        : const Color(0xFFA3090F);
 
-    final iconColor = hasImage ? AppColors.text : AppColors.onSurface(context);
-
-    final box = DashedBorder(
-      color: readOnly ? Colors.transparent : borderColor,
-      borderRadius: borderRadius,
-      child: SizedBox(
-        width: size,
-        height: size,
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            if (hasImage)
-              ClipRRect(
-                borderRadius: BorderRadius.circular(borderRadius),
-                child: Image.file(imageFile!, fit: BoxFit.cover),
-              )
-            else if (readOnly)
-              Container(
-                decoration: BoxDecoration(
-                  color: AppColors.scaffoldBackground(context),
-                  borderRadius: BorderRadius.circular(borderRadius),
-                ),
-                child: Icon(
-                  Icons.person,
-                  size: size * 0.5,
-                  color: AppColors.paragraph(context).withValues(alpha: 0.5),
-                ),
-              ),
-            if (hasImage && !readOnly)
-              DecoratedBox(
-                decoration: BoxDecoration(
-                  color: AppColors.profilePhotoOverlay(context),
-                  borderRadius: BorderRadius.circular(borderRadius),
-                ),
-              ),
-            if (!readOnly)
-              Center(
-                child: AppSvgImage.asset(
-                  iconAsset,
-                  width: iconSize,
-                  height: iconSize,
-                  color: iconColor,
-                ),
-              ),
-          ],
+    return GestureDetector(
+      onTap: readOnly ? null : onTap,
+      child: DottedBorder(
+        options: RoundedRectDottedBorderOptions(
+          radius: Radius.circular(borderRadius),
+          dashPattern: const <double>[8, 4],
+          strokeWidth: 2.0,
+          color: readOnly ? Colors.transparent : borderColor,
+          padding: EdgeInsets.zero,
         ),
-      ),
-    );
-
-    return Material(
-      color: readOnly
-          ? AppColors.scaffoldBackground(context)
-          : AppColors.surfaceCard(context),
-      borderRadius: BorderRadius.circular(borderRadius),
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: readOnly ? null : onTap,
-        borderRadius: BorderRadius.circular(borderRadius),
-        child: box,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(borderRadius),
+          child: SizedBox(
+            width: size,
+            height: size,
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                if (hasImage)
+                  Image.file(imageFile!, fit: BoxFit.cover)
+                else if (imageAsset != null)
+                  Image.asset(imageAsset!, fit: BoxFit.cover)
+                else if (readOnly)
+                  Container(
+                    color: AppColors.scaffoldBackground(context),
+                    child: Icon(
+                      Icons.person,
+                      size: size * 0.5,
+                      color: AppColors.paragraph(context).withValues(alpha: 0.5),
+                    ),
+                  ),
+                if ((hasImage || imageAsset != null) && !readOnly)
+                  const DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: Colors.black26,
+                    ),
+                  ),
+                if (!readOnly)
+                  Center(
+                    child: Image.asset(
+                      AppAssets.profileImageUploadIcon,
+                      width: 32,
+                      height: 32,
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

@@ -114,11 +114,9 @@ class _HomePageState extends State<HomePage> {
                                 onTap: () =>
                                     Scaffold.of(drawerCtx).openDrawer(),
                                 child: Center(
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.menu,
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.onSurface,
+                                    color: Color(0xFFA3090F),
                                   ),
                                 ),
                               ),

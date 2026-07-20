@@ -61,7 +61,7 @@ class DocumentUploadTile extends StatelessWidget {
           transitionBuilder: (child, animation) {
             return SizeTransition(
               sizeFactor: animation,
-              axisAlignment: -1.0,
+              alignment: Alignment.topCenter,
               child: FadeTransition(opacity: animation, child: child),
             );
           },
@@ -79,10 +79,16 @@ class DocumentUploadTile extends StatelessWidget {
                     readOnly: readOnly,
                   ),
                 )
-              : const SizedBox(
-                  key: ValueKey('upload_card_empty'),
-                  width: double.infinity,
-                ),
+              : readOnly
+                  ? const Padding(
+                      key: ValueKey('mock_view_card'),
+                      padding: EdgeInsets.only(top: 8),
+                      child: _MockViewModeBox(),
+                    )
+                  : const SizedBox(
+                      key: ValueKey('upload_card_empty'),
+                      width: double.infinity,
+                    ),
         ),
         if (errorText != null)
           Padding(
@@ -90,6 +96,42 @@ class DocumentUploadTile extends StatelessWidget {
             child: Text(errorText!, style: AppTextStyles.validationCaption),
           ),
       ],
+    );
+  }
+}
+
+class _MockViewModeBox extends StatelessWidget {
+  const _MockViewModeBox();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: 97,
+      decoration: BoxDecoration(
+        color: AppColors.surfaceCard(context),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColors.border(context), width: 1),
+      ),
+      child: Align(
+        alignment: AlignmentDirectional.centerStart,
+        child: Padding(
+          padding: const EdgeInsetsDirectional.only(
+            start: 16.0,
+            top: 16.0,
+            bottom: 16.0,
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Image.asset(
+              'assets/images/mock_license.png',
+              height: 65,
+              width: 65,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -136,7 +178,7 @@ class _DashedUploadBox extends StatelessWidget {
                   AppAssets.icFileUpload,
                   width: 20,
                   height: 20,
-                  color: strokeColor,
+                  color: const Color(0xFFB6B6B6), // Hardcoded #B6B6B6
                 ),
                 const SizedBox(height: 8),
                 Text.rich(

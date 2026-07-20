@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:delivery_app_project/core/constants/app_assets.dart';
 
 import 'package:flutter/material.dart';
 
@@ -72,20 +73,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
         backgroundColor: AppColors.scaffoldBackground(context),
         elevation: 0,
         centerTitle: false,
-        titleSpacing: 4.0,
-        title: Text(
-          _isEditing ? l10n.profileEditPersonalData : l10n.profilePersonalData,
-          style: AppTextStyles.heading1(
-            context,
-          ).copyWith(color: AppColors.onSurface(context)),
-        ),
-        actions: const [
-          Padding(
-            padding: EdgeInsetsDirectional.only(end: 16),
-            child: AuthBackButton(),
-          ),
-        ],
         automaticallyImplyLeading: false,
+        titleSpacing: 16.0,
+        title: Row(
+          children: [
+            const AuthBackButton(),
+            const SizedBox(width: 4),
+            Expanded(
+              child: Text(
+                _isEditing ? l10n.profileEditPersonalData : l10n.profilePersonalData,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.start,
+                style: AppTextStyles.appBarTitle(context).copyWith(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  height: 1.4,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
       body: Column(
         children: [
@@ -111,6 +119,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         const SizedBox(height: 8),
                         AuthImageUploadBox(
                           imageFile: _profileImage,
+                          imageAsset: AppAssets.profileAvatar,
                           readOnly: !_isEditing,
                           onTap: () {},
                         ),
